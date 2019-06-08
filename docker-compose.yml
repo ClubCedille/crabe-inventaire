@@ -9,6 +9,11 @@ services:
       - mysql
     volumes:
       - ./api/:/app
+    healthcheck:
+      test: ["CMD", "curl", "-i", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 2s
+      retries: 5
 
   mysql:
     image: mysql:5.7.22
