@@ -7,4 +7,3 @@ COPY . .
 RUN composer install
 
 CMD php -S localhost:8000 -t public
-

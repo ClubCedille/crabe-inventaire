@@ -20,6 +20,24 @@ la boite ne concorde pas avec ce qui est écrit dans le registre, bref, il y a d
 Ce système vient remplacer la boite/calepins par un site web qui permet de conserver des traces de l'inventaire, faire un suivi des stocks, de l'argent, des membres actifs de la COOP en plus d'éviter
 les villes (surtout au niveau l'argent qui était dans la boite, sans surveillance)
 
+## Usage
+
+### Dévelopement
+
+Lors du développement, c'est simple. Il faut s'asurer d'avoir installer docker et docker-compose.
+
+Par la suite, il faut simplement lancer:
+
+    docker-compose up
+
+et l'application se lance en mode développement. Les modifications apportées au code sont automatiquement
+appliqué dans le conteneur.
+
+
+Pour faire rouller la suite de test, il faut faire la commande:
+
+    docker exec -it crabe-inventaire_api /app/vendor/bin/phpunit
+
 ## Choix technologiques
 
 ### Backend : Lumen (PHP Laravel léger)
