@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  api:
+    build: api/
+    container_name: crabe-inventaire_api
+    network_mode: "host"
+    depends_on:
+      - mysql
+    volumes:
+      - ./api/:/app
+
+  mysql:
+    image: mysql:5.7.22
+    container_name: crabe-inventaire_mysql
+    restart: always
+    ports: 
+      - "3306:3306"
+    expose:
+      - 3306
+    environment:
+      MYSQL_ROOT_PASSWORD: __soyez-responsables__
+      MYSQL_DATABASE: crabe-inventaire
+      MYSQL_USER: crabe
+      MYSQL_PASSWORD: __soyez-responsables__
+    network_mode: "host"
+
+
