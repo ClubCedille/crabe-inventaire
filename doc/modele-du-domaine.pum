@@ -1,0 +1,75 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam class {
+         BorderColor Navy
+         ArrowColor Navy
+         BackgroundColor WhiteSmoke
+}
+
+
+title Modele du domaine pour inventaire-crabe
+
+class user {
+  id
+  firstName : String
+  lastName : String
+  email : String
+  isActive : Boolean
+  isMemberSince : Datetime
+  isMemberUntil : Datetime
+}
+
+class item {
+  id
+  productNumber : String
+  category : <array> category.id
+  model : string
+  description : String
+  comment : String
+  normalPrice : Money
+  memberPrice : Money
+  stockQty : Integer
+  isActive : Boolean
+  nameYourPrice : Boolean
+  isNew : Boolean
+  wantedQty : Integer
+  currentQty : Integer
+}
+
+class category {
+  id
+  name : String
+  type : String
+  description String
+}
+
+class bill {
+  id
+  client: user.id
+  items: <array>bill_line.id
+  transaction: transaction.id
+}
+
+class bill_line {
+  id
+  item : item.id
+  qty : Integer
+  price : Money
+}
+
+class transaction {
+  id
+  amount: Price
+  paypall_transactionId: ??
+}
+
+user -- bill
+bill -- bill_line
+item -- bill_line
+item -- category
+
+bill -- transaction
+
+hide empty members
+
+@enduml
