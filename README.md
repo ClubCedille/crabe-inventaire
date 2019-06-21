@@ -20,13 +20,36 @@ la boite ne concorde pas avec ce qui est écrit dans le registre, bref, il y a d
 Ce système vient remplacer la boite/calepins par un site web qui permet de conserver des traces de l'inventaire, faire un suivi des stocks, de l'argent, des membres actifs de la COOP en plus d'éviter
 les villes (surtout au niveau l'argent qui était dans la boite, sans surveillance)
 
+## Configuration de l'env de travail
+
+- Installer `virtualbox`
+
+- Installer `vagrant` 
+
+- Installer `composer` (un package manager pour PHP)
+
+- Installer laravel avec la commande `composer global require laravel/installer`
+
+- Dans le repertoire du projet, lancer `composer require laravel/homestead --dev` pour installer `Homestead`
+
+    - ensuite cette commande pour la config de Homestead `php vendor/bin/homestead make`
+
+    - ajouter cette ligne `192.168.10.10  homestead.test` dans le fichier `/etc/hosts` si vous changez le hosname dans ce fichier, il faut le faire aussi dans le ficheir de config de Homestead  `Homestead.yaml`
+
+- lancez `vagrant up`, une base de donnee est deja configure et les changements se font en direct .
+
+- pour plus d'information sur la configuration, regardez [ce lien](https://laravel.com/docs/5.8/homestead) et [celui-ci](https://laravel.com/docs/5.8)
+
+- si un package manque dans la vm, vous pouvez y aller avec `vagrant ssh` (pass: `vagrant`) et installez le manuellment avec `apt install`
+
+
 ## Choix technologiques
 
-### Backend : Lumen (PHP Laravel léger)
+### Backend : Laravel 
 
 Ce framework web est une bonne porte d'entrée dans le développement web pour les programmeurs de tout niveau
 
-### Front-end : Encore inconnue
+### Front-end : Blade, VueJs
 
 
 ## Licence 
