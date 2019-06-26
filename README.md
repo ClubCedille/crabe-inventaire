@@ -38,10 +38,6 @@ les villes (surtout au niveau l'argent qui était dans la boite, sans surveillan
 
 - Lancez `vagrant up`, une base de donnee est deja configure et les changements se font en direct .
 
-- Utiliser `vagrant ssh` pour ouvrir un shell dans la machine Homestead. Aller ensuite dans le dossier code `cd code`
-
-- Lancer la commande  `php artisan key:generate` pour generer une clef d'encryption.
-
 - Voila, l'application est accessible depuis _homestead.test_ dans ton navigateur.
 
 Pour plus d'information sur la configuration, regardez [ce lien](https://laravel.com/docs/5.8/homestead) et [celui-ci](https://laravel.com/docs/5.8)
