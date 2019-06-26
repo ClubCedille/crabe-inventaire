@@ -32,15 +32,23 @@ les villes (surtout au niveau l'argent qui était dans la boite, sans surveillan
 
 - Dans le repertoire du projet, lancer `composer require laravel/homestead --dev` pour installer `Homestead`
 
-    - ensuite cette commande pour la config de Homestead `php vendor/bin/homestead make`
+    - Ensuite cette commande pour la config de Homestead `php vendor/bin/homestead make`
 
-    - ajouter cette ligne `192.168.10.10  homestead.test` dans le fichier `/etc/hosts` si vous changez le hosname dans ce fichier, il faut le faire aussi dans le fichier de config de Homestead  `Homestead.yaml`
+    - Ajouter cette ligne `192.168.10.10  homestead.test` dans le fichier `/etc/hosts` si vous changez le hosname dans ce fichier, il faut le faire aussi dans le fichier de config de Homestead  `Homestead.yaml`
 
-- lancez `vagrant up`, une base de donnee est deja configure et les changements se font en direct .
+- Lancez `vagrant up`, une base de donnee est deja configure et les changements se font en direct .
 
-- pour plus d'information sur la configuration, regardez [ce lien](https://laravel.com/docs/5.8/homestead) et [celui-ci](https://laravel.com/docs/5.8)
+- Utiliser `vagrant ssh` pour ouvrir un shell dans la machine Homestead. Aller ensuite dans le dossier code `cd code`
 
-- si un package manque dans la vm, vous pouvez y aller avec `vagrant ssh` (pass: `vagrant`) et installez le manuellment avec `apt install`
+- Lancer la commande  `php artisan key:generate` pour generer une clef d'encryption.
+
+- Voila, l'application est accessible depuis _homestead.test_ dans ton navigateur.
+
+Pour plus d'information sur la configuration, regardez [ce lien](https://laravel.com/docs/5.8/homestead) et [celui-ci](https://laravel.com/docs/5.8)
+
+Si un package manque dans la vm, vous pouvez y aller avec `vagrant ssh` (pass: `vagrant`) et installez le manuellment avec `apt install`
+
+
 
 
 ## Choix technologiques
