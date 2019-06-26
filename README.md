@@ -26,7 +26,7 @@ les villes (surtout au niveau l'argent qui était dans la boite, sans surveillan
 
 - Installer `vagrant` 
 
-- Installer `composer` (un package manager pour PHP)
+- Installer `composer` (un package manager pour PHP), PHP7.2 et PHP7.2-xml
 
 - Installer laravel avec la commande `composer global require laravel/installer`
 
@@ -34,7 +34,7 @@ les villes (surtout au niveau l'argent qui était dans la boite, sans surveillan
 
     - ensuite cette commande pour la config de Homestead `php vendor/bin/homestead make`
 
-    - ajouter cette ligne `192.168.10.10  homestead.test` dans le fichier `/etc/hosts` si vous changez le hosname dans ce fichier, il faut le faire aussi dans le ficheir de config de Homestead  `Homestead.yaml`
+    - ajouter cette ligne `192.168.10.10  homestead.test` dans le fichier `/etc/hosts` si vous changez le hosname dans ce fichier, il faut le faire aussi dans le fichier de config de Homestead  `Homestead.yaml`
 
 - lancez `vagrant up`, une base de donnee est deja configure et les changements se font en direct .
 
