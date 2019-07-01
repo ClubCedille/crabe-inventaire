@@ -14,3 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+//**PAYPAL TRANSACTIONS  */
+
+//payment form
+Route::get('/reactiver-compte', 'PaymentController@index');
+// route for processing payment
+Route::post('/paypal', 'PaymentController@payWithpaypal');
+// route for check status of the payment
+Route::get('status', 'PaymentController@getPaymentStatus');
