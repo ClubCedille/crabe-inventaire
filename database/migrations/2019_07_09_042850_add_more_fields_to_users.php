@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Carbon\Carbon;
 
 class AddMoreFieldsToUsers extends Migration
 {
@@ -16,7 +17,9 @@ class AddMoreFieldsToUsers extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->renameColumn('name', 'firstName');
             $table->string('lastName');
-            $table->boolean('isMember')->default(false);
+            $table->string('codeUniversel');
+            $table->boolean('isAdmin')->default(false);
+            $table->dateTime('membershipExpirationDate')->default(Carbon::now());
         });
     }
 
@@ -30,7 +33,9 @@ class AddMoreFieldsToUsers extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->renameColumn('firstName', 'name');
             $table->dropColumn('lastName');
-            $table->dropColumn('isMember');
+            $table->dropColumn('codeUniversel');
+            $table->dropColumn('membershipExpirationDate');
+            $table->dropColumn('isAdmin');
         });
     }
 }
