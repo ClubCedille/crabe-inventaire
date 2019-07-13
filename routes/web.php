@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+<<<<<<< HEAD
 //**PAYPAL TRANSACTIONS  */
 
 //payment form
@@ -23,3 +24,8 @@ Route::get('/reactiver-compte', 'PaymentController@index');
 Route::post('/paypal', 'PaymentController@payWithpaypal');
 // route for check status of the payment
 Route::get('status', 'PaymentController@getPaymentStatus');
+=======
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+>>>>>>> master
