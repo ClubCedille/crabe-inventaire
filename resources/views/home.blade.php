@@ -16,6 +16,24 @@
 
                     You are logged in!
                 </div>
+
+                <div class="card-body">
+                    Nom: {{$user->firstName}} {{$user->lastName}}
+                </div>
+                <div class="card-body">
+                    Email: {{$user->email}}
+                </div>
+                <div class="card-body">
+                    Code universel: {{$user->email}}
+                </div>
+                <div class="card-body">admin:
+                    @if ($user->isAdmin == true)
+                        <p style="color:green">Oui</p>
+                    @endif
+                    @if ($user->isAdmin == false)
+                        <p style="color:red">non</p>
+                    @endif
+                </div>
             </div>
         </div>
     </div>
