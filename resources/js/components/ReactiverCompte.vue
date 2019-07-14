@@ -33,8 +33,13 @@
                 </li>
               </ul>
               <form method="POST" id="payment-form" v-bind:action="urlPayement">
+                    <!-- Hidden input -->
+              <input type="hidden" name=quantity value="1">
+              <input type="hidden" name=productName value="abonnement crabe standard">
+              <input type="hidden" name=description value="reactivation de l'abonnement crabe">
               <input type="hidden" name="_token" :value="csrf">
-              <input type="hidden" name=amount value="20">
+              <input type="hidden" name=price value="20">
+              
                 <p>
                   <input
                     type="submit"
@@ -70,8 +75,11 @@
                 </li>
               </ul>
               <form method="POST" id="payment-form" v-bind:action="urlPayement">
+              <input type="hidden" name=quantity value="1">
+              <input type="hidden" name=productName value="abonnement crabe plus">
+              <input type="hidden" name=description value="reactivation de l'abonnement crabe">
               <input type="hidden" name="_token" :value="csrf">
-              <input type="hidden" name=amount value="60">
+              <input type="hidden" name=price value="60">
                 <p>
                   <input
                     type="submit"
@@ -97,7 +105,7 @@ export default {
   },
   data() {
     return {
-        urlPayement: this.url+"/paypal",
+        urlPayement: this.url+"/transaction",
         csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
     };
   },

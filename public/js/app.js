@@ -1962,6 +1962,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "reactiver-compte",
   props: {
@@ -1969,7 +1977,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      urlPayement: this.url + "/paypal",
+      urlPayement: this.url + "/transaction",
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
     };
   },
@@ -37355,12 +37363,32 @@ var render = function() {
                 },
                 [
                   _c("input", {
+                    attrs: { type: "hidden", name: "quantity", value: "1" }
+                  }),
+                  _vm._v(" "),
+                  _c("input", {
+                    attrs: {
+                      type: "hidden",
+                      name: "productName",
+                      value: "abonnement crabe standard"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("input", {
+                    attrs: {
+                      type: "hidden",
+                      name: "description",
+                      value: "reactivation de l'abonnement crabe"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("input", {
                     attrs: { type: "hidden", name: "_token" },
                     domProps: { value: _vm.csrf }
                   }),
                   _vm._v(" "),
                   _c("input", {
-                    attrs: { type: "hidden", name: "amount", value: "20" }
+                    attrs: { type: "hidden", name: "price", value: "20" }
                   }),
                   _vm._v(" "),
                   _vm._m(2)
@@ -37399,12 +37427,32 @@ var render = function() {
                 },
                 [
                   _c("input", {
+                    attrs: { type: "hidden", name: "quantity", value: "1" }
+                  }),
+                  _vm._v(" "),
+                  _c("input", {
+                    attrs: {
+                      type: "hidden",
+                      name: "productName",
+                      value: "abonnement crabe plus"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("input", {
+                    attrs: {
+                      type: "hidden",
+                      name: "description",
+                      value: "reactivation de l'abonnement crabe"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("input", {
                     attrs: { type: "hidden", name: "_token" },
                     domProps: { value: _vm.csrf }
                   }),
                   _vm._v(" "),
                   _c("input", {
-                    attrs: { type: "hidden", name: "amount", value: "60" }
+                    attrs: { type: "hidden", name: "price", value: "60" }
                   }),
                   _vm._v(" "),
                   _vm._m(5)

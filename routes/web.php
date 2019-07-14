@@ -11,21 +11,29 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+
+Route::group(['middleware' => 'web'], function () {
+
+    Auth::routes();
+
+    Route::get('/', function () {
+        return view('welcome');
+    });
+
+    Route::group(['middleware' => 'auth'], function () {
+
+        //**PAYPAL TRANSACTIONS  */
+        //payment form
+        Route::get('/reactiver-compte', 'TransactionController@index')->name('reactiver-compte');;
+        // route for processing payment
+        Route::post('transaction', 'TransactionController@payWithpaypal');
+        // route for check status of the payment
+        Route::get('status', 'TransactionController@getPaymentStatus');
+       
+        Route::get('home', 'HomeController@index')->name('home');
+    
+    });
 });
 
-<<<<<<< HEAD
-//**PAYPAL TRANSACTIONS  */
 
-//payment form
-Route::get('/reactiver-compte', 'PaymentController@index');
-// route for processing payment
-Route::post('/paypal', 'PaymentController@payWithpaypal');
-// route for check status of the payment
-Route::get('status', 'PaymentController@getPaymentStatus');
-=======
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
->>>>>>> master
