@@ -15,7 +15,7 @@
 
 Route::group(['middleware' => 'web'], function () {
 
-    Auth::routes();
+    Auth::routes(['verify' => true]);
 
     Route::get('/', function () {
         return view('welcome');
@@ -23,16 +23,29 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::group(['middleware' => 'auth'], function () {
 
-        //**PAYPAL TRANSACTIONS  */
-        //payment form
-        Route::get('/reactiver-compte', 'TransactionController@index')->name('reactiver-compte');;
-        // route for processing payment
-        Route::post('transaction', 'TransactionController@payWithpaypal');
-        // route for check status of the payment
-        Route::get('status', 'TransactionController@getPaymentStatus');
-       
-        Route::get('home', 'HomeController@index')->name('home');
-    
+
+        Route::group(['middleware' => 'verified'], function () {
+
+            // route for processing payment
+            Route::post('transaction', 'TransactionController@payWithpaypal');
+
+            Route::group(['middleware' => 'onlynot.active'], function () {
+                //payment form
+                Route::get('activer', 'TransactionController@index')->name('activer');
+                // route for check status of the payment
+                Route::get('statusactivation', 'TransactionController@getPaymentStatusActivation')->name('statusactivation');
+            });
+
+            Route::group(['middleware' => 'valid.membership'], function () {
+
+                Route::get('home', 'HomeController@index')->name('home');
+
+            });
+
+        });
+
+        
+           
     });
 });
 

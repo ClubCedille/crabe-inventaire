@@ -7,7 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Carbon\Carbon;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -49,6 +49,16 @@ class User extends Authenticatable
     public function isMembershipActive()
     {
         return $this->membershipExpirationDate->greaterThanOrEqualTo(Carbon::now());
+    }
+
+    public function subscribeOneYear(){ 
+        $this->membershipExpirationDate = Carbon::now()->addYear(1);
+        $this->save();
+    }
+
+    public function subscribeFourYears(){ 
+        $this->membershipExpirationDate = Carbon::now()->addYear(4);
+        $this->save();
     }
 
 }

@@ -3,7 +3,7 @@
     <div class="container">
       <p
         class="h1 text-warning"
-      >Votre abonnement a expire veillez choisir votre plan pour reactiver votre veuillez !</p>
+      >veuillez choisir un plan pour activer votre abonnement !</p>
       <div class="row">
         <!-- Standard -->
         <div class="col">
@@ -36,7 +36,7 @@
                     <!-- Hidden input -->
               <input type="hidden" name=quantity value="1">
               <input type="hidden" name=productName value="abonnement crabe standard">
-              <input type="hidden" name=description value="reactivation de l'abonnement crabe">
+              <input type="hidden" name=description value="activation de l'abonnement crabe">
               <input type="hidden" name="_token" :value="csrf">
               <input type="hidden" name=price value="20">
               
@@ -77,7 +77,7 @@
               <form method="POST" id="payment-form" v-bind:action="urlPayement">
               <input type="hidden" name=quantity value="1">
               <input type="hidden" name=productName value="abonnement crabe plus">
-              <input type="hidden" name=description value="reactivation de l'abonnement crabe">
+              <input type="hidden" name=description value="activation de l'abonnement crabe">
               <input type="hidden" name="_token" :value="csrf">
               <input type="hidden" name=price value="60">
                 <p>
@@ -99,7 +99,7 @@
 
 <script>
 export default {
-  name: "reactiver-compte",
+  name: "activer",
   props: {
     url: String
   },

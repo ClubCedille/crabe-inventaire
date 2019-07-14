@@ -21,7 +21,7 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
 
 Vue.component(
     'compte-component', 
-    require('./components/ReactiverCompte.vue').default
+    require('./components/ActiverCompte.vue').default
 );
 
 /**

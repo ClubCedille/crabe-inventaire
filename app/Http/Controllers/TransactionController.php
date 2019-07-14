@@ -94,8 +94,8 @@ class TransactionController extends Controller
             ->setDescription($description);
 
         $redirect_urls = new RedirectUrls();
-        $redirect_urls->setReturnUrl(URL::to('status')) 
-            ->setCancelUrl(URL::to('reactiver-compte'));
+        $redirect_urls->setReturnUrl(URL::to('statusactivation')) 
+            ->setCancelUrl(URL::to('activer'));
 
         $payment = new Payment();
         $payment->setIntent('Sale')
@@ -151,7 +151,7 @@ class TransactionController extends Controller
         
         if (isset($redirect_url)) {
             $this->log->status = $payment->getState();
-                $this->log->message = $payment->getFailureReason() ;;
+                $this->log->message = (empty($payment->getFailureReason())? "redirecting to paypakl succeded":$payment->getFailureReason());
                 $this->log->paymentId = $payment->getId();
                 $this->log->token = $payment->getToken();
                 $this->log->save();
@@ -165,58 +165,89 @@ class TransactionController extends Controller
 
     }
 
-    public function getPaymentStatus()
+    /**
+     * process the account activation payment 
+     */
+    public function getPaymentStatusActivation()
     {
         $userIdData['user_id'] = Auth::id();
-        $this->log = new Log($userIdData);
-        $this->appTransaction = new AppTransaction($userIdData);
 
-        /** Get the payment ID before session clear **/
+        /** Get the payment ID and clear it from session **/
         $payment_id = Session::get('paypal_payment_id');
-
-        /** clear the session payment ID **/
         Session::forget('paypal_payment_id');
+        //process errors
         if (empty(Input::get('PayerID')) || empty(Input::get('token'))) {
-
-            \Session::put('error', 'Payment failed');
-            $this->log->status = 'failed';
-            $this->log->message = 'transaction canceled';
-            $this->log->save();
-            return Redirect::to('/home')->with('error', 'transaction failed please try again');;
-
+            $this->processErrorPayment($userIdData,'activer', 'transaction failed or canceled , please try again');
+            return Redirect::to('activer')->with('error', 'transaction failed or canceled , please try again');
         }
 
+        /**Execute the payment **/
         $payment = Payment::get($payment_id, $this->_api_context);
         $execution = new PaymentExecution();
         $execution->setPayerId(Input::get('PayerID'));
-
-        /**Execute the payment **/
         $result = $payment->execute($execution, $this->_api_context);
 
         if ($result->getState() == 'approved') {
 
-            \Session::put('success', 'Payment success');
-            $this->log->status = $result->getId();
-            $this->log->message = 'transaction suscceded';
-            $this->log->paymentId = $result->getId();
-            $this->log->token = $result->getToken();
-            $this->log->total = $result->getTransactions()[0]->getAmount()->getTotal();
-            $this->log->save();
-            $this->appTransaction->paymentId = Input::get('PayerID');
-            $this->appTransaction->token = Input::get('token');
-            $this->appTransaction->total = $result->getTransactions()[0]->getAmount()->getTotal();
-            $this->appTransaction->save();
-            return Redirect::to('/home')->with('message', 'transaction succeded a receipt will be sent to you by email');
+            $this->activateSubscription($userIdData,$result);
+            return Redirect::to('home')->with('message', 'transaction succeded a receipt will be sent to you by email');
 
         }
 
-        \Session::put('error', 'Payment failed');
-        $this->log->status = $result->getState();
-        $this->log->message = $result->getFailureReason();
-        $this->log->paymentId = Input::get('PayerID');
-        $this->log->token = Input::get('token');
-        $this->log->save();
-        return Redirect::to('/home')->with('error', 'Unknown error occurred  while processing the transaction');
+        $this->processErrorPayment($userIdData,'activer', 'Unknown error occurred  while processing the transaction');
+        return Redirect::to('activer')->with('error', 'Unknown error occurred  while processing the transaction');
+
+    }
+
+    /**
+     * handle error in the payement execution
+     */
+    public function processErrorPayment($currentUserId,$message){
+       
+        $log = new Log($currentUserId);
+
+        if (empty(Input::get('PayerID')) || empty(Input::get('token'))) {
+
+            \Session::put('error', $message);
+            $log->status = 'failed';
+            $log->message = 'transaction canceled';
+            $log->paymentId = Input::get('PayerID');
+            $log->token = Input::get('token');
+            $log->save();
+        }
+
+    }
+
+    /**
+     * handle activation payement success
+     */
+    public function activateSubscription($currentUserId,$result){
+
+        $user = Auth::user();
+        $log = new Log($currentUserId);
+        $this->appTransaction = new AppTransaction($currentUserId);
+        $subscriptionAmount = $result->getTransactions()[0]->getAmount()->getTotal();
+        $log = new Log($currentUserId);
+
+        \Session::put('success', 'Payment success');
+        $log->status = $result->getId();
+        $log->message = 'transaction suscceded';
+        $log->paymentId = $result->getId();
+        $log->token = Input::get('token');
+        $log->total = $subscriptionAmount;
+        $log->save();
+
+
+        $this->appTransaction->paymentId = Input::get('PayerID');
+        $this->appTransaction->token = Input::get('token');
+        $this->appTransaction->total = $subscriptionAmount;
+        $this->appTransaction->save();
+
+        if(intval($subscriptionAmount)=== 20){
+            $user->subscribeOneYear();
+        }else if(intval($subscriptionAmount)=== 60){
+            $user->subscribeFourYears();
+        }
 
     }
 
