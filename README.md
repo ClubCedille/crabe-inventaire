@@ -43,6 +43,7 @@ les villes (surtout au niveau l'argent qui était dans la boite, sans surveillan
 Pour plus d'information sur la configuration, regardez [ce lien](https://laravel.com/docs/5.8/homestead) et [celui-ci](https://laravel.com/docs/5.8)
 
 Si un package manque dans la vm, vous pouvez y aller avec `vagrant ssh` (pass: `vagrant`) et installez le manuellment avec `apt install`
+    - comme `apt-get install ifupdown` si `/sbin/ifdown: No such file or directory`
 
 
 
