@@ -24,7 +24,7 @@ les villes (surtout au niveau l'argent qui était dans la boite, sans surveillan
 
 - Installer `virtualbox`
 
-- Installer `vagrant` 
+- Installer `vagrant`
 
 - Installer `composer` (un package manager pour PHP), PHP7.2 et PHP7.2-xml
 
@@ -32,9 +32,15 @@ les villes (surtout au niveau l'argent qui était dans la boite, sans surveillan
 
 - Dans le repertoire du projet, lancer `composer require laravel/homestead --dev` pour installer `Homestead`
 
-    - Ensuite cette commande pour la config de Homestead `php vendor/bin/homestead make`
+  - Ensuite cette commande pour la config de Homestead `php vendor/bin/homestead make`
 
-    - Ajouter cette ligne `192.168.10.10  homestead.test` dans le fichier `/etc/hosts` si vous changez le hosname dans ce fichier, il faut le faire aussi dans le fichier de config de Homestead  `Homestead.yaml`
+  - Ajouter cette ligne `192.168.10.10  homestead.test` dans le fichier `/etc/hosts` si vous changez le hosname dans ce fichier, il faut le faire aussi dans le fichier de config de Homestead  `Homestead.yaml`
+
+- Renomer le fichier `.env.example` en `.env`
+
+- Modifier le fichier `.env` avec les bonnes valeurs pour `PAYPAL_CLIENT_ID` et `PAYPAL_SECRET`, on récupère ces valeurs en connectant un compte  [paypal développer](https://developer.paypal.com/) et créant une nouvelle app (il faut avoir un compte paypal).
+
+- Modifier le fichier `.env` avec les bonnes valeurs pour `MAIL_USERNAME` et `MAIL_PASSWORD`, pour cela il faut créer un compte [mailtrap](https://mailtrap.io/), récupérer votre username et mot de pass et les ajoutées au fichier `.env`.
 
 - Lancez `vagrant up`, une base de donnee est deja configure et les changements se font en direct .
 
@@ -45,19 +51,15 @@ Pour plus d'information sur la configuration, regardez [ce lien](https://laravel
 Si un package manque dans la vm, vous pouvez y aller avec `vagrant ssh` (pass: `vagrant`) et installez le manuellment avec `apt install`
     - comme `apt-get install ifupdown` si `/sbin/ifdown: No such file or directory`
 
-
-
-
 ## Choix technologiques
 
-### Backend : Laravel 
+### Backend : Laravel
 
 Ce framework web est une bonne porte d'entrée dans le développement web pour les programmeurs de tout niveau
 
 ### Front-end : Blade, VueJs
 
-
-## Licence 
+## Licence
 
 GNU GENERAL PUBLIC LICENSE
 Version 3, 29 June 2007
