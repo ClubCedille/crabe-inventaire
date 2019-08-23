@@ -21,7 +21,7 @@ class localization
             app()->setLocale('fr');
         } else { // Defaults to english
             app()->setLocale('en');
-        }
+         app()->setLocale(str_contains($langs, 'fr') ? 'fr' : 'en');
 
         return $next($request);
     }
