@@ -15,5 +15,20 @@ return [
 
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'remember-me' => 'Remember Me',
+    'login' => 'Login',
+    'logout' => 'Logout',
+    'register' => 'Register',
+    'signup' => 'Sign up',
+    'forgotpassword?' => 'Forgot your password?',
+
+    'signup' => 'Sign up',
+    'forgotpassword?' => 'Forgot your password?',
+
+    'verifyEmailAddress' => 'Verify Your Email Address',
+    'verificationLinkSent' => 'A fresh verification link has been sent to your email address.',
+    'pleaseCheckEmail' => 'Before proceeding, please check your email for a verification link.',
+    'IfNotReceiveEmail' => 'If you did not receive the email',
+    'requestAnother' => 'click here to request another',
 
 ];
