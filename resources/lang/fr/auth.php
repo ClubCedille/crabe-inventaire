@@ -26,6 +26,6 @@ return [
     'verificationLinkSent' => 'Un nouveau lien de vérification a été envoyé à votre adresse e-mail.',
     'pleaseCheckEmail' => 'Avant de continuer, veuillez vérifier votre courrier électronique pour un lien de vérification.',
     'ifNotReceiveEmail' => "Si vous n'avez pas reçu l'email",
-    'requestAnother' => 'cliquez ici pour en demander un nouveau',
+    'requestAnother' => 'Cliquez ici pour en demander un nouveau',
 
 ];
