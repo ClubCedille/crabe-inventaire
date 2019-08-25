@@ -17,11 +17,7 @@ class localization
         $langs = $request->server('HTTP_ACCEPT_LANGUAGE');
 
         // Uses french when user has it
-        if (str_contains($langs, 'fr')) {
-            app()->setLocale('fr');
-        } else { // Defaults to english
-            app()->setLocale('en');
-         app()->setLocale(str_contains($langs, 'fr') ? 'fr' : 'en');
+        app()->setLocale(str_contains($langs, 'fr') ? 'fr' : 'en');
 
         return $next($request);
     }
