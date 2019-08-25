@@ -7150,11 +7150,15 @@ button.bg-dark:focus {
 }
 
 .bg-white {
-  background-color: #fff !important;
+    background-color: #fff !important;
+}
+
+.bg-black {
+    background-color: #000 !important;
 }
 
 .bg-transparent {
-  background-color: transparent !important;
+    background-color: transparent !important;
 }
 
 .border {
@@ -11169,4 +11173,3 @@ section.pricing {
     opacity: 1;
   }
 }
-
