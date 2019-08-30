@@ -15,8 +15,8 @@
 
 Route::group(['middleware' => 'web'], function () {
 
-   
 
+    Route::resource('products','ProductsController')->only(['index','show']);
     Auth::routes(['verify' => true]);
 
     Route::get('/', function () {
@@ -42,11 +42,6 @@ Route::group(['middleware' => 'web'], function () {
 
                 Route::get('home', 'HomeController@index')->name('home');
                 Route::get('category', 'CategoryController@index');
-                Route::get('category/{id}', 'CategoryController@show');
-                Route::post('category', 'CategoryController@create');
-                Route::put('category/{id}', 'CategoryController@update');
-                Route::delete('category/{id}', 'CategoryController@delete');
-                
 
             });
 
@@ -54,5 +49,24 @@ Route::group(['middleware' => 'web'], function () {
 
 
 
+        Route::group(['middleware' => 'admin'], function () {
+            Route::resource('products','ProductsController')->only([
+                'create',
+                'store',
+                'edit',
+                'update',
+                'destroy']);
+            Route::get('category/{id}', 'CategoryController@show');
+            Route::post('category', 'CategoryController@create');
+            Route::put('category/{id}', 'CategoryController@update');
+            Route::delete('category/{id}', 'CategoryController@delete');
+        });
+
+
+
     });
 });
+
+
+
+
