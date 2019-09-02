@@ -16,7 +16,6 @@
 Route::group(['middleware' => 'web'], function () {
 
 
-    Route::resource('products','ProductsController')->only(['index','show']);
     Auth::routes(['verify' => true]);
 
     Route::get('/', function () {
@@ -40,6 +39,7 @@ Route::group(['middleware' => 'web'], function () {
 
             Route::group(['middleware' => 'valid.membership'], function () {
 
+                Route::resource('products','ProductsController')->only(['index','show']);
                 Route::get('home', 'HomeController@index')->name('home');
                 Route::get('category', 'CategoryController@index');
 
