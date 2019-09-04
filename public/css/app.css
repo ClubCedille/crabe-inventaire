@@ -128,7 +128,7 @@ ol ol,
 ul ul,
 ol ul,
 ul ol {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 dt {
@@ -7150,11 +7150,15 @@ button.bg-dark:focus {
 }
 
 .bg-white {
-  background-color: #fff !important;
+    background-color: #fff !important;
+}
+
+.bg-black {
+    background-color: #000 !important;
 }
 
 .bg-transparent {
-  background-color: transparent !important;
+    background-color: transparent !important;
 }
 
 .border {
@@ -11170,3 +11174,11 @@ section.pricing {
   }
 }
 
+.navbar {
+    min-height: 42px;
+    padding:0;
+}
+
+.navbar-brand  {
+    line-height:42px;
+}

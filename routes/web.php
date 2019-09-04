@@ -18,12 +18,9 @@ Route::group(['middleware' => 'web'], function () {
 
     Auth::routes(['verify' => true]);
 
-    Route::get('/', function () {
-        return view('welcome');
-    });
+    Route::get('/', 'HomeController@index')->name('home');
 
     Route::group(['middleware' => 'auth'], function () {
-
 
         Route::group(['middleware' => 'verified'], function () {
 
@@ -44,10 +41,7 @@ Route::group(['middleware' => 'web'], function () {
                 Route::get('category', 'CategoryController@index');
 
             });
-
         });
-
-
 
         Route::group(['middleware' => 'admin'], function () {
             Route::resource('products','ProductsController')->only([
@@ -61,12 +55,5 @@ Route::group(['middleware' => 'web'], function () {
             Route::put('category/{id}', 'CategoryController@update');
             Route::delete('category/{id}', 'CategoryController@delete');
         });
-
-
-
     });
 });
-
-
-
-
