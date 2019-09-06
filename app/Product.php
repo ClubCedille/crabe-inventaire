@@ -16,6 +16,12 @@ class Product extends Model
         'name',
         'description',
         'price',
-        'category_id'
+        'category_id',
+        'quantity'
     ];
+
+    public function updateQuantity($quanityToremove){ 
+        $this->quantity = $this->quantity - $quanityToremove;
+        $this->save();
+    }
 }
