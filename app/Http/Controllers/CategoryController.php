@@ -20,6 +20,14 @@ class CategoryController extends Controller
     }
 
     public function create(Request $request){
+      //return View::make('category/show')->with('category', $category)
+    }
+
+    public function edit(Request $request,$id){
+      //return View::make('category/show')->with('category', $category)
+   }
+
+    public function store(Request $request){
  
       $validatedData = $request->validate([
         'name' => 'string|required|max:50',
@@ -45,7 +53,7 @@ class CategoryController extends Controller
       return response()->json("category updated !"); 
     }
 
-    public function delete($id){
+    public function destroy($id){
 
       $category = Category::find($id);
       $category->delete();

@@ -20,8 +20,8 @@ class Product extends Model
         'quantity'
     ];
 
-    public function updateQuantity($quanityToremove){ 
-        $this->quantity = $this->quantity - $quanityToremove;
+    public function removeQuantity($quantityToSubtract){ 
+        $this->quantity = $this->quantity - $quantityToSubtract;
         $this->save();
     }
 }
