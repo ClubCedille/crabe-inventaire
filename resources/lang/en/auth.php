@@ -30,5 +30,6 @@ return [
     'pleaseCheckEmail' => 'Before proceeding, please check your email for a verification link.',
     'IfNotReceiveEmail' => 'If you did not receive the email',
     'requestAnother' => 'click here to request another',
+    'categoryList' => 'Categories',
 
 ];

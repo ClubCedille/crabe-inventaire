@@ -52,9 +52,14 @@
                                 </li>
                             @endif
                         @else
+                            @if (Auth::user()->isAdmin === 1)
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="{{ route('category') }}">{{ __('auth.categoryList') }}</a>
+                                </li>
+                            @endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown text-white" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{ Auth::user()->firstName }} <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -75,7 +80,7 @@
                 </div>
             </nav>
 
-            <main class="py-4">
+            <main class="container">
                 @yield('content')
             </main>
         </div>

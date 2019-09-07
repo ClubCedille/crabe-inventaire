@@ -5,26 +5,26 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Category;
 class CategoryController extends Controller
-{
+{   
     public function index(){
       $categories = Category::all();
-      return  response()->json($categories);
-      //return View::make('category/index')->with('categories', $categories);
+      return response()->json($categories);
+    }
+
+    public function indexPage(){
+      $categories = Category::all();
+      return view('category/index')->with(['categories' => $categories,'message' =>'']);
     }
 
     public function show($id){
 
       $category = Category::find($id);
       return response()->json($category);
-      //return View::make('category/show')->with('category', $category)
     }
 
-    public function create(Request $request){
-      //return View::make('category/show')->with('category', $category)
-    }
-
-    public function edit(Request $request,$id){
-      //return View::make('category/show')->with('category', $category)
+    public function edit($id){
+      $category = Category::find($id);
+      return view('category/update')->with('category', $category);
    }
 
     public function store(Request $request){
@@ -50,7 +50,7 @@ class CategoryController extends Controller
       $category->name = $validatedUpdatedData["name"];
       $category->description = $validatedUpdatedData["description"];
       $category->save();
-      return response()->json("category updated !"); 
+      return view('category/index')->with(['categories' => Category::all(),'message' =>'category updated!']);
     }
 
     public function destroy($id){

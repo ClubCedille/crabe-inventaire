@@ -27,5 +27,6 @@ return [
     'pleaseCheckEmail' => 'Avant de continuer, veuillez vérifier votre courrier électronique pour un lien de vérification.',
     'ifNotReceiveEmail' => "Si vous n'avez pas reçu l'email",
     'requestAnother' => 'Cliquez ici pour en demander un nouveau',
+    'categoryList' => 'Catégories',
 
 ];
