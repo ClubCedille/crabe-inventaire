@@ -18,7 +18,18 @@ class AppTransaction extends Model
         'user_id',
         'paymentId'.
         'token',
-        'total'
+        'total',
+        'status',
+        'products'
+    ];
+
+    /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'products' => 'array',
     ];
 
     /**

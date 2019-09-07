@@ -16,6 +16,12 @@ class Product extends Model
         'name',
         'description',
         'price',
-        'category_id'
+        'category_id',
+        'quantity'
     ];
+
+    public function removeQuantity($quantityToSubtract){ 
+        $this->quantity = $this->quantity - $quantityToSubtract;
+        $this->save();
+    }
 }

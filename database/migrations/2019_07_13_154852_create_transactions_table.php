@@ -18,6 +18,8 @@ class CreateTransactionsTable extends Migration
             $table->timestamps();
             $table->string('paymentId')->nullable();
             $table->string('token')->nullable();
+            $table->string('status');
+            $table->text('products');
             $table->integer('total');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');

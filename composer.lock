@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "44623c5ac885d546b27e56a440e972fc",
+    "content-hash": "305d80b436a9cc1803bad1aa8da9f81b",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -3319,8 +3319,8 @@
             "authors": [
                 {
                     "name": "Filipe Dobreira",
-                    "homepage": "https://github.com/filp",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "homepage": "https://github.com/filp"
                 }
             ],
             "description": "php error handling for cool kids",
@@ -3435,16 +3435,16 @@
         },
         {
             "name": "laravel/homestead",
-            "version": "v9.0.3",
+            "version": "v9.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/homestead.git",
-                "reference": "8a673ed889d7c9edb300ccaf645e443cab3f87f8"
+                "reference": "a3534aca2d30b464a04580f48cde47b130edbfb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/homestead/zipball/8a673ed889d7c9edb300ccaf645e443cab3f87f8",
-                "reference": "8a673ed889d7c9edb300ccaf645e443cab3f87f8",
+                "url": "https://api.github.com/repos/laravel/homestead/zipball/a3534aca2d30b464a04580f48cde47b130edbfb5",
+                "reference": "a3534aca2d30b464a04580f48cde47b130edbfb5",
                 "shasum": ""
             },
             "require": {
@@ -3460,11 +3460,6 @@
                 "bin/homestead"
             ],
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.0-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Laravel\\Homestead\\": "src/"
@@ -3481,7 +3476,7 @@
                 }
             ],
             "description": "A virtual machine for web artisans.",
-            "time": "2019-07-10T00:08:13+00:00"
+            "time": "2019-08-31T12:29:12+00:00"
         },
         {
             "name": "mockery/mockery",
@@ -3698,18 +3693,18 @@
             "authors": [
                 {
                     "name": "Arne Blankerts",
-                    "email": "arne@blankerts.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "arne@blankerts.de"
                 },
                 {
                     "name": "Sebastian Heuer",
-                    "email": "sebastian@phpeople.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "sebastian@phpeople.de"
                 },
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Component for reading phar.io manifest information from a PHP Archive (PHAR)",
@@ -4971,8 +4966,8 @@
             "authors": [
                 {
                     "name": "Arne Blankerts",
-                    "email": "arne@blankerts.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "arne@blankerts.de"
                 }
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",

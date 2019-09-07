@@ -48,6 +48,7 @@ class ProductsController extends Controller
             'name' => 'string|required|max:50',
             'description' => 'string|required|max:250',
             'price' => 'numeric|required|gt:0',
+            'quantity' => 'numeric|required',
             'category_id' => 'numeric|required|exists:categories,id'
         ]);
 
@@ -100,6 +101,7 @@ class ProductsController extends Controller
             'name' => 'string|required|max:50',
             'description' => 'string|required|max:250',
             'price' => 'numeric|required|gt:0',
+            'quantity' => 'numeric|required',
             'category_id' => 'numeric|required|exists:categories,id',
         ]);
 
@@ -107,6 +109,7 @@ class ProductsController extends Controller
         $product->name = $validData["name"];
         $product->description = $validData["description"];
         $product->price = $validData["price"];
+        $product->quantity = $validData["quantity"];
         $product->category_id = $validData["category_id"];
 
         $product->update();
