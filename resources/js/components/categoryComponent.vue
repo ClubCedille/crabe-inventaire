@@ -100,13 +100,12 @@ export default {
     }
   },
   mounted() {
-    console.log(this.message.length)
     if(this.message.length != 0 ){
         this.$notify({
             group: 'category',
             title: 'Notification',
             type: 'success',
-            text: 'Category updated',
+            text: 'Category updated !',
             duration: 5000,
           });
     }
