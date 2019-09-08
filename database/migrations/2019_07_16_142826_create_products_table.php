@@ -20,7 +20,10 @@ class CreateProductsTable extends Migration
             $table->string('description');
             $table->double('price');
             $table->integer('quantity');
-            $table->UnsignedInteger('category_id');
+            $table->integer('category_id')->unsigned()->nullable();
+            $table->foreign('category_id')
+                  ->references('id')->on('categories')
+                  ->onDelete('set null');
             $table->timestamps();
         });
     }
