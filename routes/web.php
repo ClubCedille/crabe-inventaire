@@ -38,7 +38,8 @@ Route::group(['middleware' => 'web'], function () {
 
                 Route::resource('products','ProductsController')->only(['index','show']);
                 Route::get('home', 'HomeController@index')->name('home');
-                Route::get('category', 'CategoryController@index');
+                Route::get('category/index', 'CategoryController@index');
+
                 //payment for normal product transaction
                 Route::post('transaction', 'TransactionController@transactionPayement');
                 // route for check status of the payment of a transaction
@@ -53,9 +54,10 @@ Route::group(['middleware' => 'web'], function () {
                         'destroy']);
                 Route::get('category/{id}', 'CategoryController@show');
                 Route::post('category', 'CategoryController@store');
-                Route::put('category/{id}/edit', 'CategoryController@edit');
-                Route::get('category/{id}', 'CategoryController@update');
-                Route::delete('category/{id}', 'CategoryController@delete');
+                Route::get('category', 'CategoryController@indexPage')->name('category');
+                Route::get('category/{id}/edit', 'CategoryController@edit');
+                Route::put('category/{id}', 'CategoryController@update');
+                Route::delete('category/{id}', 'CategoryController@destroy');
 
                 });
 

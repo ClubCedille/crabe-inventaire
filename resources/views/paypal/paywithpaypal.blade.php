@@ -11,6 +11,6 @@
         <compte-component url="{{URL::to('/')}}"></compte-component>
     </div>
 </body>
-<script src="/js/app.js"></script>
+<script src="{{ asset('js/app.js') }}"></script>
 
 </html>
