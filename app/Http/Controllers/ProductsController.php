@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
+
+use Redirect;
 
 class ProductsController extends Controller
 {
@@ -17,8 +21,8 @@ class ProductsController extends Controller
         $this->authorize('viewAny', Product::class);
 
         $products = Product::all();
-        return response()->json($products);
-        //return View::make('products/index')->with('products', $products);
+        //return response()->json($products);
+        return view('products.index', compact('products'));
     }
 
     /**
@@ -28,9 +32,10 @@ class ProductsController extends Controller
      */
     public function create()
     {
+    
+        //dd('qqch random');
         $this->authorize('create', Product::class);
-
-        //return view('products.create');
+        return view('products.create');
     }
 
     /**
@@ -43,7 +48,7 @@ class ProductsController extends Controller
     {
         $this->authorize('create', Product::class);
 
-        $validData = request()->validate([
+        $validData = $request->validate([
             'code' => 'alpha_num|required|between:5,30|unique:products,code',
             'name' => 'string|required|max:50',
             'description' => 'string|required|max:250',
@@ -54,7 +59,8 @@ class ProductsController extends Controller
 
         Product::create($validData);
 
-        return response()->json('Le produit a été créé avec succès.');
+        //return response()->json('Le produit a été créé avec succès.');
+        return Redirect::to('/product');
     }
 
     /**
@@ -67,8 +73,8 @@ class ProductsController extends Controller
     {
         $this->authorize('view', $product);
 
-        return response()->json($product);
-        // return View::make('products/show')->with('product', $product);
+        //return response()->json($product);
+         return View::make('products/show')->with('product', $product);
     }
 
     /**
@@ -81,7 +87,8 @@ class ProductsController extends Controller
     {
         $this->authorize('update', $product);
 
-       // return view('products.edit', compact('product'));
+        //return response()->json($product);
+        return view('products.edit', compact('product'));
     }
 
     /**
@@ -95,6 +102,7 @@ class ProductsController extends Controller
     {
 
         $this->authorize('update', $product);
+        
 
         $validData = $request->validate([
             'code' => 'alpha_num|required|between:5,30',
@@ -114,8 +122,8 @@ class ProductsController extends Controller
 
         $product->update();
 
-        return response()->json("Le produit a été mis à jour.");
-        //
+        //return response()->json("Le produit a été mis à jour.");
+        return Redirect::to('/product');
     }
 
     /**
@@ -129,6 +137,7 @@ class ProductsController extends Controller
         $this->authorize('delete',$product);
 
         $product->delete();
-        return response()->json("Le produit fut supprimé.");
+        //return response()->json("Le produit fut supprimé.");
+        return Redirect::to('/product');
     }
 }
