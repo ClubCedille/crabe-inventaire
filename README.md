@@ -59,6 +59,16 @@ Ce framework web est une bonne porte d'entrée dans le développement web pour l
 
 ### Front-end : Blade, VueJs
 
+### Contributions
+
+Si vous voulez contribuer au projet, assurez-vous de fournir ou mettre à jour les tests pour vos modifications.
+
+Il est possible d'exécuter la suite de tests à l'aide de la commande
+
+```bash
+./vendor/bin/phpunit
+```
+
 ## Licence
 
 GNU GENERAL PUBLIC LICENSE
