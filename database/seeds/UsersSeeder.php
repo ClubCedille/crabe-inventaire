@@ -19,6 +19,7 @@ class UsersSeeder extends Seeder
             'isAdmin' => true,
             'email' => 'cedille@etsmtl.net',
             'password' => bcrypt('secret'),
+            'email_verified_at' => carbon::now(),
             'membershipExpirationDate' => carbon::now()->add(3, 'year'),
         ]);
 
@@ -27,6 +28,7 @@ class UsersSeeder extends Seeder
             'lastName' => 'PasMembre',
             'codeUniversel' => 'AP123457',
             'email' => 'pasmembre@etsmtl.net',
+            'email_verified_at' => carbon::now(),
             'password' => bcrypt('secret'),
         ]);
 
@@ -36,6 +38,7 @@ class UsersSeeder extends Seeder
             'codeUniversel' => 'AP123458',
             'email' => 'membre@etsmtl.net',
             'password' => bcrypt('secret'),
+            'email_verified_at' => carbon::now(),
             'membershipExpirationDate' => carbon::now()->add(3, 'year'),
         ]);
 
