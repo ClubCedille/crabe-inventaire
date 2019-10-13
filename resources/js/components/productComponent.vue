@@ -1,6 +1,6 @@
 <template>
  <div id="rootProduct" class="containeris-fluid">
-   <p class="title is-2 is-spaced">Categories handeling </p>
+   <p class="title is-2 is-spaced">Products handle </p>
 <notifications group="category" position="top center" width="400"/>
 <a class="button is-success is-rounded is-outlined is-medium" v-on:click="addCategory">
               <span class="icon is-small">
@@ -99,7 +99,7 @@ export default {
     }
   },
   mounted() {
-  /*   if(this.message.length != 0 ){
+     if(this.message.length != 0 ){
         this.$notify({
             group: 'category',
             title: 'Notification',
@@ -107,7 +107,7 @@ export default {
             text: 'Category updated !',
             duration: 5000,
           });
-    } */
+    } 
   },
   methods: {
     addCategory: function (event) {
