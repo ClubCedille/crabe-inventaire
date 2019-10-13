@@ -49071,6 +49071,274 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/productComponent.vue?vue&type=template&id=b61c57ce&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/productComponent.vue?vue&type=template&id=b61c57ce& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "containeris-fluid", attrs: { id: "rootProduct" } },
+    [
+      _c("p", { staticClass: "title is-2 is-spaced" }, [
+        _vm._v("Products handle ")
+      ]),
+      _vm._v(" "),
+      _c("notifications", {
+        attrs: { group: "category", position: "top center", width: "400" }
+      }),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "button is-success is-rounded is-outlined is-medium",
+          on: { click: _vm.addCategory }
+        },
+        [
+          _c(
+            "span",
+            { staticClass: "icon is-small" },
+            [_c("font-awesome-icon", { attrs: { icon: "plus" } })],
+            1
+          ),
+          _vm._v(" "),
+          _c("span", [_vm._v("Add")])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "table",
+        { staticClass: "table is-hoverable" },
+        [
+          _vm._m(0),
+          _vm._v(" "),
+          _vm._l(this.categories, function(item, index) {
+            return _c("tbody", { key: index }, [
+              _c("tr", [
+                _c("th", [_vm._v(_vm._s(item.name))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(item.description))]),
+                _vm._v(" "),
+                _c("td", [
+                  _c("div", { staticClass: "field is-grouped" }, [
+                    _c("p", { staticClass: "control" }, [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "button is-info is-rounded is-outlined",
+                          attrs: { href: _vm.url + "/" + item.id + "/edit" }
+                        },
+                        [
+                          _c(
+                            "span",
+                            { staticClass: "icon is-small" },
+                            [
+                              _c("font-awesome-icon", {
+                                attrs: { icon: "edit" }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("span", [_vm._v("Edit")])
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "control" }, [
+                      _c(
+                        "a",
+                        {
+                          staticClass:
+                            "button is-danger is-rounded is-outlined",
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteCategory(item.id)
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "span",
+                            { staticClass: "icon is-small" },
+                            [
+                              _c("font-awesome-icon", {
+                                attrs: { icon: "trash" }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("span", [_vm._v("Delete")])
+                        ]
+                      )
+                    ])
+                  ])
+                ])
+              ])
+            ])
+          })
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal",
+          class: { "is-active is-clipped": _vm.modalActive }
+        },
+        [
+          _c("div", { staticClass: "modal-background" }),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-card" }, [
+            _c("header", { staticClass: "modal-card-head" }, [
+              _c("p", { staticClass: "modal-card-title" }, [
+                _vm._v("Create a category")
+              ]),
+              _vm._v(" "),
+              _c("button", {
+                staticClass: "delete",
+                attrs: { "aria-label": "close" },
+                on: { click: _vm.closeCategoryModal }
+              })
+            ]),
+            _vm._v(" "),
+            _c("section", { staticClass: "modal-card-body" }, [
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "label" }, [_vm._v("Name")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "control" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.name,
+                        expression: "name"
+                      }
+                    ],
+                    staticClass: "input",
+                    attrs: {
+                      type: "text",
+                      name: "name",
+                      placeholder: "Name",
+                      id: "name"
+                    },
+                    domProps: { value: _vm.name },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.name = $event.target.value
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "label" }, [_vm._v("Description")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "control" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.description,
+                        expression: "description"
+                      }
+                    ],
+                    staticClass: "input",
+                    attrs: {
+                      type: "text",
+                      name: "description",
+                      id: "description",
+                      placeholder: "Description"
+                    },
+                    domProps: { value: _vm.description },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.description = $event.target.value
+                      }
+                    }
+                  })
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("footer", { staticClass: "modal-card-foot" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "button is-success is-rounded ",
+                  on: { click: _vm.createCategory }
+                },
+                [
+                  _c(
+                    "span",
+                    { staticClass: "icon is-small" },
+                    [_c("font-awesome-icon", { attrs: { icon: "save" } })],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("span", [_vm._v("Save")])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "button is-danger is-rounded",
+                  on: { click: _vm.closeCategoryModal }
+                },
+                [_vm._v("Cancel")]
+              )
+            ])
+          ])
+        ]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Description")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Edit")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js":
 /*!********************************************************************!*\
   !*** ./node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
