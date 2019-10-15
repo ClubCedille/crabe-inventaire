@@ -4,6 +4,7 @@
 use App\User;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,7 @@ $factory->define(User::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
         'remember_token' => Str::random(10),
+        'email_verified_at' => carbon::now(),
         'password' => bcrypt('secret'),
     ];
 });
