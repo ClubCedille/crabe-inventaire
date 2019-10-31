@@ -103,7 +103,7 @@ class CategoryTest extends TestCase
     }
 
     /**
-     * Edit une category comme voulu
+     * Edit une category
      *
      * @return void
      */

@@ -37,7 +37,8 @@ Route::group(['middleware' => 'web'], function () {
             Route::group(['middleware' => 'valid.membership'], function () {
 
                 //Route::resource('products','ProductsController')->only(['index','show']);
-                Route::get('product', 'ProductsController@index');
+                Route::get('product/index', 'ProductsController@index');
+                Route::get('product', 'ProductsController@indexPage')->name('product');
                 Route::get('product/{product}', 'ProductsController@show');
 
                 Route::get('home', 'HomeController@index')->name('home');
