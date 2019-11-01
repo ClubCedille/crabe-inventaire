@@ -12,11 +12,24 @@ use Redirect;
 class ProductsController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Send all resource as JSON.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
+    {
+        $this->authorize('viewAny', Product::class);
+
+        $products = Product::all();
+        return response()->json($products);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexPage()
     {
         $this->authorize('viewAny', Product::class);
 
