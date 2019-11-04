@@ -31,5 +31,6 @@ return [
     'IfNotReceiveEmail' => 'If you did not receive the email',
     'requestAnother' => 'click here to request another',
     'categoryList' => 'Categories',
+    'productList' => 'Products',
 
 ];

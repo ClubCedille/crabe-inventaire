@@ -56,6 +56,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-white" href="{{ route('category') }}">{{ __('auth.categoryList') }}</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="{{ route('product') }}">{{ __('auth.productList') }}</a>
+                                </li>
                             @endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown text-white" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

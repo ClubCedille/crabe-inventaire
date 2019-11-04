@@ -28,5 +28,6 @@ return [
     'ifNotReceiveEmail' => "Si vous n'avez pas reçu l'email",
     'requestAnother' => 'Cliquez ici pour en demander un nouveau',
     'categoryList' => 'Catégories',
+    'productList' => 'Produits',
 
 ];
