@@ -49091,11 +49091,11 @@ var render = function() {
     { staticClass: "containeris-fluid", attrs: { id: "rootProduct" } },
     [
       _c("p", { staticClass: "title is-2 is-spaced" }, [
-        _vm._v("Products handle ")
+        _vm._v("Product handling ")
       ]),
       _vm._v(" "),
       _c("notifications", {
-        attrs: { group: "category", position: "top center", width: "400" }
+        attrs: { group: "product", position: "top center", width: "400" }
       }),
       _vm._v(" "),
       _c(
@@ -49122,12 +49122,20 @@ var render = function() {
         [
           _vm._m(0),
           _vm._v(" "),
-          _vm._l(this.categories, function(item, index) {
+          _vm._l(this.products, function(item, index) {
             return _c("tbody", { key: index }, [
               _c("tr", [
                 _c("th", [_vm._v(_vm._s(item.name))]),
                 _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(item.code))]),
+                _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(item.description))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(item.category_id))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(item.quantity))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(item.price))]),
                 _vm._v(" "),
                 _c("td", [
                   _c("div", { staticClass: "field is-grouped" }, [
@@ -49136,7 +49144,7 @@ var render = function() {
                         "a",
                         {
                           staticClass: "button is-info is-rounded is-outlined",
-                          attrs: { href: _vm.url + "/" + item.id + "/edit" }
+                          attrs: { href: _vm.url + "/" + item.code + "/edit" }
                         },
                         [
                           _c(
@@ -49163,7 +49171,7 @@ var render = function() {
                             "button is-danger is-rounded is-outlined",
                           on: {
                             click: function($event) {
-                              return _vm.deleteCategory(item.id)
+                              return _vm.deleteProduct(item.code)
                             }
                           }
                         },
@@ -49204,7 +49212,7 @@ var render = function() {
           _c("div", { staticClass: "modal-card" }, [
             _c("header", { staticClass: "modal-card-head" }, [
               _c("p", { staticClass: "modal-card-title" }, [
-                _vm._v("Create a category")
+                _vm._v("Add a product")
               ]),
               _vm._v(" "),
               _c("button", {
@@ -49279,6 +49287,138 @@ var render = function() {
                     }
                   })
                 ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "label" }, [_vm._v("Code")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "control" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.code,
+                        expression: "code"
+                      }
+                    ],
+                    staticClass: "input",
+                    attrs: {
+                      type: "text",
+                      name: "code",
+                      id: "code",
+                      placeholder: "Code"
+                    },
+                    domProps: { value: _vm.code },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.code = $event.target.value
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "label" }, [_vm._v("Quantity")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "control" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.quantity,
+                        expression: "quantity"
+                      }
+                    ],
+                    staticClass: "input",
+                    attrs: {
+                      type: "text",
+                      name: "quantity",
+                      id: "quantity",
+                      placeholder: "Quantity"
+                    },
+                    domProps: { value: _vm.quantity },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.quantity = $event.target.value
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "label" }, [_vm._v("Price")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "control" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.price,
+                        expression: "price"
+                      }
+                    ],
+                    staticClass: "input",
+                    attrs: {
+                      type: "text",
+                      name: "price",
+                      id: "price",
+                      placeholder: "Price"
+                    },
+                    domProps: { value: _vm.price },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.price = $event.target.value
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "label" }, [_vm._v("Category_Id")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "control" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.category_id,
+                        expression: "category_id"
+                      }
+                    ],
+                    staticClass: "input",
+                    attrs: {
+                      type: "text",
+                      name: "category_id",
+                      id: "category_id",
+                      placeholder: "Category_Id"
+                    },
+                    domProps: { value: _vm.category_id },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.category_id = $event.target.value
+                      }
+                    }
+                  })
+                ])
               ])
             ]),
             _vm._v(" "),
@@ -49326,7 +49466,15 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Name")]),
         _vm._v(" "),
+        _c("th", [_vm._v("Code")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Description")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Category_Id")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Quantity")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Price")]),
         _vm._v(" "),
         _c("th", [_vm._v("Edit")])
       ])
