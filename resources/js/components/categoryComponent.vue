@@ -1,6 +1,6 @@
 <template>
  <div class="containeris-fluid">
-<p class="title is-2 is-spaced">Categories handeling </p>
+<p class="title is-2 is-spaced">Categories handling </p>
 <notifications group="category" position="top center" width="400"/>
 <a class="button is-success is-rounded is-outlined is-medium" v-on:click="addCategory">
               <span class="icon is-small">
@@ -119,10 +119,10 @@ export default {
     },
     deleteCategory : function(id){
       let currentObj = this;
-      if(confirm("are your sure to delete the category?")){
+      if(confirm("are your sure to delete the product?")){
         this.axios.delete(this.url+"/"+id)
         .then(function (response) {
-            currentObj.updateData('Hello user! Category was deleted!')
+            currentObj.updateData('Hello user! Product was deleted!')
         })  
         .catch(function (error) {
             console.log(error)
@@ -135,7 +135,7 @@ export default {
         let currentObj = this;
         this.axios.post(this.url, {
           name: currentObj.name,
-          description: this.description
+          description: currentObj.description
         })
         .then(function (response) {
           currentObj.updateData('Hello user! Category was created!')

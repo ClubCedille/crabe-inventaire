@@ -36,12 +36,14 @@ Route::group(['middleware' => 'web'], function () {
 
             Route::group(['middleware' => 'valid.membership'], function () {
 
+
                 //Route::resource('products','ProductsController')->only(['index','show']);
 
                 Route::get('product/index', 'ProductsController@index');
                 Route::get('product', 'ProductsController@indexPage')->name('product');
 
                 Route::get('product/{product}', 'ProductsController@show');
+
 
                 Route::get('home', 'HomeController@index')->name('home');
                 Route::get('category/index', 'CategoryController@index');
@@ -52,6 +54,7 @@ Route::group(['middleware' => 'web'], function () {
                 Route::get('statustransaction', 'TransactionController@getTransactionStatus')->name('statustransaction');
 
                 Route::group(['middleware' => 'admin'], function () {
+<<<<<<< HEAD
                     Route::get('category/{id}', 'CategoryController@show');
                     Route::post('category', 'CategoryController@store');
                     Route::get('category', 'CategoryController@indexPage')->name('category');
@@ -64,6 +67,23 @@ Route::group(['middleware' => 'web'], function () {
                     Route::get('product/{product}/edit', 'ProductsController@edit');
                     Route::put('product/{product}', 'ProductsController@update');
                     Route::delete('product/{product}', 'ProductsController@destroy');
+=======
+                Route::get('category/{id}', 'CategoryController@show');
+                Route::post('category', 'CategoryController@store');
+                Route::get('category', 'CategoryController@indexPage')->name('category');
+                Route::get('category/{id}/edit', 'CategoryController@edit');
+                Route::put('category/{id}', 'CategoryController@update');
+                Route::delete('category/{id}', 'CategoryController@destroy');
+                
+                //Route::resource('products','ProductsController')->only(['index','show']);
+                Route::get('product', 'ProductsController@index')->name('product');
+                Route::get('product/{product}', 'ProductsController@show');
+                Route::get('newProduct', 'ProductsController@create');
+                Route::post('product', 'ProductsController@store');
+                Route::get('product/{product}/edit', 'ProductsController@edit');
+                Route::put('product/{product}', 'ProductsController@update');
+                Route::delete('product/{code}', 'ProductsController@destroy');
+>>>>>>> gestion de produit
                 });
 
             });

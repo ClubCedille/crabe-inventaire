@@ -35,7 +35,9 @@ class ProductsController extends Controller
 
         $products = Product::all();
         //return response()->json($products);
-        return view('products.index', compact('products'));
+        return view('product/index')->with(['products' => $products,'message' =>'']);
+
+        //return view('product/index', compact('products'));
     }
 
     /**
@@ -118,7 +120,7 @@ class ProductsController extends Controller
         
 
         $validData = $request->validate([
-            'code' => 'alpha_num|required|between:5,30',
+            'code' => 'string|required|between:5,30',
             'name' => 'string|required|max:50',
             'description' => 'string|required|max:250',
             'price' => 'numeric|required|gt:0',
@@ -145,12 +147,12 @@ class ProductsController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
-    {
-        $this->authorize('delete',$product);
-
+    public function destroy($code)
+    {   
+        
+        $product = Product::where('code', $code);
         $product->delete();
-        //return response()->json("Le produit fut supprimé.");
-        return Redirect::to('/product');
+        return response()->json("Le produit fut supprimé.");
+
     }
 }

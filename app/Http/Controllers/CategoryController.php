@@ -93,10 +93,12 @@ class CategoryController extends Controller
         // Retourne une erreur quand Category n'est pas trouvé (JSON)
         if (!$category) return parent::notFoundResponse();
 
+
         // Modifie les champs
         $category->name = $validatedUpdatedData["name"];
         $category->description = $validatedUpdatedData["description"];
         $category->save();
+
 
         return view('category/index')
             ->with([

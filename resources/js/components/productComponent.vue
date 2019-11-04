@@ -1,7 +1,7 @@
 <template>
  <div id="rootProduct" class="containeris-fluid">
-   <p class="title is-2 is-spaced">Products handle </p>
-<notifications group="category" position="top center" width="400"/>
+   <p class="title is-2 is-spaced">Product handling </p>
+<notifications group="product" position="top center" width="400"/>
 <a class="button is-success is-rounded is-outlined is-medium" v-on:click="addCategory">
               <span class="icon is-small">
                <font-awesome-icon icon="plus" />
@@ -12,18 +12,27 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Code</th>
       <th>Description</th>
+      <th>Category_Id</th>
+      <th>Quantity</th>
+      <th>Price</th>
       <th>Edit</th>
     </tr>
   </thead>
-  <tbody v-for="(item,index) in this.categories" :key="index">
+  <tbody v-for="(item,index) in this.products" :key="index">
         <tr>
+          
           <th>{{item.name}}</th>
+          <td>{{item.code}}</td>
           <td>{{item.description}}</td>
+          <td>{{item.category_id}}</td>
+          <td>{{item.quantity}}</td>
+          <td>{{item.price}}</td>
           <td> 
              <div class="field is-grouped">
                 <p class="control">
-                    <a class="button is-info is-rounded is-outlined" v-bind:href="url+'/'+item.id+'/edit'">
+                    <a class="button is-info is-rounded is-outlined" v-bind:href="url+'/'+item.code+'/edit'">
                         <span class="icon is-small">
                         <font-awesome-icon icon="edit" />
                         </span>
@@ -31,7 +40,7 @@
                     </a>
                 </p>
                  <p class="control">
-                    <a class="button is-danger is-rounded is-outlined" v-on:click="deleteCategory(item.id)">
+                    <a class="button is-danger is-rounded is-outlined" v-on:click="deleteProduct(item.code)">
                         <span class="icon is-small">
                         <font-awesome-icon icon="trash" />
                         </span>
@@ -49,7 +58,7 @@
   <div class="modal-background"></div>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">Create a category</p>
+      <p class="modal-card-title">Add a product</p>
       <button class="delete" aria-label="close"  v-on:click="closeCategoryModal"></button>
     </header>
     <section class="modal-card-body">
@@ -66,6 +75,35 @@
           <input class="input" type="text" name="description" id="description" placeholder="Description"  v-model="description">
         </div>
       </div>
+
+      <div class="field">
+        <label class="label">Code</label>
+        <div class="control">
+          <input class="input" type="text" name="code" id="code" placeholder="Code"  v-model="code">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Quantity</label>
+        <div class="control">
+          <input class="input" type="text" name="quantity" id="quantity" placeholder="Quantity"  v-model="quantity">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Price</label>
+        <div class="control">
+          <input class="input" type="text" name="price" id="price" placeholder="Price"  v-model="price">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Category_Id</label>
+        <div class="control">
+          <input class="input" type="text" name="category_id" id="category_id" placeholder="Category_Id"  v-model="category_id">
+        </div>
+      </div>
+
     </section>
     <footer class="modal-card-foot">
        <a class="button is-success is-rounded " v-on:click="createCategory">
@@ -87,27 +125,33 @@ export default {
   name: "product-component",
   props: {
     url: String,
-    data: Array
+    data: Array,
+    message: String
   },
   data: function () {
     return {
-      categories:this.data,
+      products:this.data,
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       modalActive:false,
-      description:'',
-      name:'',
+      code: '',
+      name: '',
+      description: '',
+      price: 0,
+      category_id: 0,
+      quantity: 0,
     }
   },
   mounted() {
-     if(this.message.length != 0 ){
+     /*if(this.message.length != 0 ){
         this.$notify({
-            group: 'category',
+            group: 'product',
             title: 'Notification',
             type: 'success',
-            text: 'Category updated !',
+            text: 'Product updated !',
             duration: 5000,
           });
-    } 
+          
+    } */
   },
   methods: {
     addCategory: function (event) {
@@ -116,12 +160,12 @@ export default {
     closeCategoryModal: function(event){
       this.modalActive = false;
     },
-    deleteCategory : function(id){
+    deleteProduct : function(id){
       let currentObj = this;
-      if(confirm("are your sure to delete the category?")){
+      if(confirm("are your sure to delete this product?")){
         this.axios.delete(this.url+"/"+id)
         .then(function (response) {
-            currentObj.updateData('Hello user! Category was deleted!')
+            currentObj.updateData('Hello user! Product was deleted!')
         })  
         .catch(function (error) {
             console.log(error)
@@ -133,11 +177,17 @@ export default {
     createCategory : function(event){
         let currentObj = this;
         this.axios.post(this.url, {
+
+          code: currentObj.code,
           name: currentObj.name,
-          description: this.description
+          description: currentObj.description,
+          price: currentObj.price,
+          category_id: currentObj.category_id,
+          quantity: currentObj.quantity
+
         })
         .then(function (response) {
-          currentObj.updateData('Hello user! Category was created!')
+          currentObj.updateData('Hello user! A new product was created!')
         })
         .catch(function (error) {
           console.log(error)
@@ -147,10 +197,10 @@ export default {
       let currentObj = this;
       this.axios.get(this.url+"/index")
       .then(function (response) {
-          currentObj.categories = response.data;
+          currentObj.products = response.data;
           currentObj.modalActive = false;
           currentObj.$notify({
-            group: 'category',
+            group: 'product',
             title: 'Notification',
             type: 'success',
             text: message,

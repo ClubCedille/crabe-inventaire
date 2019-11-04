@@ -4,7 +4,7 @@
 <section class="bd-index-fullscreen hero is-fullheight">
 
         <product-component 
-        url="{{URL::to('/produit')}}"
+        url="{{URL::to('/product')}}"
         :data="{{json_encode($products)}}"
         >
         </product-component>

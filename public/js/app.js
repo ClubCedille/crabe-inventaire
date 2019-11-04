@@ -11819,9 +11819,9 @@ __webpack_require__.r(__webpack_exports__);
     deleteCategory: function deleteCategory(id) {
       var currentObj = this;
 
-      if (confirm("are your sure to delete the category?")) {
+      if (confirm("are your sure to delete the product?")) {
         this.axios["delete"](this.url + "/" + id).then(function (response) {
-          currentObj.updateData('Hello user! Category was deleted!');
+          currentObj.updateData('Hello user! Product was deleted!');
         })["catch"](function (error) {
           console.log(error);
         });
@@ -11831,7 +11831,7 @@ __webpack_require__.r(__webpack_exports__);
       var currentObj = this;
       this.axios.post(this.url, {
         name: currentObj.name,
-        description: this.description
+        description: currentObj.description
       }).then(function (response) {
         currentObj.updateData('Hello user! Category was created!');
       })["catch"](function (error) {
@@ -11952,31 +11952,75 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "product-component",
   props: {
     url: String,
-    data: Array
+    data: Array,
+    message: String
   },
   data: function data() {
     return {
-      categories: this.data,
+      products: this.data,
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       modalActive: false,
+      code: '',
+      name: '',
       description: '',
-      name: ''
+      price: 0,
+      category_id: 0,
+      quantity: 0
     };
   },
   mounted: function mounted() {
-    if (this.message.length != 0) {
-      this.$notify({
-        group: 'category',
-        title: 'Notification',
-        type: 'success',
-        text: 'Category updated !',
-        duration: 5000
-      });
-    }
+    /*if(this.message.length != 0 ){
+       this.$notify({
+           group: 'product',
+           title: 'Notification',
+           type: 'success',
+           text: 'Product updated !',
+           duration: 5000,
+         });
+         
+    } */
   },
   methods: {
     addCategory: function addCategory(event) {
@@ -11985,12 +12029,12 @@ __webpack_require__.r(__webpack_exports__);
     closeCategoryModal: function closeCategoryModal(event) {
       this.modalActive = false;
     },
-    deleteCategory: function deleteCategory(id) {
+    deleteProduct: function deleteProduct(id) {
       var currentObj = this;
 
-      if (confirm("are your sure to delete the category?")) {
+      if (confirm("are your sure to delete this product?")) {
         this.axios["delete"](this.url + "/" + id).then(function (response) {
-          currentObj.updateData('Hello user! Category was deleted!');
+          currentObj.updateData('Hello user! Product was deleted!');
         })["catch"](function (error) {
           console.log(error);
         });
@@ -11999,10 +12043,14 @@ __webpack_require__.r(__webpack_exports__);
     createCategory: function createCategory(event) {
       var currentObj = this;
       this.axios.post(this.url, {
+        code: currentObj.code,
         name: currentObj.name,
-        description: this.description
+        description: currentObj.description,
+        price: currentObj.price,
+        category_id: currentObj.category_id,
+        quantity: currentObj.quantity
       }).then(function (response) {
-        currentObj.updateData('Hello user! Category was created!');
+        currentObj.updateData('Hello user! A new product was created!');
       })["catch"](function (error) {
         console.log(error);
       });
@@ -12010,10 +12058,10 @@ __webpack_require__.r(__webpack_exports__);
     updateData: function updateData(message) {
       var currentObj = this;
       this.axios.get(this.url + "/index").then(function (response) {
-        currentObj.categories = response.data;
+        currentObj.products = response.data;
         currentObj.modalActive = false;
         currentObj.$notify({
-          group: 'category',
+          group: 'product',
           title: 'Notification',
           type: 'success',
           text: message,
@@ -47636,7 +47684,7 @@ var render = function() {
     { staticClass: "containeris-fluid" },
     [
       _c("p", { staticClass: "title is-2 is-spaced" }, [
-        _vm._v("Categories handeling ")
+        _vm._v("Categories handling ")
       ]),
       _vm._v(" "),
       _c("notifications", {
@@ -47904,11 +47952,11 @@ var render = function() {
     { staticClass: "containeris-fluid", attrs: { id: "rootProduct" } },
     [
       _c("p", { staticClass: "title is-2 is-spaced" }, [
-        _vm._v("Products handle ")
+        _vm._v("Product handling ")
       ]),
       _vm._v(" "),
       _c("notifications", {
-        attrs: { group: "category", position: "top center", width: "400" }
+        attrs: { group: "product", position: "top center", width: "400" }
       }),
       _vm._v(" "),
       _c(
@@ -47935,12 +47983,20 @@ var render = function() {
         [
           _vm._m(0),
           _vm._v(" "),
-          _vm._l(this.categories, function(item, index) {
+          _vm._l(this.products, function(item, index) {
             return _c("tbody", { key: index }, [
               _c("tr", [
                 _c("th", [_vm._v(_vm._s(item.name))]),
                 _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(item.code))]),
+                _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(item.description))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(item.category_id))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(item.quantity))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(item.price))]),
                 _vm._v(" "),
                 _c("td", [
                   _c("div", { staticClass: "field is-grouped" }, [
@@ -47949,7 +48005,7 @@ var render = function() {
                         "a",
                         {
                           staticClass: "button is-info is-rounded is-outlined",
-                          attrs: { href: _vm.url + "/" + item.id + "/edit" }
+                          attrs: { href: _vm.url + "/" + item.code + "/edit" }
                         },
                         [
                           _c(
@@ -47976,7 +48032,7 @@ var render = function() {
                             "button is-danger is-rounded is-outlined",
                           on: {
                             click: function($event) {
-                              return _vm.deleteCategory(item.id)
+                              return _vm.deleteProduct(item.code)
                             }
                           }
                         },
@@ -48017,7 +48073,7 @@ var render = function() {
           _c("div", { staticClass: "modal-card" }, [
             _c("header", { staticClass: "modal-card-head" }, [
               _c("p", { staticClass: "modal-card-title" }, [
-                _vm._v("Create a category")
+                _vm._v("Add a product")
               ]),
               _vm._v(" "),
               _c("button", {
@@ -48092,6 +48148,138 @@ var render = function() {
                     }
                   })
                 ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "label" }, [_vm._v("Code")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "control" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.code,
+                        expression: "code"
+                      }
+                    ],
+                    staticClass: "input",
+                    attrs: {
+                      type: "text",
+                      name: "code",
+                      id: "code",
+                      placeholder: "Code"
+                    },
+                    domProps: { value: _vm.code },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.code = $event.target.value
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "label" }, [_vm._v("Quantity")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "control" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.quantity,
+                        expression: "quantity"
+                      }
+                    ],
+                    staticClass: "input",
+                    attrs: {
+                      type: "text",
+                      name: "quantity",
+                      id: "quantity",
+                      placeholder: "Quantity"
+                    },
+                    domProps: { value: _vm.quantity },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.quantity = $event.target.value
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "label" }, [_vm._v("Price")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "control" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.price,
+                        expression: "price"
+                      }
+                    ],
+                    staticClass: "input",
+                    attrs: {
+                      type: "text",
+                      name: "price",
+                      id: "price",
+                      placeholder: "Price"
+                    },
+                    domProps: { value: _vm.price },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.price = $event.target.value
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "label" }, [_vm._v("Category_Id")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "control" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.category_id,
+                        expression: "category_id"
+                      }
+                    ],
+                    staticClass: "input",
+                    attrs: {
+                      type: "text",
+                      name: "category_id",
+                      id: "category_id",
+                      placeholder: "Category_Id"
+                    },
+                    domProps: { value: _vm.category_id },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.category_id = $event.target.value
+                      }
+                    }
+                  })
+                ])
               ])
             ]),
             _vm._v(" "),
@@ -48139,7 +48327,15 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Name")]),
         _vm._v(" "),
+        _c("th", [_vm._v("Code")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Description")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Category_Id")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Quantity")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Price")]),
         _vm._v(" "),
         _c("th", [_vm._v("Edit")])
       ])
