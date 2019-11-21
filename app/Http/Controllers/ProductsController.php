@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Category; 
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
@@ -21,6 +22,7 @@ class ProductsController extends Controller
         $this->authorize('viewAny', Product::class);
 
         $products = Product::all();
+        
         return response()->json($products);
     }
 
@@ -32,10 +34,11 @@ class ProductsController extends Controller
     public function indexPage()
     {
         $this->authorize('viewAny', Product::class);
-
+       
+        $categories = Category::all();
         $products = Product::all();
         //return response()->json($products);
-        return view('product/index')->with(['products' => $products,'message' =>'']);
+        return view('product/index')->with(['products' => $products,'categories' => $categories,'message' =>'']);
 
         //return view('product/index', compact('products'));
     }
@@ -98,12 +101,12 @@ class ProductsController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
-    {
-        $this->authorize('update', $product);
-
+    public function edit($id)
+    {   
+        $product = Product::where('code', $id);
+        $categories = Category::all();
         //return response()->json($product);
-        return view('products.edit', compact('product'));
+        return view('product.update')->with(['product' => $product,'categories' => $categories,'message' =>'']);
     }
 
     /**

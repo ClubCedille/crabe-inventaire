@@ -14,7 +14,7 @@
       <th>Name</th>
       <th>Code</th>
       <th>Description</th>
-      <th>Category_Id</th>
+      <th>Category</th>
       <th>Quantity</th>
       <th>Price</th>
       <th>Edit</th>
@@ -26,13 +26,13 @@
           <th>{{item.name}}</th>
           <td>{{item.code}}</td>
           <td>{{item.description}}</td>
-          <td>{{item.category_id}}</td>
+          <td>{{findCategoryName(item.category_id)}}</td>
           <td>{{item.quantity}}</td>
           <td>{{item.price}}</td>
           <td> 
              <div class="field is-grouped">
                 <p class="control">
-                    <a class="button is-info is-rounded is-outlined" v-bind:href="url+'/'+item.code+'/edit'">
+                    <a class="button is-info is-rounded is-outlined" v-bind:href="url+'/'+item.id+'/edit'">
                         <span class="icon is-small">
                         <font-awesome-icon icon="edit" />
                         </span>
@@ -98,10 +98,17 @@
       </div>
 
       <div class="field">
-        <label class="label">Category_Id</label>
-        <div class="control">
-          <input class="input" type="text" name="category_id" id="category_id" placeholder="Category_Id"  v-model="category_id">
-        </div>
+        <label class="label">Category</label>
+        
+        <select class="form-control" name=category_id v-model="category_id">
+          <option value="" selected disabled>Category</option>
+          <option v-for="category in categories" :value="category.id" :key="category.id">{{ category.name }}</option>
+        </select>  
+
+        <!--<div class="form-control">
+          <input class="input" type="text" name="category_id" id="category_id" placeholder="Category_Id"  v-model="category_id">  
+        </div>-->
+
       </div>
 
     </section>
@@ -126,7 +133,8 @@ export default {
   props: {
     url: String,
     data: Array,
-    message: String
+    message: String,
+    categories: Array
   },
   data: function () {
     return {
@@ -210,6 +218,20 @@ export default {
       .catch(function (error) {
           console.log(error)
       });
+    }, 
+    findCategoryName: function(category_id){ 
+       
+      let currentObj = this; 
+
+      for( var i = 0; i < currentObj.categories.length; i++){
+
+         if(currentObj.categories[i].id == category_id){
+           return currentObj.categories[i].name;  
+         }
+     
+       } 
+
+
     }
   }
 };
