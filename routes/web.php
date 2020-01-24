@@ -41,9 +41,7 @@ Route::group(['middleware' => 'web'], function () {
 
                 Route::get('product/index', 'ProductsController@index');
                 Route::get('product', 'ProductsController@indexPage')->name('product');
-
-                Route::get('product/{product}', 'ProductsController@show');
-
+                Route::get('product/{id}', 'ProductsController@show');
 
                 Route::get('home', 'HomeController@index')->name('home');
                 Route::get('category/index', 'CategoryController@index');
@@ -54,7 +52,6 @@ Route::group(['middleware' => 'web'], function () {
                 Route::get('statustransaction', 'TransactionController@getTransactionStatus')->name('statustransaction');
 
                 Route::group(['middleware' => 'admin'], function () {
-
                     Route::get('category/{id}', 'CategoryController@show');
                     Route::post('category', 'CategoryController@store');
                     Route::get('category', 'CategoryController@indexPage')->name('category');
@@ -67,9 +64,7 @@ Route::group(['middleware' => 'web'], function () {
                     Route::get('product/{code}/edit', 'ProductsController@edit');
                     Route::put('product/{product}', 'ProductsController@update');
                     Route::delete('product/{product}', 'ProductsController@destroy');
-
                 });
-
             });
         });
     });

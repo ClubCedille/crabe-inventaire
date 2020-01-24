@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
-use App\Category; 
+use App\Category;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
@@ -22,7 +22,7 @@ class ProductsController extends Controller
         $this->authorize('viewAny', Product::class);
 
         $products = Product::all();
-        
+
         return response()->json($products);
     }
 
@@ -34,7 +34,7 @@ class ProductsController extends Controller
     public function indexPage()
     {
         $this->authorize('viewAny', Product::class);
-       
+
         $categories = Category::all();
         $products = Product::all();
         //return response()->json($products);
@@ -50,7 +50,7 @@ class ProductsController extends Controller
      */
     public function create()
     {
-    
+
         //dd('qqch random');
         $this->authorize('create', Product::class);
         return view('products.create');
@@ -82,7 +82,7 @@ class ProductsController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified product.
      *
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
@@ -91,8 +91,7 @@ class ProductsController extends Controller
     {
         $this->authorize('view', $product);
 
-        //return response()->json($product);
-         return View::make('products/show')->with('product', $product);
+        return View::make('product/show')->with('product', $product);
     }
 
     /**
@@ -102,10 +101,10 @@ class ProductsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {   
-        $product = Product::where('code', $id);
+    {
+        $product = Product::where('code', $id)->first();
         $categories = Category::all();
-        //return response()->json($product);
+        // return response()->json($product);
         return view('product.update')->with(['product' => $product,'categories' => $categories,'message' =>'']);
     }
 
@@ -120,7 +119,6 @@ class ProductsController extends Controller
     {
 
         $this->authorize('update', $product);
-        
 
         $validData = $request->validate([
             'code' => 'string|required|between:5,30',
@@ -151,8 +149,7 @@ class ProductsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($code)
-    {   
-        
+    {
         $product = Product::where('code', $code);
         $product->delete();
         return response()->json("Le produit fut supprimé.");
