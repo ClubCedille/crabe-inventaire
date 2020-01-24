@@ -104,10 +104,9 @@ class ProductsController extends Controller
 
         return response()->json([
             "code" => Response::HTTP_CREATED,
-            "message" => " created !", // TODO: Traduire
+            "message" => __('product.created'), 
         ], Response::HTTP_CREATED);
 
-        // return Redirect::to('/product');
     }
     /**
      * Update the specified resource in storage.
@@ -159,7 +158,7 @@ class ProductsController extends Controller
         if (!$product) abort(Response::HTTP_NOT_FOUND);
 
         $product->delete();
-        return response()->json("Le produit fut supprimé."); // TODO: Traduire
+        return response()->json(__('product.deleted'));
 
     }
 }

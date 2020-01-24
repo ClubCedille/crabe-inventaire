@@ -50,10 +50,10 @@
 
         <div class="field is-grouped">
                     <p class="control">
-         <input disabled class="button is-rounde is-info" type="submit" value="Update">
+         <input disabled class="button is-rounded is-info" type="submit" value="Update">
         </p>
         <p class="control">
-            <a  class="button is-rounde" href="{{URL::to('/product')}}" >Cancel</a>
+            <a  class="button is-rounded" href="{{URL::to('/product')}}" >Cancel</a>
         </p>
         </div>
 

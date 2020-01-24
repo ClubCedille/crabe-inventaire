@@ -7,16 +7,16 @@ return [
     |--------------------------------------------------------------------------
     */
     'category' => 'Catégorie',
-    'index' => 'Liste des categories',
+    'index' => 'Liste des catégories',
     'name'   => 'Nom',
     'description' => 'Description',
     'edit' => 'Modifier cette catégorie',
     'new' => 'Nouvelle catégorie',
-    'created' => 'La categorie a été créée!',
-    'updated' => 'La categorie a été mise a jour!',
-    'deleted' => 'La categorie a été supprimé!',
+    'created' => 'La categorie a été créé!',
+    'updated' => 'La categorie a été mise à jour!',
+    'deleted' => 'La categorie a été supprimée!',
     'confirmation' => [
-        'delete' => 'Etes-vous certain de vouloir supprimer la catégorie?',
+        'delete' => 'Êtes-vous certain de vouloir supprimer la catégorie?',
     ],
     'placeholder' => [
         'description' => 'La description de la catégorie ici.',

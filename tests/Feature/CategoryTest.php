@@ -20,7 +20,7 @@ class CategoryTest extends TestCase
     public function testIndexCategoryPage200()
     {
         // Se login et get sur la page category
-        $user = User::find(1);
+        $user = User::find(11);
         $response = $this->actingAs($user)
                          ->get('/category');
 
@@ -38,7 +38,7 @@ class CategoryTest extends TestCase
     public function testIndexCategory200()
     {
         // Authentifie en tant qu'un utilisateur (Celui avec l'ID 1)
-        $user = User::find(1);
+        $user = User::find(11);
         $response = $this->actingAs($user)->json('GET', '/category/index');
 
         // S'assure que les keys soient présentes dans la réponse
@@ -64,7 +64,7 @@ class CategoryTest extends TestCase
     {
         $idCategory = 1;
 
-        $user = User::find(1);
+        $user = User::find(11);
         $response = $this->actingAs($user)
                          ->json('GET', '/category/' . $idCategory);
 
@@ -89,7 +89,7 @@ class CategoryTest extends TestCase
     {
         $idCategory = 99999999;
 
-        $user = User::find(1);
+        $user = User::find(11);
         $response = $this->actingAs($user)
                          ->json('GET', '/category/' . $idCategory);
 
@@ -111,7 +111,7 @@ class CategoryTest extends TestCase
     {
         $idCategory = 2;
 
-        $user = User::find(1);
+        $user = User::find(11);
 
         $category = Category::find($idCategory);
         $oldName = $category->name;
@@ -140,7 +140,7 @@ class CategoryTest extends TestCase
     {
         $idCategory = 99999999;
 
-        $user = User::find(1);
+        $user = User::find(11);
         $response = $this->actingAs($user)
                          ->json('GET', '/category/' . $idCategory);
 
@@ -161,7 +161,7 @@ class CategoryTest extends TestCase
     public function testStoreCategory201()
     {
         $this->withoutExceptionHandling();
-        $user = User::find(1);
+        $user = User::find(11);
         $name = "Nom Bidon";
         $description = "Description Bidon";
 
@@ -193,7 +193,7 @@ class CategoryTest extends TestCase
     public function testDestroyCategory200()
     {
         $this->withoutExceptionHandling();
-        $user = User::find(1);
+        $user = User::find(11);
         $response = $this->actingAs($user)
                          ->json('DELETE', '/category/9');
 
@@ -201,7 +201,7 @@ class CategoryTest extends TestCase
         $response
             ->assertStatus(Response::HTTP_OK)
             ->assertJson([
-                "message" => "category deleted !",
+                "message" => __('category.deleted'),
             ]);
     }
 
@@ -215,7 +215,7 @@ class CategoryTest extends TestCase
         $this->withoutExceptionHandling();
         $idCategory = 99999999;
 
-        $user = User::find(1);
+        $user = User::find(11);
         $response = $this->actingAs($user)
                          ->json('DELETE', '/category/' . $idCategory);
 

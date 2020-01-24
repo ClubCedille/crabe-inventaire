@@ -65,4 +65,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->isAdmin;
     }
 
+    public function cart()
+    {
+        return $this->hasOne('App\Cart');
+    }
 }

@@ -101,6 +101,23 @@ class ProductTest extends TestCase
         $response->assertSee('404');
     }
 
+    /**
+     * Teste que Index Category fonctionne
+     * @group testIndexHomeProducts200
+     * @return void
+     */
+    public function testIndexHomeProducts200()
+    {
+        // Se login et get product on home page
+        $user = User::find(1);
+        $response = $this->actingAs($user)
+                         ->get('/');
+
+        // make sure to find a product in the user home index
+        $response->assertStatus(Response::HTTP_OK);
+        $response->assertSee('</items>');
+        $response->assertSee(Product::find(1)->code);
+    }
 
 
 }

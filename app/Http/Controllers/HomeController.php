@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Product;
 
 class HomeController extends Controller
 {
@@ -28,6 +29,8 @@ class HomeController extends Controller
         {
             $user = Auth::user();
         }
-        return view('home', compact('user'));
+        $cart = $user->cart;
+        $products = Product::all();
+        return view('home', compact('user','products','cart'));
     }
 }
