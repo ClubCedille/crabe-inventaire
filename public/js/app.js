@@ -48824,55 +48824,42 @@ var render = function() {
                         value: _vm.name,
                         expression: "name"
                       }
-                    ],
-                    staticClass: "input",
-                    attrs: {
-                      type: "text",
-                      name: "name",
-                      placeholder: "Name",
-                      id: "name"
-                    },
-                    domProps: { value: _vm.name },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.name = $event.target.value
-                      }
+                      _vm.name = $event.target.value
                     }
-                  })
-                ])
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "field" }, [
+              _c("label", { staticClass: "label" }, [
+                _vm._v(_vm._s(_vm.t("category.description")))
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "field" }, [
-                _c("label", { staticClass: "label" }, [_vm._v("Description")]),
-                _vm._v(" "),
-                _c("div", { staticClass: "control" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.description,
-                        expression: "description"
+              _c("div", { staticClass: "control" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.description,
+                      expression: "description"
+                    }
+                  ],
+                  staticClass: "input",
+                  attrs: {
+                    type: "text",
+                    name: "description",
+                    id: "description",
+                    placeholder: _vm.t("category.placeholder.description")
+                  },
+                  domProps: { value: _vm.description },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
                       }
-                    ],
-                    staticClass: "input",
-                    attrs: {
-                      type: "text",
-                      name: "description",
-                      id: "description",
-                      placeholder: "Description"
-                    },
-                    domProps: { value: _vm.description },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.description = $event.target.value
-                      }
+                      _vm.description = $event.target.value
                     }
                   })
                 ])
@@ -49131,7 +49118,9 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(item.description))]),
                 _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(item.category_id))]),
+                _c("td", [
+                  _vm._v(_vm._s(_vm.findCategoryName(item.category_id)))
+                ]),
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(item.quantity))]),
                 _vm._v(" "),
@@ -49144,7 +49133,7 @@ var render = function() {
                         "a",
                         {
                           staticClass: "button is-info is-rounded is-outlined",
-                          attrs: { href: _vm.url + "/" + item.code + "/edit" }
+                          attrs: { href: _vm.url + "/" + item.id + "/edit" }
                         },
                         [
                           _c(
@@ -49389,10 +49378,11 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "field" }, [
-                _c("label", { staticClass: "label" }, [_vm._v("Category_Id")]),
+                _c("label", { staticClass: "label" }, [_vm._v("Category")]),
                 _vm._v(" "),
-                _c("div", { staticClass: "control" }, [
-                  _c("input", {
+                _c(
+                  "select",
+                  {
                     directives: [
                       {
                         name: "model",
@@ -49401,24 +49391,41 @@ var render = function() {
                         expression: "category_id"
                       }
                     ],
-                    staticClass: "input",
-                    attrs: {
-                      type: "text",
-                      name: "category_id",
-                      id: "category_id",
-                      placeholder: "Category_Id"
-                    },
-                    domProps: { value: _vm.category_id },
+                    staticClass: "form-control",
+                    attrs: { name: "category_id" },
                     on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.category_id = $event.target.value
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.category_id = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
                       }
                     }
-                  })
-                ])
+                  },
+                  [
+                    _c(
+                      "option",
+                      { attrs: { value: "", selected: "", disabled: "" } },
+                      [_vm._v("Category")]
+                    ),
+                    _vm._v(" "),
+                    _vm._l(_vm.categories, function(category) {
+                      return _c(
+                        "option",
+                        { key: category.id, domProps: { value: category.id } },
+                        [_vm._v(_vm._s(category.name))]
+                      )
+                    })
+                  ],
+                  2
+                )
               ])
             ]),
             _vm._v(" "),
@@ -49470,7 +49477,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Description")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Category_Id")]),
+        _c("th", [_vm._v("Category")]),
         _vm._v(" "),
         _c("th", [_vm._v("Quantity")]),
         _vm._v(" "),
