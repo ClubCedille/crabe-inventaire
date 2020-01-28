@@ -11782,6 +11782,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "category",
   props: {
@@ -11792,19 +11820,19 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       categories: this.data,
-      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
       modalActive: false,
-      description: '',
-      name: ''
+      description: "",
+      name: ""
     };
   },
   mounted: function mounted() {
     if (this.message.length != 0) {
       this.$notify({
-        group: 'category',
-        title: 'Notification',
-        type: 'success',
-        text: 'Category updated !',
+        group: "category",
+        title: "Notification",
+        type: "success",
+        text: "Category updated !",
         duration: 5000
       });
     }
@@ -11821,7 +11849,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (confirm("are your sure to delete the product?")) {
         this.axios["delete"](this.url + "/" + id).then(function (response) {
-          currentObj.updateData('Hello user! Product was deleted!');
+          currentObj.updateData("Hello user! Product was deleted!");
         })["catch"](function (error) {
           console.log(error);
         });
@@ -11833,7 +11861,7 @@ __webpack_require__.r(__webpack_exports__);
         name: currentObj.name,
         description: currentObj.description
       }).then(function (response) {
-        currentObj.updateData('Hello user! Category was created!');
+        currentObj.updateData("Hello user! Category was created!");
       })["catch"](function (error) {
         console.log(error);
       });
@@ -11844,9 +11872,9 @@ __webpack_require__.r(__webpack_exports__);
         currentObj.categories = response.data;
         currentObj.modalActive = false;
         currentObj.$notify({
-          group: 'category',
-          title: 'Notification',
-          type: 'success',
+          group: "category",
+          title: "Notification",
+          type: "success",
           text: message,
           duration: 5000
         });
@@ -11990,12 +12018,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "product-component",
   props: {
     url: String,
     data: Array,
-    message: String
+    message: String,
+    categories: Array
   },
   data: function data() {
     return {
@@ -12013,14 +12049,13 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     /*if(this.message.length != 0 ){
        this.$notify({
-           group: 'product',
-           title: 'Notification',
-           type: 'success',
-           text: 'Product updated !',
-           duration: 5000,
-         });
-         
-    } */
+       group: 'product',
+       title: 'Notification',
+       type: 'success',
+       text: 'Product updated !',
+       duration: 5000,
+       });
+        } */
   },
   methods: {
     addCategory: function addCategory(event) {
@@ -12070,6 +12105,15 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error);
       });
+    },
+    findCategoryName: function findCategoryName(category_id) {
+      var currentObj = this;
+
+      for (var i = 0; i < currentObj.categories.length; i++) {
+        if (currentObj.categories[i].id == category_id) {
+          return currentObj.categories[i].name;
+        }
+      }
     }
   }
 });
@@ -47684,7 +47728,7 @@ var render = function() {
     { staticClass: "containeris-fluid" },
     [
       _c("p", { staticClass: "title is-2 is-spaced" }, [
-        _vm._v("Categories handling ")
+        _vm._v("Categories handling")
       ]),
       _vm._v(" "),
       _c("notifications", {
@@ -47705,7 +47749,7 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("span", [_vm._v("Add")])
+          _c("p", [_vm._v(_vm._s(_vm.t("actions.add")))])
         ]
       ),
       _vm._v(" "),
@@ -47713,7 +47757,17 @@ var render = function() {
         "table",
         { staticClass: "table is-hoverable" },
         [
-          _vm._m(0),
+          _c("thead", [
+            _c("tr", [
+              _c("th", [_vm._v(_vm._s(_vm.t("category.name")))]),
+              _vm._v(" "),
+              _c("th", [_vm._v(_vm._s(_vm.t("category.description")))]),
+              _vm._v(" "),
+              _c("th", [_vm._v(_vm._s(_vm.t("category.edit")))]),
+              _vm._v(" "),
+              _c("th", [_vm._v(_vm._s(_vm.t("actions.edit")))])
+            ])
+          ]),
           _vm._v(" "),
           _vm._l(this.categories, function(item, index) {
             return _c("tbody", { key: index }, [
@@ -47743,7 +47797,7 @@ var render = function() {
                             1
                           ),
                           _vm._v(" "),
-                          _c("span", [_vm._v("Edit")])
+                          _c("span", [_vm._v(_vm._s(_vm.t("actions.edit")))])
                         ]
                       )
                     ]),
@@ -47772,7 +47826,7 @@ var render = function() {
                             1
                           ),
                           _vm._v(" "),
-                          _c("span", [_vm._v("Delete")])
+                          _c("span", [_vm._v(_vm._s(_vm.t("actions.delete")))])
                         ]
                       )
                     ])
@@ -47807,71 +47861,75 @@ var render = function() {
               })
             ]),
             _vm._v(" "),
-            _c("section", { staticClass: "modal-card-body" }, [
-              _c("div", { staticClass: "field" }, [
-                _c("label", { staticClass: "label" }, [_vm._v("Name")]),
-                _vm._v(" "),
-                _c("div", { staticClass: "control" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.name,
-                        expression: "name"
-                      }
-                    ],
-                    staticClass: "input",
-                    attrs: {
-                      type: "text",
-                      name: "name",
-                      placeholder: "Name",
-                      id: "name"
-                    },
-                    domProps: { value: _vm.name },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.name = $event.target.value
-                      }
-                    }
-                  })
-                ])
+            _c("section", { staticClass: "modal-card-body" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "field" }, [
+              _c("label", { staticClass: "label" }, [
+                _vm._v(_vm._s(_vm.t("category.name")))
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "field" }, [
-                _c("label", { staticClass: "label" }, [_vm._v("Description")]),
-                _vm._v(" "),
-                _c("div", { staticClass: "control" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.description,
-                        expression: "description"
-                      }
-                    ],
-                    staticClass: "input",
-                    attrs: {
-                      type: "text",
-                      name: "description",
-                      id: "description",
-                      placeholder: "Description"
-                    },
-                    domProps: { value: _vm.description },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.description = $event.target.value
-                      }
+              _c("div", { staticClass: "control" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.name,
+                      expression: "name"
                     }
-                  })
-                ])
+                  ],
+                  staticClass: "input",
+                  attrs: {
+                    type: "text",
+                    name: "name",
+                    placeholder: _vm.t("category.placeholder.name"),
+                    id: "name"
+                  },
+                  domProps: { value: _vm.name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.name = $event.target.value
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "field" }, [
+              _c("label", { staticClass: "label" }, [
+                _vm._v(_vm._s(_vm.t("category.description")))
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "control" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.description,
+                      expression: "description"
+                    }
+                  ],
+                  staticClass: "input",
+                  attrs: {
+                    type: "text",
+                    name: "description",
+                    id: "description",
+                    placeholder: _vm.t("category.placeholder.description")
+                  },
+                  domProps: { value: _vm.description },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.description = $event.target.value
+                    }
+                  }
+                })
               ])
             ]),
             _vm._v(" "),
@@ -47900,7 +47958,7 @@ var render = function() {
                   staticClass: "button is-danger is-rounded",
                   on: { click: _vm.closeCategoryModal }
                 },
-                [_vm._v("Cancel")]
+                [_vm._v("\n          Cancel\n        ")]
               )
             ])
           ])
@@ -47910,22 +47968,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Name")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Description")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Edit")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -47992,7 +48035,9 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(item.description))]),
                 _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(item.category_id))]),
+                _c("td", [
+                  _vm._v(_vm._s(_vm.findCategoryName(item.category_id)))
+                ]),
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(item.quantity))]),
                 _vm._v(" "),
@@ -48005,7 +48050,7 @@ var render = function() {
                         "a",
                         {
                           staticClass: "button is-info is-rounded is-outlined",
-                          attrs: { href: _vm.url + "/" + item.code + "/edit" }
+                          attrs: { href: _vm.url + "/" + item.id + "/edit" }
                         },
                         [
                           _c(
@@ -48250,10 +48295,11 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "field" }, [
-                _c("label", { staticClass: "label" }, [_vm._v("Category_Id")]),
+                _c("label", { staticClass: "label" }, [_vm._v("Category")]),
                 _vm._v(" "),
-                _c("div", { staticClass: "control" }, [
-                  _c("input", {
+                _c(
+                  "select",
+                  {
                     directives: [
                       {
                         name: "model",
@@ -48262,24 +48308,41 @@ var render = function() {
                         expression: "category_id"
                       }
                     ],
-                    staticClass: "input",
-                    attrs: {
-                      type: "text",
-                      name: "category_id",
-                      id: "category_id",
-                      placeholder: "Category_Id"
-                    },
-                    domProps: { value: _vm.category_id },
+                    staticClass: "form-control",
+                    attrs: { name: "category_id" },
                     on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.category_id = $event.target.value
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.category_id = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
                       }
                     }
-                  })
-                ])
+                  },
+                  [
+                    _c(
+                      "option",
+                      { attrs: { value: "", selected: "", disabled: "" } },
+                      [_vm._v("Category")]
+                    ),
+                    _vm._v(" "),
+                    _vm._l(_vm.categories, function(category) {
+                      return _c(
+                        "option",
+                        { key: category.id, domProps: { value: category.id } },
+                        [_vm._v(_vm._s(category.name))]
+                      )
+                    })
+                  ],
+                  2
+                )
               ])
             ]),
             _vm._v(" "),
@@ -48331,7 +48394,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Description")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Category_Id")]),
+        _c("th", [_vm._v("Category")]),
         _vm._v(" "),
         _c("th", [_vm._v("Quantity")]),
         _vm._v(" "),
@@ -61669,6 +61732,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fortawesome_vue_fontawesome__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @fortawesome/vue-fontawesome */ "./node_modules/@fortawesome/vue-fontawesome/index.es.js");
 /* harmony import */ var vue_notification__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-notification */ "./node_modules/vue-notification/dist/index.js");
 /* harmony import */ var vue_notification__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vue_notification__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_6__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -61683,7 +61748,12 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
+
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+
+Vue.prototype.t = function (string) {
+  return lodash__WEBPACK_IMPORTED_MODULE_6___default.a.get(window.i18n, string);
+};
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -61692,22 +61762,23 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
+
 Vue.use(vue_notification__WEBPACK_IMPORTED_MODULE_5___default.a);
 _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_2__["library"].add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__["faEdit"]);
 _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_2__["library"].add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__["faPlus"]);
 _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_2__["library"].add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__["faSave"]);
 _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_2__["library"].add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__["faTrash"]);
 Vue.use(vue_axios__WEBPACK_IMPORTED_MODULE_1___default.a, axios__WEBPACK_IMPORTED_MODULE_0___default.a);
-Vue.component('font-awesome-icon', _fortawesome_vue_fontawesome__WEBPACK_IMPORTED_MODULE_4__["FontAwesomeIcon"]);
+Vue.component("font-awesome-icon", _fortawesome_vue_fontawesome__WEBPACK_IMPORTED_MODULE_4__["FontAwesomeIcon"]);
 
 var files = __webpack_require__("./resources/js sync recursive \\.vue$/");
 
 files.keys().map(function (key) {
-  return Vue.component(key.split('/').pop().split('.')[0], files(key)["default"]);
+  return Vue.component(key.split("/").pop().split(".")[0], files(key)["default"]);
 });
-Vue.component('compte-component', __webpack_require__(/*! ./components/ActiverCompte.vue */ "./resources/js/components/ActiverCompte.vue")["default"]);
-Vue.component('category-component', __webpack_require__(/*! ./components/categoryComponent.vue */ "./resources/js/components/categoryComponent.vue")["default"]);
-Vue.component('product-component', __webpack_require__(/*! ./components/productComponent.vue */ "./resources/js/components/productComponent.vue")["default"]);
+Vue.component("compte-component", __webpack_require__(/*! ./components/ActiverCompte.vue */ "./resources/js/components/ActiverCompte.vue")["default"]);
+Vue.component("category-component", __webpack_require__(/*! ./components/categoryComponent.vue */ "./resources/js/components/categoryComponent.vue")["default"]);
+Vue.component("product-component", __webpack_require__(/*! ./components/productComponent.vue */ "./resources/js/components/productComponent.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -61715,7 +61786,7 @@ Vue.component('product-component', __webpack_require__(/*! ./components/productC
  */
 
 var app = new Vue({
-  el: '#app'
+  el: "#app"
 });
 
 /***/ }),
@@ -62072,8 +62143,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\edo_y\crabe\crabe-inventaire\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\edo_y\crabe\crabe-inventaire\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/vagrant/code/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

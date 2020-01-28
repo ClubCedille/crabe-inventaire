@@ -64,6 +64,9 @@ jobs:
       - run: export $(cat .env.testing) && php artisan migrate --force --seed -v
       - run: export $(cat .env.testing) && php artisan migrate:refresh --force --seed -v
 
+  build-vuejs:
+    steps:
+      - run: npm run dev
 
   tests:
     docker:
