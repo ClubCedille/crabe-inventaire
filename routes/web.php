@@ -56,7 +56,6 @@ Route::group(['middleware' => 'web'], function () {
 
             Route::group(['middleware' => 'valid.membership'], function () {
 
-
                 //Route::resource('products','ProductsController')->only(['index','show']);
 
                 Route::get('product/index', 'ProductsController@index');

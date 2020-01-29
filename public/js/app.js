@@ -12351,6 +12351,7 @@ __webpack_require__.r(__webpack_exports__);
     updateData: function updateData(message) {
       var currentObj = this;
       this.axios.get(this.url + "/index").then(function (response) {
+        console.log(this.url);
         currentObj.products = response.data;
         currentObj.modalActive = false;
         currentObj.$notify({
@@ -49078,7 +49079,7 @@ var render = function() {
     { staticClass: "containeris-fluid", attrs: { id: "rootProduct" } },
     [
       _c("p", { staticClass: "title is-2 is-spaced" }, [
-        _vm._v("Product handling ")
+        _vm._v(_vm._s(_vm.t("product.indexPage")))
       ]),
       _vm._v(" "),
       _c("notifications", {
@@ -49454,7 +49455,7 @@ var render = function() {
                   staticClass: "button is-danger is-rounded",
                   on: { click: _vm.closeCategoryModal }
                 },
-                [_vm._v("Cancel")]
+                [_vm._v("\n          Cancel\n        ")]
               )
             ])
           ])
