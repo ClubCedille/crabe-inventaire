@@ -12025,6 +12025,63 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "product-component",
   props: {
@@ -12036,11 +12093,11 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       products: this.data,
-      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
       modalActive: false,
-      code: '',
-      name: '',
-      description: '',
+      code: "",
+      name: "",
+      description: "",
       price: 0,
       category_id: 0,
       quantity: 0
@@ -12048,14 +12105,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     /*if(this.message.length != 0 ){
-       this.$notify({
-       group: 'product',
-       title: 'Notification',
-       type: 'success',
-       text: 'Product updated !',
-       duration: 5000,
-       });
-        } */
+         this.$notify({
+         group: 'product',
+         title: 'Notification',
+         type: 'success',
+         text: 'Product updated !',
+         duration: 5000,
+         });
+          } */
   },
   methods: {
     addCategory: function addCategory(event) {
@@ -12069,7 +12126,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (confirm("are your sure to delete this product?")) {
         this.axios["delete"](this.url + "/" + id).then(function (response) {
-          currentObj.updateData('Hello user! Product was deleted!');
+          currentObj.updateData("Hello user! Product was deleted!");
         })["catch"](function (error) {
           console.log(error);
         });
@@ -12085,7 +12142,7 @@ __webpack_require__.r(__webpack_exports__);
         category_id: currentObj.category_id,
         quantity: currentObj.quantity
       }).then(function (response) {
-        currentObj.updateData('Hello user! A new product was created!');
+        currentObj.updateData("Hello user! A new product was created!");
       })["catch"](function (error) {
         console.log(error);
       });
@@ -12093,12 +12150,13 @@ __webpack_require__.r(__webpack_exports__);
     updateData: function updateData(message) {
       var currentObj = this;
       this.axios.get(this.url + "/index").then(function (response) {
+        console.log(this.url);
         currentObj.products = response.data;
         currentObj.modalActive = false;
         currentObj.$notify({
-          group: 'product',
-          title: 'Notification',
-          type: 'success',
+          group: "product",
+          title: "Notification",
+          type: "success",
           text: message,
           duration: 5000
         });
@@ -47995,7 +48053,7 @@ var render = function() {
     { staticClass: "containeris-fluid", attrs: { id: "rootProduct" } },
     [
       _c("p", { staticClass: "title is-2 is-spaced" }, [
-        _vm._v("Product handling ")
+        _vm._v(_vm._s(_vm.t("product.indexPage")))
       ]),
       _vm._v(" "),
       _c("notifications", {
@@ -48371,7 +48429,7 @@ var render = function() {
                   staticClass: "button is-danger is-rounded",
                   on: { click: _vm.closeCategoryModal }
                 },
-                [_vm._v("Cancel")]
+                [_vm._v("\n          Cancel\n        ")]
               )
             ])
           ])

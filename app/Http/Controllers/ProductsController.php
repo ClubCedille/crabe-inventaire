@@ -87,11 +87,14 @@ class ProductsController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show($id)
     {
-        $this->authorize('view', $product);
+        $product = Product::find($id);
 
-        return View::make('product/show')->with('product', $product);
+        // Retourne une erreur quand Category n'est pas trouvé (JSON)
+        if (!$product) return parent::notFoundResponse();
+
+        return response()->json($product);
     }
 
     /**
@@ -100,9 +103,9 @@ class ProductsController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($code)
     {
-        $product = Product::where('code', $id)->first();
+        $product = Product::find($code);
         $categories = Category::all();
         // return response()->json($product);
         return view('product.update')->with(['product' => $product,'categories' => $categories,'message' =>'']);
@@ -129,6 +132,8 @@ class ProductsController extends Controller
             'category_id' => 'numeric|required|exists:categories,id',
         ]);
 
+        if (!$product) abort(Response::HTTP_NOT_FOUND);
+
         $product->code = $validData["code"];
         $product->name = $validData["name"];
         $product->description = $validData["description"];
@@ -151,6 +156,7 @@ class ProductsController extends Controller
     public function destroy($code)
     {
         $product = Product::where('code', $code);
+        if (!$product) abort(Response::HTTP_NOT_FOUND);
         $product->delete();
         return response()->json("Le produit fut supprimé.");
 

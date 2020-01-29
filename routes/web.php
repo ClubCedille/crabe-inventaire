@@ -56,7 +56,6 @@ Route::group(['middleware' => 'web'], function () {
 
             Route::group(['middleware' => 'valid.membership'], function () {
 
-
                 //Route::resource('products','ProductsController')->only(['index','show']);
 
                 Route::get('product/index', 'ProductsController@index');
@@ -79,7 +78,7 @@ Route::group(['middleware' => 'web'], function () {
                     Route::put('category/{id}', 'CategoryController@update');
                     Route::delete('category/{id}', 'CategoryController@destroy');
 
-                    Route::get('newProduct', 'ProductsController@create');
+                    // Route::get('newProduct', 'ProductsController@create');
                     Route::post('product', 'ProductsController@store');
                     Route::get('product/{code}/edit', 'ProductsController@edit');
                     Route::put('product/{product}', 'ProductsController@update');
