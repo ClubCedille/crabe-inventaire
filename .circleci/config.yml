@@ -11,7 +11,7 @@ jobs:
       - image: circleci/mysql:5.7
         environment:
           MYSQL_ROOT_PASSWORD: secret
-          MYSQL_DATABASE: crabe
+          MYSQL_DATABASE: homestead
           MYSQL_USER: homestead
           MYSQL_PASSWORD: secret
       # Specify service dependencies here if necessary
@@ -64,10 +64,6 @@ jobs:
       - run: export $(cat .env.testing) && php artisan migrate --force --seed -v
       - run: export $(cat .env.testing) && php artisan migrate:refresh --force --seed -v
 
-  build-vuejs:
-    steps:
-      - run: npm run dev
-
   tests:
     docker:
       # Specify the version you desire here
@@ -75,7 +71,7 @@ jobs:
       - image: circleci/mysql:5.7
         environment:
           MYSQL_ROOT_PASSWORD: secret
-          MYSQL_DATABASE: crabe
+          MYSQL_DATABASE: homestead
           MYSQL_USER: homestead
           MYSQL_PASSWORD: secret
       # Specify service dependencies here if necessary
