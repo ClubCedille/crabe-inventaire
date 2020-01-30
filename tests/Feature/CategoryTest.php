@@ -176,7 +176,7 @@ class CategoryTest extends TestCase
             ->assertStatus(Response::HTTP_CREATED)
             ->assertJson([
                 "code" => Response::HTTP_CREATED,
-                "message" => "category created !",
+                "message" => "Category created!",
             ]);
 
         // Assert que la Category est dans la DB et les infos sont bon
