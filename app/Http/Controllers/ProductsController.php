@@ -130,8 +130,6 @@ class ProductsController extends Controller
             'category_id' => 'numeric|required|exists:categories,id',
         ]);
 
-        if (!$product) abort(Response::HTTP_NOT_FOUND);
-
         $product->code = $validData["code"];
         $product->name = $validData["name"];
         $product->description = $validData["description"];
