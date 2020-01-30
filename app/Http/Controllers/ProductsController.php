@@ -19,8 +19,6 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny', Product::class);
-
         $products = Product::all();
 
         return response()->json($products);
@@ -33,52 +31,9 @@ class ProductsController extends Controller
      */
     public function indexPage()
     {
-        $this->authorize('viewAny', Product::class);
-
         $categories = Category::all();
         $products = Product::all();
-        //return response()->json($products);
         return view('product/index')->with(['products' => $products,'categories' => $categories,'message' =>'']);
-
-        //return view('product/index', compact('products'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
-        //dd('qqch random');
-        $this->authorize('create', Product::class);
-        return view('products.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $this->authorize('create', Product::class);
-
-        $validData = $request->validate([
-            'code' => 'alpha_num|required|between:5,30|unique:products,code',
-            'name' => 'string|required|max:50',
-            'description' => 'string|required|max:250',
-            'price' => 'numeric|required|gt:0',
-            'quantity' => 'numeric|required',
-            'category_id' => 'numeric|required|exists:categories,id'
-        ]);
-
-        Product::create($validData);
-
-        //return response()->json('Le produit a été créé avec succès.');
-        return Redirect::to('/product');
     }
 
     /**
@@ -90,8 +45,7 @@ class ProductsController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
-
-        // Retourne une erreur quand Category n'est pas trouvé (JSON)
+        // Retourne une erreur quand product n'est pas trouvé
         if (!$product) return parent::notFoundResponse();
 
         return response()->json($product);
@@ -106,11 +60,47 @@ class ProductsController extends Controller
     public function edit($code)
     {
         $product = Product::find($code);
+        if (!$product) return parent::notFoundResponse();
         $categories = Category::all();
-        // return response()->json($product);
         return view('product.update')->with(['product' => $product,'categories' => $categories,'message' =>'']);
     }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('products.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $validData = $request->validate([
+            'code' => 'alpha_num|required|between:5,30|unique:products,code',
+            'name' => 'string|required|max:50',
+            'description' => 'string|required|max:250',
+            'price' => 'numeric|required|gt:0',
+            'quantity' => 'numeric|required',
+            'category_id' => 'numeric|required|exists:categories,id'
+        ]);
+
+        Product::create($validData);
+
+        return response()->json([
+            "code" => Response::HTTP_CREATED,
+            "message" => " created !", // TODO: Traduire
+        ], Response::HTTP_CREATED);
+
+        // return Redirect::to('/product');
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -120,8 +110,7 @@ class ProductsController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-
-        $this->authorize('update', $product);
+        if (!$product) abort(Response::HTTP_NOT_FOUND);
 
         $validData = $request->validate([
             'code' => 'string|required|between:5,30',
@@ -132,8 +121,6 @@ class ProductsController extends Controller
             'category_id' => 'numeric|required|exists:categories,id',
         ]);
 
-        if (!$product) abort(Response::HTTP_NOT_FOUND);
-
         $product->code = $validData["code"];
         $product->name = $validData["name"];
         $product->description = $validData["description"];
@@ -143,7 +130,6 @@ class ProductsController extends Controller
 
         $product->update();
 
-        //return response()->json("Le produit a été mis à jour.");
         return Redirect::to('/product');
     }
 
@@ -157,8 +143,9 @@ class ProductsController extends Controller
     {
         $product = Product::where('code', $code);
         if (!$product) abort(Response::HTTP_NOT_FOUND);
+
         $product->delete();
-        return response()->json("Le produit fut supprimé.");
+        return response()->json("Le produit fut supprimé."); // TODO: Traduire
 
     }
 }

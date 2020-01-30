@@ -12,7 +12,8 @@ class CategoryController extends Controller
      *
      * @return Reponse JSON
      */
-    public function index(){
+    public function index()
+    {
         $categories = Category::all();
         return response()->json($categories);
     }
@@ -22,7 +23,8 @@ class CategoryController extends Controller
      *
      * @return Response VIEW
      */
-    public function indexPage(){
+    public function indexPage()
+    {
         $categories = Category::all();
         return view('category/index')
             ->with(['categories' => $categories,'message' =>'']);
@@ -33,10 +35,10 @@ class CategoryController extends Controller
      *
      * @return Response JSON
      */
-    public function show($id){
+    public function show($id)
+    {
         $category = Category::find($id);
-
-        // Retourne une erreur quand Category n'est pas trouvé (JSON)
+        // Retourne une erreur quand Category n'est pas trouvé
         if (!$category) return parent::notFoundResponse();
 
         return response()->json($category);
@@ -47,9 +49,9 @@ class CategoryController extends Controller
      *
      * @return Response VIEW
      */
-    public function edit($id){
+    public function edit($id)
+    {
         $category = Category::find($id);
-
         // Retourne une erreur quand Category n'est pas trouvé
         if (!$category) abort(Response::HTTP_NOT_FOUND);
 
@@ -61,8 +63,8 @@ class CategoryController extends Controller
      *
      * @return Response JSON
      */
-    public function store(Request $request){
-
+    public function store(Request $request)
+    {
         $validatedData = $request->validate([
             'name' => 'string|required|max:50',
             'description' => 'string|required|max:250',
@@ -72,7 +74,7 @@ class CategoryController extends Controller
 
         return response()->json([
             "code" => Response::HTTP_CREATED,
-            "message" => "category created !",
+            "message" => "Category created!", // TODO: Traduire
         ], Response::HTTP_CREATED);
     }
 
@@ -103,7 +105,7 @@ class CategoryController extends Controller
         return view('category/index')
             ->with([
                 'categories' => Category::all(),
-                'message' =>'category updated!'
+                'message' =>'category updated!' // TODO: Traduire
             ]);
     }
 
@@ -114,13 +116,12 @@ class CategoryController extends Controller
      */
     public function destroy($id){
         $category = Category::find($id);
-
         // Retourne une erreur quand Category n'est pas trouvé (JSON)
         if (!$category) return parent::notFoundResponse();
 
         $category->delete();
         return response()->json([
-            "message" => "category deleted !",
+            "message" => "category deleted !", // TODO: Traduire
         ]);
     }
 
