@@ -12,7 +12,7 @@ class Product extends Model
     }
 
     protected $fillable = [
-        'oode',
+        'code',
         'name',
         'description',
         'price',
