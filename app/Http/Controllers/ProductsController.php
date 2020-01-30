@@ -17,9 +17,17 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
+        // ?category={id} queryString
+        $categoryId = $request->input('category');
+
+        if($categoryId){
+            $category = Category::find($categoryId);
+            $products = $category->products;
+        } else {
+            $products = Product::all();
+        }
 
         return response()->json($products);
     }
