@@ -9,7 +9,7 @@
       <span class="icon is-small">
         <font-awesome-icon icon="plus" />
       </span>
-      <p>{{t('actions.add')}}</p>
+      <p>{{ t('actions.add') }}</p>
     </a>
     <table class="table is-hoverable">
       <thead>
@@ -17,7 +17,6 @@
           <th>{{ t('category.name') }}</th>
           <th>{{ t('category.description') }}</th>
           <th>{{ t('category.edit') }}</th>
-          <th>{{ t('actions.edit')  }}</th>
         </tr>
       </thead>
       <tbody v-for="(item, index) in this.categories" :key="index">
@@ -149,11 +148,11 @@
       },
       deleteCategory: function(id) {
         let currentObj = this;
-        if (confirm("are your sure to delete the product?")) {
+        if (confirm("are your sure to delete the category?")) {
           this.axios
               .delete(this.url + "/" + id)
               .then(function(response) {
-                currentObj.updateData("Hello user! Product was deleted!");
+                currentObj.updateData("Hello user! Category was deleted!");
               })
               .catch(function(error) {
                 console.log(error);
