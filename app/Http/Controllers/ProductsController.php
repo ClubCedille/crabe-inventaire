@@ -116,9 +116,10 @@ class ProductsController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        if (!$product) abort(Response::HTTP_NOT_FOUND);
+        $product = Product::find($id);
+        if (!$product) return parent::notFoundResponse();
 
         $validData = $request->validate([
             'code' => 'string|required|between:5,30',
