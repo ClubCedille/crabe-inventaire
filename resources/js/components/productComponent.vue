@@ -1,26 +1,26 @@
 <template>
-  <div id="rootProduct" class="containeris-fluid">
-    <p class="title is-2 is-spaced">{{ t("product.indexPage") }}</p>
+  <div class="containeris-fluid">
+    <p class="title is-2 is-spaced">{{ t('product.indexPage') }}</p>
     <notifications group="product" position="top center" width="400" />
     <a
       class="button is-success is-rounded is-outlined is-medium"
-      v-on:click="addCategory"
+      v-on:click="addProduct"
     >
       <span class="icon is-small">
         <font-awesome-icon icon="plus" />
       </span>
-      <span>Add</span>
+      <span>{{ t('actions.add') }}</span>
     </a>
     <table class="table is-hoverable">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Code</th>
-          <th>Description</th>
-          <th>Category</th>
-          <th>Quantity</th>
-          <th>Price</th>
-          <th>Edit</th>
+          <th>{{ t('product.name') }}</th>
+          <th>{{ t('product.code') }}</th>
+          <th>{{ t('product.description') }}</th>
+          <th>{{ t('product.quantity') }}</th>
+          <th>{{ t('product.price') }}</th>
+          <th>{{ t('product.category') }}</th>
+          <th>{{ t('actions.edit') }}</th>
         </tr>
       </thead>
       <tbody v-for="(item, index) in this.products" :key="index">
@@ -41,7 +41,7 @@
                   <span class="icon is-small">
                     <font-awesome-icon icon="edit" />
                   </span>
-                  <span>Edit</span>
+                  <span>{{ t('actions.edit') }}</span>
                 </a>
               </p>
               <p class="control">
@@ -69,7 +69,7 @@
           <button
             class="delete"
             aria-label="close"
-            v-on:click="closeCategoryModal"
+            v-on:click="closeProductModal"
           ></button>
         </header>
         <section class="modal-card-body">
@@ -166,7 +166,7 @@
           </div>
         </section>
         <footer class="modal-card-foot">
-          <a class="button is-success is-rounded " v-on:click="createCategory">
+          <a class="button is-success is-rounded " v-on:click="createProduct">
             <span class="icon is-small">
               <font-awesome-icon icon="save" />
             </span>
@@ -174,7 +174,7 @@
           </a>
           <button
             class="button is-danger is-rounded"
-            v-on:click="closeCategoryModal"
+            v-on:click="closeProductModal"
           >
             Cancel
           </button>
@@ -186,7 +186,7 @@
 
 <script>
 export default {
-  name: "product-component",
+  name: "product",
   props: {
     url: String,
     data: Array,
@@ -209,7 +209,7 @@ export default {
     };
   },
   mounted() {
-    /*if(this.message.length != 0 ){
+    if(this.message.length != 0 ){
          this.$notify({
          group: 'product',
          title: 'Notification',
@@ -218,13 +218,13 @@ export default {
          duration: 5000,
          });
 
-         } */
+         }
   },
   methods: {
-    addCategory: function(event) {
+    addProduct: function(event) {
       this.modalActive = true;
     },
-    closeCategoryModal: function(event) {
+    closeProductModal: function(event) {
       this.modalActive = false;
     },
     deleteProduct: function(id) {
@@ -240,7 +240,7 @@ export default {
           });
       }
     },
-    createCategory: function(event) {
+    createProduct: function(event) {
       let currentObj = this;
       this.axios
         .post(this.url, {

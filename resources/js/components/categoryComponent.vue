@@ -1,6 +1,6 @@
 <template>
   <div class="containeris-fluid">
-    <p class="title is-2 is-spaced">Categories handling</p>
+    <p class="title is-2 is-spaced">{{ t('category.index')  }}</p>
     <notifications group="category" position="top center" width="400" />
     <a
       class="button is-success is-rounded is-outlined is-medium"

@@ -3,12 +3,15 @@
 return [
     /*
     |--------------------------------------------------------------------------
-    | Categorey Language Lines
+    | Product Language Lines
     |--------------------------------------------------------------------------
     */
 
-    'indexPage'   => 'Liste des produts',
+    'indexPage'   => 'Liste des Produits',
+    'name' => 'Nom',
+    'code' => 'Code',
+    'description' => 'Description',
+    'quantity' => 'Quantite',
+    'category' => 'Categorie',
+    'price' => 'Prix',
 ];
-
-
-
