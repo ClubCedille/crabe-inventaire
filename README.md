@@ -1,5 +1,7 @@
 # Crabe Inventaire
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8198dc3af1cd4e4fb2aece7957b760dd)](https://app.codacy.com/gh/ClubCedille/crabe-inventaire?utm_source=github.com&utm_medium=referral&utm_content=ClubCedille/crabe-inventaire&utm_campaign=Badge_Grade_Dashboard)
+
 Ce projet est le résultat d'une collaboration entre le club CEDILLE et le regroupement étudiant CRABE de l'ÉTS.
 
 ## Context
