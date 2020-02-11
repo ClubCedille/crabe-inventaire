@@ -12351,8 +12351,8 @@ __webpack_require__.r(__webpack_exports__);
     updateData: function updateData(message) {
       var currentObj = this;
       this.axios.get(this.url + "/index").then(function (response) {
-        console.log(this.url);
         currentObj.products = response.data;
+        console.log(this.url);
         currentObj.modalActive = false;
         currentObj.$notify({
           group: "product",
@@ -49090,7 +49090,7 @@ var render = function() {
         "a",
         {
           staticClass: "button is-success is-rounded is-outlined is-medium",
-          on: { click: _vm.addCategory }
+          on: { click: _vm.addProduct }
         },
         [
           _c(
@@ -49100,7 +49100,7 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("span", [_vm._v("Add")])
+          _c("span", [_vm._v(_vm._s(_vm.t("actions.add")))])
         ]
       ),
       _vm._v(" "),
@@ -49108,7 +49108,23 @@ var render = function() {
         "table",
         { staticClass: "table is-hoverable" },
         [
-          _vm._m(0),
+          _c("thead", [
+            _c("tr", [
+              _c("th", [_vm._v(_vm._s(_vm.t("product.name")))]),
+              _vm._v(" "),
+              _c("th", [_vm._v(_vm._s(_vm.t("product.code")))]),
+              _vm._v(" "),
+              _c("th", [_vm._v(_vm._s(_vm.t("product.description")))]),
+              _vm._v(" "),
+              _c("th", [_vm._v(_vm._s(_vm.t("product.category")))]),
+              _vm._v(" "),
+              _c("th", [_vm._v(_vm._s(_vm.t("product.quantity")))]),
+              _vm._v(" "),
+              _c("th", [_vm._v(_vm._s(_vm.t("product.price")))]),
+              _vm._v(" "),
+              _c("th", [_vm._v(_vm._s(_vm.t("actions.edit")))])
+            ])
+          ]),
           _vm._v(" "),
           _vm._l(this.products, function(item, index) {
             return _c("tbody", { key: index }, [
@@ -49148,7 +49164,7 @@ var render = function() {
                             1
                           ),
                           _vm._v(" "),
-                          _c("span", [_vm._v("Edit")])
+                          _c("span", [_vm._v(_vm._s(_vm.t("actions.edit")))])
                         ]
                       )
                     ]),
@@ -49208,7 +49224,7 @@ var render = function() {
               _c("button", {
                 staticClass: "delete",
                 attrs: { "aria-label": "close" },
-                on: { click: _vm.closeCategoryModal }
+                on: { click: _vm.closeProductModal }
               })
             ]),
             _vm._v(" "),
@@ -49435,7 +49451,7 @@ var render = function() {
                 "a",
                 {
                   staticClass: "button is-success is-rounded ",
-                  on: { click: _vm.createCategory }
+                  on: { click: _vm.createProduct }
                 },
                 [
                   _c(
@@ -49453,7 +49469,7 @@ var render = function() {
                 "button",
                 {
                   staticClass: "button is-danger is-rounded",
-                  on: { click: _vm.closeCategoryModal }
+                  on: { click: _vm.closeProductModal }
                 },
                 [_vm._v("\n          Cancel\n        ")]
               )
@@ -49465,30 +49481,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Name")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Code")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Description")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Category")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Quantity")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Price")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Edit")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -63369,8 +63362,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/code/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/vagrant/code/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /app/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /app/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

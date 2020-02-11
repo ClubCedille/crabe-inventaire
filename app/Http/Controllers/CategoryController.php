@@ -102,7 +102,6 @@ class CategoryController extends Controller
         $category->description = $validatedUpdatedData["description"];
         $category->save();
 
-
         return view('category/index')
             ->with([
                 'categories' => Category::all(),

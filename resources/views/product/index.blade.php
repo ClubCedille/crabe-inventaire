@@ -7,6 +7,7 @@
         url="{{URL::to('/product')}}"
         :data="{{json_encode($products)}}"
         :categories="{{json_encode($categories)}}"
+       message="{{$message}}"
         
         >
         </product-component>
