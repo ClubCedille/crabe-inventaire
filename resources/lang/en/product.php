@@ -14,6 +14,8 @@ return [
     'quantity' => 'Quantity',
     'category' => 'Category',
     'price' => 'Price',
+    'updated' => 'The product was updated successfully',
+    'created' => 'The product was created successfully',
 ];
 
 

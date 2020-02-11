@@ -139,7 +139,12 @@ class ProductsController extends Controller
 
         $product->update();
 
-        return Redirect::to('/product');
+        return view('product/index')
+            ->with([
+                'products' => Product::all(),
+                'categories' => Category::all(),
+                'message' => __('product.updated')
+            ]);
     }
 
     /**

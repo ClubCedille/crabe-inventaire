@@ -134,7 +134,7 @@
           group: "category",
           title: "Notification",
           type: "success",
-          text: "Category updated !",
+          text: "success",
           duration: 5000
         });
       }
@@ -167,7 +167,7 @@
               description: currentObj.description
             })
             .then(function(response) {
-              currentObj.updateData("Hello user! Category was created!");
+                currentObj.updateData("Hello user! {{t('category.created')}}");
             })
             .catch(function(error) {
               console.log(error);

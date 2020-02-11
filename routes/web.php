@@ -75,13 +75,13 @@ Route::group(['middleware' => 'web'], function () {
                     Route::post('category', 'CategoryController@store');
                     Route::get('category', 'CategoryController@indexPage')->name('category');
                     Route::get('category/{id}/edit', 'CategoryController@edit');
-                    Route::put('category/{id}', 'CategoryController@update');
+                    Route::post('category/{id}', 'CategoryController@update');
                     Route::delete('category/{id}', 'CategoryController@destroy');
 
                     // Route::get('newProduct', 'ProductsController@create');
                     Route::post('product', 'ProductsController@store');
                     Route::get('product/{code}/edit', 'ProductsController@edit');
-                    Route::put('product/{product}', 'ProductsController@update');
+                    Route::post('product/{id}', 'ProductsController@update');
                     Route::delete('product/{product}', 'ProductsController@destroy');
                 });
             });

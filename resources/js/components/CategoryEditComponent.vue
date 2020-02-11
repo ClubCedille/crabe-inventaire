@@ -4,7 +4,6 @@
         <notifications group="category" position="top center" width="400" />
         <form method="POST" id="update-category-form" :action="this.url + '/' + this.category.id">
             <input type="hidden" name="_token" :value="this.csrf"/>
-            <input type="hidden" name="_method" value="PUT" />
             <div class="field">
                 <label class="label">{{ t('category.name') }}</label>
                 <div class="control">

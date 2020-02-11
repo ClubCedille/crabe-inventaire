@@ -17,9 +17,9 @@
           <th>{{ t('product.name') }}</th>
           <th>{{ t('product.code') }}</th>
           <th>{{ t('product.description') }}</th>
+          <th>{{ t('product.category') }}</th>
           <th>{{ t('product.quantity') }}</th>
           <th>{{ t('product.price') }}</th>
-          <th>{{ t('product.category') }}</th>
           <th>{{ t('actions.edit') }}</th>
         </tr>
       </thead>
@@ -160,9 +160,6 @@
               >
             </select>
 
-            <!--<div class="form-control">
-                 <input class="input" type="text" name="category_id" id="category_id" placeholder="Category_Id"  v-model="category_id">
-                 </div>-->
           </div>
         </section>
         <footer class="modal-card-foot">

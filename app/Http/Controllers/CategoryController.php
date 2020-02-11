@@ -55,7 +55,8 @@ class CategoryController extends Controller
         // Retourne une erreur quand Category n'est pas trouvé
         if (!$category) abort(Response::HTTP_NOT_FOUND);
 
-        return view('category/update')->with('category', $category);
+        return view('category/update')
+            ->with(['category' => $category,'message' =>'']);
     }
 
     /**
@@ -74,7 +75,7 @@ class CategoryController extends Controller
 
         return response()->json([
             "code" => Response::HTTP_CREATED,
-            "message" => "Category created!", // TODO: Traduire
+            "message" => __('category.created') , // TODO: Traduire
         ], Response::HTTP_CREATED);
     }
 
@@ -101,11 +102,10 @@ class CategoryController extends Controller
         $category->description = $validatedUpdatedData["description"];
         $category->save();
 
-
         return view('category/index')
             ->with([
                 'categories' => Category::all(),
-                'message' =>'category updated!' // TODO: Traduire
+                'message' => __('category.updated') // TODO: Traduire
             ]);
     }
 
