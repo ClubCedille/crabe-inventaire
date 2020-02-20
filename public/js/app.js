@@ -12042,23 +12042,27 @@ __webpack_require__.r(__webpack_exports__);
       this.modalActive = false;
     },
     deleteCategory: function deleteCategory(id) {
+      var _this = this;
+
       var currentObj = this;
 
-      if (confirm("are your sure to delete the category?")) {
+      if (confirm(this.t('category.confirmation.delete'))) {
         this.axios["delete"](this.url + "/" + id).then(function (response) {
-          currentObj.updateData("Hello user! Category was deleted!");
+          currentObj.updateData(_this.t('category.deleted'));
         })["catch"](function (error) {
           console.log(error);
         });
       }
     },
     createCategory: function createCategory(event) {
+      var _this2 = this;
+
       var currentObj = this;
       this.axios.post(this.url, {
         name: currentObj.name,
         description: currentObj.description
       }).then(function (response) {
-        currentObj.updateData("Hello user! {{t('category.created')}}");
+        currentObj.updateData(_this2.t('category.created'));
       })["catch"](function (error) {
         console.log(error);
       });
@@ -12275,7 +12279,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "product",
   props: {
@@ -12300,10 +12303,10 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     if (this.message.length != 0) {
       this.$notify({
-        group: 'product',
-        title: 'Notification',
-        type: 'success',
-        text: 'Product updated !',
+        group: "product",
+        title: "Notification",
+        type: "success",
+        text: "Product updated !",
         duration: 5000
       });
     }
@@ -12316,17 +12319,21 @@ __webpack_require__.r(__webpack_exports__);
       this.modalActive = false;
     },
     deleteProduct: function deleteProduct(id) {
+      var _this = this;
+
       var currentObj = this;
 
-      if (confirm("are your sure to delete this product?")) {
+      if (confirm(this.t("product.confirmation.delete"))) {
         this.axios["delete"](this.url + "/" + id).then(function (response) {
-          currentObj.updateData("Hello user! Product was deleted!");
+          currentObj.updateData(_this.t("product.deleted"));
         })["catch"](function (error) {
           console.log(error);
         });
       }
     },
     createProduct: function createProduct(event) {
+      var _this2 = this;
+
       var currentObj = this;
       this.axios.post(this.url, {
         code: currentObj.code,
@@ -12336,7 +12343,7 @@ __webpack_require__.r(__webpack_exports__);
         category_id: currentObj.category_id,
         quantity: currentObj.quantity
       }).then(function (response) {
-        currentObj.updateData("Hello user! A new product was created!");
+        currentObj.updateData(_this2.t("product.created"));
       })["catch"](function (error) {
         console.log(error);
       });
@@ -12345,7 +12352,6 @@ __webpack_require__.r(__webpack_exports__);
       var currentObj = this;
       this.axios.get(this.url + "/index").then(function (response) {
         currentObj.products = response.data;
-        console.log(this.url);
         currentObj.modalActive = false;
         currentObj.$notify({
           group: "product",
@@ -48770,7 +48776,7 @@ var render = function() {
                             1
                           ),
                           _vm._v(" "),
-                          _c("span", [_vm._v("Delete")])
+                          _c("span", [_vm._v(_vm._s(_vm.t("actions.delete")))])
                         ]
                       )
                     ])
@@ -62939,8 +62945,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /app/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /app/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/vagrant/code/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
