@@ -148,11 +148,11 @@
       },
       deleteCategory: function(id) {
         let currentObj = this;
-        if (confirm("are your sure to delete the category?")) {
+        if (confirm(this.t('category.confirmation.delete'))) {
           this.axios
               .delete(this.url + "/" + id)
-              .then(function(response) {
-                currentObj.updateData("Hello user! Category was deleted!");
+              .then((response) => {
+                currentObj.updateData(this.t('category.deleted'));
               })
               .catch(function(error) {
                 console.log(error);
@@ -166,8 +166,8 @@
               name: currentObj.name,
               description: currentObj.description
             })
-            .then(function(response) {
-                currentObj.updateData("Hello user! {{t('category.created')}}");
+            .then((response) => {
+                currentObj.updateData(this.t('category.created'));
             })
             .catch(function(error) {
               console.log(error);
@@ -177,7 +177,7 @@
         let currentObj = this;
         this.axios
             .get(this.url + "/index")
-            .then(function(response) {
+            .then((response) => {
               currentObj.categories = response.data;
               currentObj.modalActive = false;
               currentObj.$notify({

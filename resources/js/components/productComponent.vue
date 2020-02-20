@@ -1,6 +1,6 @@
 <template>
   <div class="containeris-fluid">
-    <p class="title is-2 is-spaced">{{ t('product.indexPage') }}</p>
+    <p class="title is-2 is-spaced">{{ t("product.indexPage") }}</p>
     <notifications group="product" position="top center" width="400" />
     <a
       class="button is-success is-rounded is-outlined is-medium"
@@ -9,18 +9,18 @@
       <span class="icon is-small">
         <font-awesome-icon icon="plus" />
       </span>
-      <span>{{ t('actions.add') }}</span>
+      <span>{{ t("actions.add") }}</span>
     </a>
     <table class="table is-hoverable">
       <thead>
         <tr>
-          <th>{{ t('product.name') }}</th>
-          <th>{{ t('product.code') }}</th>
-          <th>{{ t('product.description') }}</th>
-          <th>{{ t('product.category') }}</th>
-          <th>{{ t('product.quantity') }}</th>
-          <th>{{ t('product.price') }}</th>
-          <th>{{ t('actions.edit') }}</th>
+          <th>{{ t("product.name") }}</th>
+          <th>{{ t("product.code") }}</th>
+          <th>{{ t("product.description") }}</th>
+          <th>{{ t("product.category") }}</th>
+          <th>{{ t("product.quantity") }}</th>
+          <th>{{ t("product.price") }}</th>
+          <th>{{ t("actions.edit") }}</th>
         </tr>
       </thead>
       <tbody v-for="(item, index) in this.products" :key="index">
@@ -41,7 +41,7 @@
                   <span class="icon is-small">
                     <font-awesome-icon icon="edit" />
                   </span>
-                  <span>{{ t('actions.edit') }}</span>
+                  <span>{{ t("actions.edit") }}</span>
                 </a>
               </p>
               <p class="control">
@@ -52,7 +52,7 @@
                   <span class="icon is-small">
                     <font-awesome-icon icon="trash" />
                   </span>
-                  <span>Delete</span>
+                  <span>{{ t("actions.delete") }}</span>
                 </a>
               </p>
             </div>
@@ -159,7 +159,6 @@
                 >{{ category.name }}</option
               >
             </select>
-
           </div>
         </section>
         <footer class="modal-card-foot">
@@ -206,16 +205,15 @@ export default {
     };
   },
   mounted() {
-    if(this.message.length != 0 ){
-         this.$notify({
-         group: 'product',
-         title: 'Notification',
-         type: 'success',
-         text: 'Product updated !',
-         duration: 5000,
-         });
-
-         }
+    if (this.message.length != 0) {
+      this.$notify({
+        group: "product",
+        title: "Notification",
+        type: "success",
+        text: "Product updated !",
+        duration: 5000
+      });
+    }
   },
   methods: {
     addProduct: function(event) {
@@ -226,11 +224,11 @@ export default {
     },
     deleteProduct: function(id) {
       let currentObj = this;
-      if (confirm("are your sure to delete this product?")) {
+      if (confirm(this.t("product.confirmation.delete"))) {
         this.axios
           .delete(this.url + "/" + id)
-          .then(function(response) {
-            currentObj.updateData("Hello user! Product was deleted!");
+          .then(response => {
+            currentObj.updateData(this.t("product.deleted"));
           })
           .catch(function(error) {
             console.log(error);
@@ -248,8 +246,8 @@ export default {
           category_id: currentObj.category_id,
           quantity: currentObj.quantity
         })
-        .then(function(response) {
-          currentObj.updateData("Hello user! A new product was created!");
+        .then(response => {
+          currentObj.updateData(this.t("product.created"));
         })
         .catch(function(error) {
           console.log(error);
@@ -259,9 +257,8 @@ export default {
       let currentObj = this;
       this.axios
         .get(this.url + "/index")
-        .then(function(response) {
+        .then(response => {
           currentObj.products = response.data;
-          console.log(this.url);
           currentObj.modalActive = false;
           currentObj.$notify({
             group: "product",
