@@ -34,7 +34,7 @@ les vols. On évitera surtout les vols au niveau de l'argent qui est laissé dan
 
   - Ensuite cette commande pour la config de Homestead `php vendor/bin/homestead make`
 
-  - Ajouter cette ligne `192.168.10.10  homestead.test` dans le fichier `/etc/hosts` si vous changez le hostname dans ce fichier, il faut le faire aussi dans le fichier de config de Homestead  `Homestead.yaml`
+  - Ajouter cette ligne `192.168.10.10 homestead.test` dans le fichier `/etc/hosts` si vous changez le hostname dans ce fichier, il faut le faire aussi dans le fichier de config de Homestead `Homestead.yaml`
 
 - Renomer le fichier `.env.example` en `.env`
 
@@ -48,8 +48,13 @@ les vols. On évitera surtout les vols au niveau de l'argent qui est laissé dan
 
 Pour plus d'information sur la configuration, regardez [ce lien](https://laravel.com/docs/5.8/homestead) et [celui-ci](https://laravel.com/docs/5.8)
 
-Si un package manque dans la VM, vous pouvez y aller avec `vagrant ssh` (pass: `vagrant`) et l'installer manuellment avec `apt install`
-    - comme `apt-get install ifupdown` si `/sbin/ifdown: No such file or directory`
+Si un package manque dans la VM, vous pouvez y aller avec `vagrant ssh` (pass: `vagrant`) et l'installer manuellment avec `apt install` - comme `apt-get install ifupdown` si `/sbin/ifdown: No such file or directory`
+
+## Commandes, trucs & astuces
+
+#### Nettoyer la cache (doit être fait après la modification des fichiers de langues)
+
+- php artisan cache:clear
 
 ## Choix technologiques
 
