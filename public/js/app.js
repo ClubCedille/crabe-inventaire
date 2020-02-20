@@ -12352,7 +12352,6 @@ __webpack_require__.r(__webpack_exports__);
       var currentObj = this;
       this.axios.get(this.url + "/index").then(function (response) {
         currentObj.products = response.data;
-        console.log(this.url);
         currentObj.modalActive = false;
         currentObj.$notify({
           group: "product",
@@ -63362,8 +63361,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /app/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /app/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/vagrant/code/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
