@@ -120,7 +120,7 @@ class CategoryTest extends TestCase
         $category->name = $newName;
 
         $response = $this->actingAs($user)
-                         ->json('PUT', '/category/' . $idCategory,
+                         ->json('POST', '/category/' . $idCategory,
                                 $category->toArray());
 
         $response->assertStatus(Response::HTTP_OK);
@@ -176,7 +176,7 @@ class CategoryTest extends TestCase
             ->assertStatus(Response::HTTP_CREATED)
             ->assertJson([
                 "code" => Response::HTTP_CREATED,
-                "message" => "Category created!",
+                "message" => __('category.created'),
             ]);
 
         // Assert que la Category est dans la DB et les infos sont bon
