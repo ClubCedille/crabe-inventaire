@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<script src="/js/lang.js"></script>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -55,6 +56,9 @@
                             @if (Auth::user()->isAdmin === 1)
                                 <li class="nav-item">
                                     <a class="nav-link text-white" href="{{ route('category') }}">{{ __('auth.categoryList') }}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="{{ route('product') }}">{{ __('auth.productList') }}</a>
                                 </li>
                             @endif
                             <li class="nav-item dropdown">

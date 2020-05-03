@@ -11,6 +11,26 @@
 |
 */
 
+// Localization
+Route::get('/js/lang.js', function () {
+    $strings = Cache::rememberForever('lang.js', function () {
+        $lang = config('app.locale');
+
+        $files   = glob(resource_path('lang/' . $lang . '/*.php'));
+        $strings = [];
+
+        foreach ($files as $file) {
+            $name           = basename($file, '.php');
+            $strings[$name] = require $file;
+        }
+
+        return $strings;
+    });
+
+    header('Content-Type: text/javascript');
+    echo('window.i18n = ' . json_encode($strings) . ';');
+    exit();
+})->name('assets.lang');
 
 
 Route::group(['middleware' => 'web'], function () {
@@ -37,9 +57,10 @@ Route::group(['middleware' => 'web'], function () {
             Route::group(['middleware' => 'valid.membership'], function () {
 
                 //Route::resource('products','ProductsController')->only(['index','show']);
+
                 Route::get('product/index', 'ProductsController@index');
                 Route::get('product', 'ProductsController@indexPage')->name('product');
-                Route::get('product/{product}', 'ProductsController@show');
+                Route::get('product/{id}', 'ProductsController@show');
 
                 Route::get('home', 'HomeController@index')->name('home');
                 Route::get('category/index', 'CategoryController@index');
@@ -54,16 +75,15 @@ Route::group(['middleware' => 'web'], function () {
                     Route::post('category', 'CategoryController@store');
                     Route::get('category', 'CategoryController@indexPage')->name('category');
                     Route::get('category/{id}/edit', 'CategoryController@edit');
-                    Route::put('category/{id}', 'CategoryController@update');
+                    Route::post('category/{id}', 'CategoryController@update');
                     Route::delete('category/{id}', 'CategoryController@destroy');
 
-                    Route::get('newProduct', 'ProductsController@create');
+                    // Route::get('newProduct', 'ProductsController@create');
                     Route::post('product', 'ProductsController@store');
-                    Route::get('product/{product}/edit', 'ProductsController@edit');
-                    Route::put('product/{product}', 'ProductsController@update');
+                    Route::get('product/{code}/edit', 'ProductsController@edit');
+                    Route::post('product/{id}', 'ProductsController@update');
                     Route::delete('product/{product}', 'ProductsController@destroy');
                 });
-
             });
         });
     });

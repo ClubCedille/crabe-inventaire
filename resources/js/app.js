@@ -3,14 +3,22 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-import axios from 'axios'
-import VueAxios from 'vue-axios'
-require('./bootstrap');
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faEdit,faPlus,faSave,faTrash } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import Notifications from 'vue-notification'
-window.Vue = require('vue');
+import axios from "axios";
+import VueAxios from "vue-axios";
+require("./bootstrap");
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+  faEdit,
+  faPlus,
+  faSave,
+  faTrash
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import Notifications from "vue-notification";
+import _ from "lodash";
+window.Vue = require("vue");
+
+Vue.prototype.t = string => _.get(window.i18n, string);
 
 /**
  * The following block of code may be used to automatically register your
@@ -19,23 +27,43 @@ window.Vue = require('vue');
  *
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
-Vue.use(Notifications)
-library.add(faEdit)
-library.add(faPlus)
-library.add(faSave)
-library.add(faTrash)
-Vue.use(VueAxios, axios)
-Vue.component('font-awesome-icon', FontAwesomeIcon)
-const files = require.context('./', true, /\.vue$/i);
-files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+Vue.use(Notifications);
+library.add(faEdit);
+library.add(faPlus);
+library.add(faSave);
+library.add(faTrash);
+Vue.use(VueAxios, axios);
+Vue.component("font-awesome-icon", FontAwesomeIcon);
+const files = require.context("./", true, /\.vue$/i);
+files.keys().map(key =>
+  Vue.component(
+    key
+      .split("/")
+      .pop()
+      .split(".")[0],
+    files(key).default
+  )
+);
 
 Vue.component(
-    'compte-component', 
-    require('./components/ActiverCompte.vue').default
+  "compte-component",
+  require("./components/ActiverCompte.vue").default
 );
 Vue.component(
-    'category-component', 
-    require('./components/categoryComponent.vue').default
+  "category-component",
+  require("./components/categoryComponent.vue").default
+);
+Vue.component(
+  "product-component",
+  require("./components/productComponent.vue").default
+);
+Vue.component(
+  "category-edit-component",
+  require("./components/CategoryEditComponent.vue").default
+);
+Vue.component(
+  "product-edit-component",
+  require("./components/ProductEditComponent.vue").default
 );
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -44,5 +72,5 @@ Vue.component(
  */
 
 const app = new Vue({
-    el: '#app',
+  el: "#app"
 });

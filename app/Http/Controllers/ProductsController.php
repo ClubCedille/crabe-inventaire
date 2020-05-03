@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Category;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
@@ -16,11 +17,18 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $this->authorize('viewAny', Product::class);
+        // ?category={id} queryString
+        $categoryId = $request->input('category');
 
-        $products = Product::all();
+        if($categoryId){
+            $category = Category::find($categoryId);
+            $products = $category->products;
+        } else {
+            $products = Product::all();
+        }
+
         return response()->json($products);
     }
 
@@ -31,11 +39,38 @@ class ProductsController extends Controller
      */
     public function indexPage()
     {
-        $this->authorize('viewAny', Product::class);
-
+        $categories = Category::all();
         $products = Product::all();
-        //return response()->json($products);
-        return view('products.index', compact('products'));
+        return view('product/index')->with(['products' => $products,'categories' => $categories,'message' =>'']);
+    }
+
+    /**
+     * Display the specified product.
+     *
+     * @param  \App\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $product = Product::find($id);
+        // Retourne une erreur quand product n'est pas trouvé
+        if (!$product) return parent::notFoundResponse();
+
+        return response()->json($product);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($code)
+    {
+        $product = Product::find($code);
+        if (!$product) return parent::notFoundResponse();
+        $categories = Category::all();
+        return view('product.update')->with(['product' => $product,'categories' => $categories,'message' =>'']);
     }
 
     /**
@@ -45,9 +80,6 @@ class ProductsController extends Controller
      */
     public function create()
     {
-    
-        //dd('qqch random');
-        $this->authorize('create', Product::class);
         return view('products.create');
     }
 
@@ -59,8 +91,6 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', Product::class);
-
         $validData = $request->validate([
             'code' => 'alpha_num|required|between:5,30|unique:products,code',
             'name' => 'string|required|max:50',
@@ -72,38 +102,13 @@ class ProductsController extends Controller
 
         Product::create($validData);
 
-        //return response()->json('Le produit a été créé avec succès.');
-        return Redirect::to('/product');
+        return response()->json([
+            "code" => Response::HTTP_CREATED,
+            "message" => " created !", // TODO: Traduire
+        ], Response::HTTP_CREATED);
+
+        // return Redirect::to('/product');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Product $product)
-    {
-        $this->authorize('view', $product);
-
-        //return response()->json($product);
-         return View::make('products/show')->with('product', $product);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Product $product)
-    {
-        $this->authorize('update', $product);
-
-        //return response()->json($product);
-        return view('products.edit', compact('product'));
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -111,14 +116,13 @@ class ProductsController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-
-        $this->authorize('update', $product);
-        
+        $product = Product::find($id);
+        if (!$product) return parent::notFoundResponse();
 
         $validData = $request->validate([
-            'code' => 'alpha_num|required|between:5,30',
+            'code' => 'string|required|between:5,30',
             'name' => 'string|required|max:50',
             'description' => 'string|required|max:250',
             'price' => 'numeric|required|gt:0',
@@ -135,8 +139,12 @@ class ProductsController extends Controller
 
         $product->update();
 
-        //return response()->json("Le produit a été mis à jour.");
-        return Redirect::to('/product');
+        return view('product/index')
+            ->with([
+                'products' => Product::all(),
+                'categories' => Category::all(),
+                'message' => __('product.updated')
+            ]);
     }
 
     /**
@@ -145,12 +153,13 @@ class ProductsController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($code)
     {
-        $this->authorize('delete',$product);
+        $product = Product::where('code', $code);
+        if (!$product) abort(Response::HTTP_NOT_FOUND);
 
         $product->delete();
-        //return response()->json("Le produit fut supprimé.");
-        return Redirect::to('/product');
+        return response()->json("Le produit fut supprimé."); // TODO: Traduire
+
     }
 }

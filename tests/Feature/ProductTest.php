@@ -25,7 +25,6 @@ class ProductTest extends TestCase
 
         // S'assure que les keys soient présentes dans la réponse
         $response->assertStatus(Response::HTTP_OK);
-        $response->assertSee('Liste des produits');
         $response->assertSee(Product::find(1)->name);
     }
 
@@ -75,12 +74,14 @@ class ProductTest extends TestCase
         // S'assure que les keys soient présentes dans la réponse
         $response
             ->assertStatus(Response::HTTP_OK)
-            ->assertSee('Id')
-            ->assertSee('Code')
-            ->assertSee('Nom')
-            ->assertSee('Description')
-            ->assertSee('Id de la Catégorie');
-    }
+            ->assertJson([
+                'code' => $product->code,
+                'name' => $product->name,
+                'description' => $product->description,
+                'price' => $product->price,
+                'category_id' => $product->category_id,
+            ]);
+        }
 
     /**
      * Get une product qui n'existe pas et s'assure d'avoir reçu un code 404
