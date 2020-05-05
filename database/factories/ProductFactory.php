@@ -11,7 +11,7 @@ $factory->define(Product::class, function (Faker $faker) {
         'code' => uniqid("CODE"),
         'name' => $faker->word(2),
         'description' => $faker->paragraph(2),
-        'price' => $faker->numberBetween(50, 50000 ), // Integer cents
+        'price' => $faker->numberBetween(1, 100 ), // Integer cents
         'category_id' => Category::all()->random(1)->first(),
         'quantity' => $faker->numberBetween(0,20),
     ];

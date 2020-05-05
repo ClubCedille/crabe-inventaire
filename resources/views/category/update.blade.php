@@ -9,5 +9,7 @@
     message="{{$message}}">
     </category-edit-component>
 
-</section>
+    </form>
+
+  </section>
 @endsection

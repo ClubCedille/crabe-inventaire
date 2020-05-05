@@ -12,7 +12,10 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
+        /**
+         * Create the first user as am admin
+        */
+        $userId =  DB::table('users')->insert([
             'firstName' => "Club",
             'lastName' => 'Cedille',
             'codeUniversel' => 'AP123456',
@@ -22,28 +25,12 @@ class UsersSeeder extends Seeder
             'email_verified_at' => carbon::now(),
             'membershipExpirationDate' => carbon::now()->add(3, 'year'),
         ]);
-
-        DB::table('users')->insert([
-            'firstName' => "Utilisateur",
-            'lastName' => 'PasMembre',
-            'codeUniversel' => 'AP123457',
-            'email' => 'pasmembre@etsmtl.net',
-            'email_verified_at' => carbon::now(),
-            'password' => bcrypt('secret'),
+        DB::table('carts')->insert([
+            'user_id' => $userId,
         ]);
-
-        DB::table('users')->insert([
-            'firstName' => "Utilisateur",
-            'lastName' => 'Membre',
-            'codeUniversel' => 'AP123458',
-            'email' => 'membre@etsmtl.net',
-            'password' => bcrypt('secret'),
-            'email_verified_at' => carbon::now(),
-            'membershipExpirationDate' => carbon::now()->add(3, 'year'),
-        ]);
-
-        factory(App\User::class, 20)->create()->each(function ($user) {
-            $user->save();
-        });
+       
+        ///factory(App\User::class, 20)->create()->each(function ($user) {
+           // $user->save();
+        //});
     }
 }

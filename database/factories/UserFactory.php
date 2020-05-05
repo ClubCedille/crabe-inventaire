@@ -23,9 +23,9 @@ $factory->define(User::class, function (Faker $faker) {
         'lastName' => $faker->lastName,
         'codeUniversel' => $faker->randomLetter . $faker->randomLetter . $faker->numberBetween(10000, 99999),
         'email' => $faker->unique()->safeEmail,
-        'email_verified_at' => now(),
         'remember_token' => Str::random(10),
         'email_verified_at' => carbon::now(),
+        'membershipExpirationDate' => carbon::now()->addMonthsNoOverflow(6),
         'password' => bcrypt('secret'),
     ];
 });

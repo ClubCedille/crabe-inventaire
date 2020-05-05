@@ -54,39 +54,54 @@ class TransactionController extends Controller
     {
         $listOfProducts = array();
         $total = 0.00;
+        
+        if (Auth::check())
+        {
+            $user = Auth::user();
+            $cart = $user->cart;
+        }
+
+        
+
         $userIdData['user_id'] = Auth::id();
         $this->log = new Log($userIdData);
         $this->appTransaction = new AppTransaction($userIdData);
-          
-        $validatedData = $request->validate([
-            'products' => 'array|required',
-            'description' => 'string|required',
-        ]);
-        
-        $products = $validatedData["products"];
-        $description = $validatedData["description"];
+        $payer = new Payer();
+        $payer->setPaymentMethod('paypal');  
 
-        foreach ($products as &$productValue) {
+        $products = [];
+        $uniqueIds = [];
+        foreach($cart->products as $product){
 
-            $product = Product::findOrFail($productValue['id']);
-
-            if((int)$product->quantity - (int)$productValue['quantity'] > 0){
-                $total += (float)$product->price*(int)$productValue['quantity'];
-
-                $payer = new Payer();
-                $payer->setPaymentMethod('paypal');
+            if(!array_key_exists($product->id,$uniqueIds)){
+                $uniqueIds[$product->id] = 1;
+                array_push($products ,$product);
+            }else{
+                $uniqueIds[$product->id] = $uniqueIds[$product->id] + 1;
+            }
+        }
     
+        $newProducts = [];
+        foreach($products as $product){
+            $product["count"] = $uniqueIds[$product->id];
+            array_push($newProducts ,$product);
+        }
+ 
+        foreach ($newProducts as $product) {
+
+            if(((int)$product->quantity - (int)$product->count ) > 0){
+                $total += (float)$product->price*(int)$product->count;
                 $item_1 = new Item();
     
                 $item_1->setName($product->name) 
                     ->setCurrency(self::CURRENCY)
-                    ->setQuantity($productValue['quantity'])
+                    ->setQuantity($product->count)
                     ->setPrice($product->price); 
     
                 array_push($listOfProducts,$item_1);
             }else{
-                return Redirect::to('/home')->with('error', 'the quantity of this pruduct '+$product->name+' is not availble,' +$product->quantity+"  are left");
-            }
+               return Redirect::to('/home')->with('error', "the quantity of this pruduct ".$product->name."is not availble," .(int)$product->quantity."  are left");
+           }
            
         }
 
@@ -100,19 +115,19 @@ class TransactionController extends Controller
         $transaction = new Transaction();
         $transaction->setAmount($amount)
             ->setItemList($item_list)
-            ->setDescription($description);
+            ->setDescription("achat de pieces");
 
         // TODO put the right redirect url for each transaction type
         $redirect_urls = new RedirectUrls();
         $redirect_urls->setReturnUrl(URL::to('statustransaction')) 
-            ->setCancelUrl(URL::to('home'));
+            ->setCancelUrl(URL::to('cart'));
 
         $payment = new Payment();
         $payment->setIntent('Sale')
             ->setPayer($payer)
             ->setRedirectUrls($redirect_urls)
             ->setTransactions(array($transaction));
-      
+        
         
 
         try {
@@ -133,7 +148,7 @@ class TransactionController extends Controller
                 $this->appTransaction->status = 'failed';
                 $this->appTransaction->save();
                 // TODO put the right redirect url for each transaction type
-                return Redirect::to('/home')->with('error', 'Unknown error occurred  while processing the transaction');
+                return Redirect::to('/home')->with('error', __('transaction.unknown'));;
 
             } else {
 
@@ -148,12 +163,12 @@ class TransactionController extends Controller
                 $this->appTransaction->status = 'failed';
                 $this->appTransaction->save();
                 // TODO put the right redirect url for each transaction type
-                return Redirect::to('/home')->with('error', 'Unknown error occurred  while processing the transaction');;
+                return Redirect::to('/home')->with('error', __('transaction.unknown'));;
 
             }
 
         }
-  
+    
         foreach ($payment->getLinks() as $link) {
 
             if ($link->getRel() == 'approval_url') {
@@ -189,9 +204,11 @@ class TransactionController extends Controller
         }
 
         \Session::put('error', 'Unknown error occurred');
-        return Redirect::to('/home')->with('error', 'Unknown error occurred  while processing the transaction');
-
+        return Redirect::to('/home')->with('error', __('transaction.unknown'));
     }
+
+
+
     public function payAccountActivation(Request $request)
     {
         $listOfProducts = array();
@@ -199,7 +216,9 @@ class TransactionController extends Controller
         $userIdData['user_id'] = Auth::id();
         $this->log = new Log($userIdData);
         $this->appTransaction = new AppTransaction($userIdData);
-          
+        $payer = new Payer();
+        $payer->setPaymentMethod('paypal');
+
         $validatedData = $request->validate([
             'products' => 'array|required',
             'description' => 'string|required',
@@ -213,8 +232,6 @@ class TransactionController extends Controller
             $product = Product::find($productValue['id']);
             $total += (float)$product->price*(int)$productValue['quantity'];
 
-            $payer = new Payer();
-            $payer->setPaymentMethod('paypal');
 
             $item_1 = new Item();
 
@@ -249,7 +266,6 @@ class TransactionController extends Controller
             ->setRedirectUrls($redirect_urls)
             ->setTransactions(array($transaction));
       
-        
 
         try {
 
@@ -269,7 +285,7 @@ class TransactionController extends Controller
                 $this->appTransaction->status = 'failed';
                 $this->appTransaction->save();
                 // TODO put the right redirect url for each transaction type
-                return Redirect::to('/home')->with('error', 'Unknown error occurred  while processing the transaction');;
+                return Redirect::to('/home')->with('error', __('transaction.unknown'));;
 
             } else {
 
@@ -284,7 +300,7 @@ class TransactionController extends Controller
                 $this->appTransaction->status = 'failed';
                 $this->appTransaction->save();
                 // TODO put the right redirect url for each transaction type
-                return Redirect::to('/home')->with('error', 'Unknown error occurred  while processing the transaction');;
+                return Redirect::to('/home')->with('error', __('transaction.unknown'));;
 
             }
 
@@ -325,7 +341,7 @@ class TransactionController extends Controller
         }
 
         \Session::put('error', 'Unknown error occurred');
-        return Redirect::to('/home')->with('error', 'Unknown error occurred  while processing the transaction');
+        return Redirect::to('/home')->with('error', __('transaction.unknown'));
 
     }
 
@@ -358,8 +374,8 @@ class TransactionController extends Controller
 
         }
 
-        $this->processErrorPayment($userIdData,'activer', 'Unknown error occurred  while processing the transaction');
-        return Redirect::to('home')->with('error', 'Unknown error occurred  while processing the transaction');
+        $this->processErrorPayment($userIdData,'activer', __('transaction.unknown'));
+        return Redirect::to('home')->with('error', __('transaction.unknown'));
 
 
     }
@@ -392,8 +408,8 @@ class TransactionController extends Controller
 
         }
 
-        $this->processErrorPayment($userIdData,'activer', 'Unknown error occurred  while processing the transaction');
-        return Redirect::to('activer')->with('error', 'Unknown error occurred  while processing the transaction');
+        $this->processErrorPayment($userIdData,'activer', __('transaction.unknown'));
+        return Redirect::to('activer')->with('error', __('transaction.unknown'));
 
     }
 
@@ -401,7 +417,15 @@ class TransactionController extends Controller
      * update the quantity of products availble after client transaction
     */
     public function updateProductQuantity($currentUserId,$result){
-        $subscriptionAmount = $result->getTransactions()[0]->getAmount()->getTotal();
+
+        if (Auth::check())
+        {
+            $user = Auth::user();
+            $cart = $user->cart;
+        }
+
+
+        $transactionAmount = $result->getTransactions()[0]->getAmount()->getTotal();
         $log = new Log($currentUserId);
 
         \Session::put('success', 'Payment success');
@@ -409,24 +433,25 @@ class TransactionController extends Controller
         $log->message = 'transaction suscceded';
         $log->paymentId = $result->getId();
         $log->token = Input::get('token');
-        $log->total = $subscriptionAmount;
+        $log->total = $transactionAmount;
         $log->save();
 
         $appTransaction = AppTransaction::where('token',Input::get('token'))->firstOrFail();
 
-        foreach ($appTransaction->products as &$productValue) {
+        foreach ($appTransaction->products as $productValue) {
 
             $product = Product::findOrFail($productValue['id']);
-            if((int)$product->quantity - (int)$productValue['quantity'] > 0){
-              $product->updateQuantity($productValue['quantity']);
+            if((int)$product->quantity - (int)$productValue['count'] > 0){
+              $product->removeQuantity($productValue['count']);
             }else{
-                $appTransaction->status = 'failed, quantity of product not availble';
+                $appTransaction->status = __('transaction.quantity').__('transaction.quantity2');
                 $appTransaction->save();
-                return Redirect::to('/home')->with('error', 'the quantity of this pruduct '+$product->name+' is not availble,' +$product->quantity+"  are left, please contact a crabe member for assistance");
+                return Redirect::to('/home')->with('error', __('transaction.quantity').$product->name.__('transaction.quantity2'));
             }
         }
         $appTransaction->status = 'success';
         $appTransaction->save();
+        $cart->clear();
 
     }
     /**

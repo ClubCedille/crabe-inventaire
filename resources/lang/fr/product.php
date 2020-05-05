@@ -13,11 +13,11 @@ return [
     'quantity' => 'Quantite',
     'category' => 'Catégorie',
     'price' => 'Prix',
-    'updated' => 'Le produit a été mis a jour',
-    'created' => 'Le produit a été cree',
-    'deleted' => 'Le produit a été supprimé!',
+    'updated' => 'Le produit a été mise à jour',
+    'created' => 'Le produit a été créé',
+    'deleted' => 'Le produit a été supprimée!',
     'confirmation' => [
-        'delete' => 'Etes-vous certain de vouloir supprimer ce produit?',
+        'delete' => 'Êtes-vous certain de vouloir supprimer ce produit?',
     ],
     'placeholder' => [
         'description' => 'La description du produit ici.',

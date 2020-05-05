@@ -22,7 +22,7 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>
     <body>
-        <div id="app">
+       
             <nav class="navbar navbar-expand-md navbar-dark bg-black shadow-sm">
                 <div class="container ">
                     <a class="navbar-brand" href="{{ url('/') }}">
@@ -33,11 +33,17 @@
                     <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-
+                    
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <!-- Left Side Of Navbar -->
                         <ul class="navbar-nav mr-auto">
-
+                            @if (Auth::check())
+                            <li class="nav-item">
+                                <form action="{{ route('cart') }}">
+                                    <button  type="submit" value="go to cart" class="btn btn-outline-danger " >{{ __('cart.cart') }}</button>
+                                </form>
+                            </li>
+                            @endif
                         </ul>
 
                         <!-- Right Side Of Navbar -->
@@ -52,7 +58,7 @@
                                     <a class="nav-link text-white" href="{{ route('register') }}">{{ __('auth.register') }}</a>
                                 </li>
                             @endif
-                        @else
+                            @else
                             @if (Auth::user()->isAdmin === 1)
                                 <li class="nav-item">
                                     <a class="nav-link text-white" href="{{ route('category') }}">{{ __('auth.categoryList') }}</a>
@@ -83,10 +89,10 @@
                     </div>
                 </div>
             </nav>
-
-            <main class="container">
-                @yield('content')
-            </main>
-        </div>
+            <div id="app">
+                <main class="container">
+                    @yield('content')
+                </main>
+            </div>
     </body>
 </html>

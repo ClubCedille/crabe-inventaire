@@ -75,7 +75,7 @@ class CategoryController extends Controller
 
         return response()->json([
             "code" => Response::HTTP_CREATED,
-            "message" => __('category.created') , // TODO: Traduire
+            "message" => __('category.created') ,
         ], Response::HTTP_CREATED);
     }
 
@@ -105,7 +105,7 @@ class CategoryController extends Controller
         return view('category/index')
             ->with([
                 'categories' => Category::all(),
-                'message' => __('category.updated') // TODO: Traduire
+                'message' => __('category.updated')
             ]);
     }
 
@@ -121,7 +121,7 @@ class CategoryController extends Controller
 
         $category->delete();
         return response()->json([
-            "message" => "category deleted !", // TODO: Traduire
+            "message" => __('category.deleted'),
         ]);
     }
 

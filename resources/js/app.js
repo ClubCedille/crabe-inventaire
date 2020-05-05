@@ -16,9 +16,12 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import Notifications from "vue-notification";
 import _ from "lodash";
+
+import Vuetify from "vuetify";
+
 window.Vue = require("vue");
 
-Vue.prototype.t = string => _.get(window.i18n, string);
+Vue.prototype.t = (string) => _.get(window.i18n, string);
 
 /**
  * The following block of code may be used to automatically register your
@@ -28,6 +31,7 @@ Vue.prototype.t = string => _.get(window.i18n, string);
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 Vue.use(Notifications);
+Vue.use(Vuetify);
 library.add(faEdit);
 library.add(faPlus);
 library.add(faSave);
@@ -35,7 +39,7 @@ library.add(faTrash);
 Vue.use(VueAxios, axios);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 const files = require.context("./", true, /\.vue$/i);
-files.keys().map(key =>
+files.keys().map((key) =>
   Vue.component(
     key
       .split("/")
@@ -65,6 +69,29 @@ Vue.component(
   "product-edit-component",
   require("./components/ProductEditComponent.vue").default
 );
+Vue.component(
+    'product-component', 
+    require('./components/productComponent.vue').default
+);
+/**
+ * shop components
+ */
+Vue.component(
+  "item",
+  require("./components/shop/item.vue").default
+);
+Vue.component(
+  "items",
+  require("./components/shop/items.vue").default
+);
+Vue.component(
+  "cart",
+  require("./components/shop/cart.vue").default
+);
+Vue.component(
+  "cart-item",
+  require("./components/shop/cartItem.vue").default
+);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -72,5 +99,6 @@ Vue.component(
  */
 
 const app = new Vue({
-  el: "#app"
+  el: "#app",
+  vuetify: new Vuetify(),
 });
