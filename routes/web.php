@@ -62,6 +62,10 @@ Route::group(['middleware' => 'web'], function () {
                 Route::delete('cart/{id}/{productId}', 'CartController@destroy')->name('removefromcarte');
                 Route::delete('cart/{id}/product/{productId}', 'CartController@remove');
 
+                //receipts
+                Route::get('receipts', 'ReceiptsController@index')->name('receipts');
+                Route::get('receipts/pdf/{id}', 'ReceiptsController@download')->name('receipt.pdf');
+
                 //Route::resource('products','ProductsController')->only(['index','show']);
                 Route::get('/', 'HomeController@index')->name('home'); 
                 Route::get('product/index', 'ProductsController@index');

@@ -29,5 +29,5 @@ return [
     'requestAnother' => 'Cliquez ici pour en demander un nouveau',
     'categoryList' => 'Catégories',
     'productList' => 'Produits',
-
+    'receipts' => 'Reçus',
 ];

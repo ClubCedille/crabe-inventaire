@@ -20,6 +20,7 @@
         <!-- Styles -->
         <link href="{{ asset('css/bulma.css') }}" rel="stylesheet">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/crabe.css') }}" rel="stylesheet">
     </head>
     <body>
        
@@ -78,6 +79,9 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('auth.logout') }}
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('receipts') }}">
+                                        {{ __('auth.receipts') }}
+                                    </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
@@ -89,10 +93,10 @@
                     </div>
                 </div>
             </nav>
-            <div id="app">
-                <main class="container">
+          
+                <main id="app" class="container">
                     @yield('content')
                 </main>
-            </div>
+           
     </body>
 </html>

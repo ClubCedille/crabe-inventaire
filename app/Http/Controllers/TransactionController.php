@@ -20,6 +20,8 @@ use Session;
 use URL;
 use App\AppTransaction;
 use App\Log;
+use App\Mail\Receipt;
+use Mail;
 use Illuminate\Support\Facades\Auth;
 use App\Product;
 
@@ -55,11 +57,9 @@ class TransactionController extends Controller
         $listOfProducts = array();
         $total = 0.00;
         
-        if (Auth::check())
-        {
-            $user = Auth::user();
-            $cart = $user->cart;
-        }
+        $user = Auth::user();
+        $cart = $user->cart;
+        
 
         
 
@@ -189,7 +189,7 @@ class TransactionController extends Controller
             $this->appTransaction->paymentId = $payment->getId();
             $this->appTransaction->token = $payment->getToken();
             $this->appTransaction->total = $total;
-            $this->appTransaction->products = $products;
+            $this->appTransaction->products = $newProducts;
             $this->appTransaction->status = 'waiting on client authorization';
             $this->appTransaction->save();
 
@@ -230,9 +230,8 @@ class TransactionController extends Controller
         foreach ($products as &$productValue) {
 
             $product = Product::find($productValue['id']);
+            $product["count"] = 1;
             $total += (float)$product->price*(int)$productValue['quantity'];
-
-
             $item_1 = new Item();
 
             $item_1->setName($product->name) 
@@ -242,6 +241,8 @@ class TransactionController extends Controller
 
             array_push($listOfProducts,$item_1);
         }
+
+        $products = [$product];
 
         $item_list = new ItemList();
         $item_list->setItems($listOfProducts);
@@ -418,11 +419,8 @@ class TransactionController extends Controller
     */
     public function updateProductQuantity($currentUserId,$result){
 
-        if (Auth::check())
-        {
-            $user = Auth::user();
-            $cart = $user->cart;
-        }
+        $user = Auth::user();
+        $cart = $user->cart;
 
 
         $transactionAmount = $result->getTransactions()[0]->getAmount()->getTotal();
@@ -435,12 +433,13 @@ class TransactionController extends Controller
         $log->token = Input::get('token');
         $log->total = $transactionAmount;
         $log->save();
-
+        $products = [];
         $appTransaction = AppTransaction::where('token',Input::get('token'))->firstOrFail();
 
         foreach ($appTransaction->products as $productValue) {
 
             $product = Product::findOrFail($productValue['id']);
+            array_push($products,$product);
             if((int)$product->quantity - (int)$productValue['count'] > 0){
               $product->removeQuantity($productValue['count']);
             }else{
@@ -453,6 +452,10 @@ class TransactionController extends Controller
         $appTransaction->save();
         $cart->clear();
 
+        /**
+         * Send receipt to user
+        */
+        Mail::to($user)->send(new Receipt($user->firstName,$appTransaction->products,$appTransaction->total,$appTransaction->created_at));
     }
     /**
      * handle activation payement success
@@ -481,6 +484,11 @@ class TransactionController extends Controller
         }else if(intval($subscriptionAmount)=== 60){
             $user->subscribeFourYears();
         }
+
+        /**
+         * Send receipt to user
+        */
+        Mail::to($user)->send(new Receipt($user->firstName,$appTransaction->products,$appTransaction->total,$appTransaction->created_at));
 
     }
 
