@@ -40,7 +40,7 @@ les vols. On évitera surtout les vols au niveau de l'argent qui est laissé dan
 
 - Renomer le fichier `.env.example` en `.env`
 
-- Modifier le fichier `.env` avec les bonnes valeurs pour `PAYPAL_CLIENT_ID` et `PAYPAL_SECRET`, on récupère ces valeurs en connectant un compte [PayPal Developer](https://developer.paypal.com/) et créant une nouvelle app (il faut avoir un compte PayPal).
+- Modifier le fichier `.env` avec les bonnes valeurs pour `PAYPAL_CLIENT_ID` et `PAYPAL_SECRET`, on récupère ces valeurs en connectant un compte [PayPal Developer](https://developer.paypal.com/) et en créant une nouvelle app (il faut avoir un compte PayPal).
 
 - Modifier le fichier `.env` avec les bonnes valeurs pour `MAIL_USERNAME` et `MAIL_PASSWORD`, pour cela il faut créer un compte [mailtrap](https://mailtrap.io/), récupérer votre username et mot de pass et les ajouter au fichier `.env`.
 

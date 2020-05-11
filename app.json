@@ -1,0 +1,35 @@
+{
+  "name": "cedille-crabe-inventaire",
+  "scripts": {
+    "postdeploy": "npm run review-app"
+  },
+  "stack": "heroku-16",
+  "env": {
+    "APP_NAME": "C.R.A.B.E. (review app)",
+    "APP_ENV": "production"
+  },
+  "environments": {
+    "production": {
+      "env": {
+        "APP_NAME": "C.R.A.B.E. (review app)",
+        "APP_ENV": "production"
+      }
+    }
+  },
+  "env": {},
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "hobby"
+    }
+  },
+  "addons": ["jawsdb:kitefin"],
+  "buildpacks": [
+    {
+      "url": "heroku/php"
+    },
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
