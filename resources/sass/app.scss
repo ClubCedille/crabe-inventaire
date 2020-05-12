@@ -5,7 +5,8 @@
 @import 'variables';
 
 // Bootstrap
-//@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap/scss/bootstrap';
+
 //REACTTIVER COMPTE
 section.pricing {
   height: 100%;
@@ -71,4 +72,8 @@ section.pricing {
   .pricing .card:hover .btn {
     opacity: 1;
   }
+}
+
+#app {
+  height: 1000px !important;
 }
