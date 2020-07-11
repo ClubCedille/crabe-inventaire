@@ -38,7 +38,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <!-- Left Side Of Navbar -->
                         <ul class="navbar-nav mr-auto">
-                            @if (Auth::check())
+                            @if (Auth::check() && Auth::user()->isAdmin != 1)
                             <li class="nav-item">
                                 <form action="{{ route('cart') }}">
                                     <button  type="submit" value="go to cart" class="btn btn-outline-danger " >{{ __('cart.cart') }}</button>
