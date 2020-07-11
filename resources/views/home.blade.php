@@ -24,11 +24,12 @@
                 @endif
             </div>
     </div>
+    @if (Auth::user()->isAdmin != 1)
     <items 
         url="{{URL::to('/')}}"
         :data="{{json_encode($products)}}"
         :cart="{{json_encode($cart)}}">
         </items>
-
+        @endif
 </section>  
 @endsection
