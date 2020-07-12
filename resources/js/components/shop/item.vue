@@ -6,8 +6,8 @@
       <p class="pink--text body-1">Code: {{ product.code }}</p>
       <p>Description: {{ product.description }}</p>
       <p v-if="product.quantity <= 0" style="color:red;">NOT AVAILABLE</p>
-        <button v-if="product.quantity > 0" v-on:click="addTocart" class="button is-success is-rounded" >Add to cart</button>
-        <button v-else-if="product.quantity <= 0"  class="button is-success is-rounded" disabled>Add to cart</button>
+      <button v-if="product.quantity > 0" v-on:click="addTocart" class="button is-success is-rounded" >Add to cart</button>
+      <button v-else-if="product.quantity <= 0"  class="button is-success is-rounded" disabled>Add to cart</button>
     </v-card-text>
   </v-card>
 </template>

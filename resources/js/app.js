@@ -92,6 +92,18 @@ Vue.component(
   "cart-item",
   require("./components/shop/cartItem.vue").default
 );
+
+/**
+ * receipts components
+ */
+Vue.component(
+  "receipts",
+  require("./components/receipts/receipts.vue").default
+);
+// Vue.component(
+//   "receipt",
+//   require("./components/receipts/receipt.vue").default
+// );
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

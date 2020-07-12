@@ -32,5 +32,6 @@ return [
     'requestAnother' => 'click here to request another',
     'categoryList' => 'Categories',
     'productList' => 'Products',
+    'receipts' => 'Receipts',
 
 ];

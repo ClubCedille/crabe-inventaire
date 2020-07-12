@@ -20,6 +20,7 @@
         <!-- Styles -->
         <link href="{{ asset('css/bulma.css') }}" rel="stylesheet">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/crabe.css') }}" rel="stylesheet">
     </head>
     <body>
        
@@ -37,7 +38,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <!-- Left Side Of Navbar -->
                         <ul class="navbar-nav mr-auto">
-                            @if (Auth::check())
+                            @if (Auth::check() && Auth::user()->isAdmin != 1)
                             <li class="nav-item">
                                 <form action="{{ route('cart') }}">
                                     <button  type="submit" value="go to cart" class="btn btn-outline-danger " >{{ __('cart.cart') }}</button>
@@ -78,6 +79,9 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('auth.logout') }}
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('receipts') }}">
+                                        {{ __('auth.receipts') }}
+                                    </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
@@ -89,10 +93,10 @@
                     </div>
                 </div>
             </nav>
-            <div id="app">
-                <main class="container">
+          
+                <main id="app" class="container">
                     @yield('content')
                 </main>
-            </div>
+           
     </body>
 </html>
