@@ -3,8 +3,9 @@
 /public/storage
 /storage/*.key
 /vendor
-.env
 .env.testing
+.env.test
+.env.deploy
 .env.backup
 .phpunit.result.cache
 Homestead.json
