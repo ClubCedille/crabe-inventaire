@@ -2,7 +2,7 @@ version: '2'
 
 services:
   mariadb:
-    image: 'bitnami/mariadb:10.1'
+    image: bitnami/mariadb:10.1
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
       - MARIADB_USER=homestead
@@ -13,6 +13,7 @@ services:
   crabe:
     tty: true
     image: bitnami/laravel:6-debian-9
+    container_name: crabe
     environment:
       - DB_HOST=mariadb
       - DB_USERNAME=homestead
@@ -24,4 +25,3 @@ services:
       - 3000:3000
     volumes:
       - ./:/app
-    # privileged: true # Privileged mode could be required to run this container under Windows

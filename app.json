@@ -1,0 +1,22 @@
+{
+  "name": "cedille-crabe-inventaire",
+  "scripts": {
+    "postdeploy": "npm run review-app"
+  },
+  "stack": "heroku-18",
+  "env": {
+    "APP_NAME": "C.R.A.B.E. (review app)",
+    "APP_ENV": "deploy",
+    "NODE_ENV": "test",
+    "NPM_CONFIG_PRODUCTION": "false"
+  },
+  "addons": ["jawsdb:kitefin"],
+  "buildpacks": [
+    {
+      "url": "heroku/php"
+    },
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
