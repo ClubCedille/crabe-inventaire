@@ -31,15 +31,16 @@ jobs:
       install:
         - mv .env.test .env
         - php artisan migrate:fresh --force --no-interaction 
-        - php artisan db:seed
+        - php artisan db:seed --force --no-interaction
       script:
         - ./vendor/bin/phpunit
     - stage: deploy
+      if: branch = develop
       install:
         - mv .env.deploy .env
         - php artisan migrate:fresh --force --no-interaction 
         - sleep 30
-        - php artisan db:seed
+        - php artisan db:seed --force --no-interaction
       script:
         - echo deploying
       deploy:
