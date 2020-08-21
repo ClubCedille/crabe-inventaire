@@ -11997,34 +11997,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "activer",
   props: {
@@ -48649,9 +48621,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("section", { staticClass: "pricing py-5" }, [
     _c("div", { staticClass: "container" }, [
-      _c("p", { staticClass: "h1 text-warning" }, [
-        _vm._v("veuillez choisir un plan pour activer votre abonnement !")
-      ]),
+      _c(
+        "p",
+        { staticClass: "h1 text-warning", attrs: { id: "activer-title" } },
+        [_vm._v("veuillez choisir un plan pour activer votre abonnement !")]
+      ),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col" }, [
@@ -48670,7 +48644,7 @@ var render = function() {
               _vm._v(" "),
               _c("hr"),
               _vm._v(" "),
-              _vm._m(1),
+              _c("ul", { staticClass: "fa-ul" }),
               _vm._v(" "),
               _c(
                 "form",
@@ -48711,7 +48685,7 @@ var render = function() {
                     domProps: { value: _vm.csrf }
                   }),
                   _vm._v(" "),
-                  _vm._m(2)
+                  _vm._m(1)
                 ]
               )
             ])
@@ -48730,11 +48704,11 @@ var render = function() {
                 [_vm._v("Plus")]
               ),
               _vm._v(" "),
-              _vm._m(3),
+              _vm._m(2),
               _vm._v(" "),
               _c("hr"),
               _vm._v(" "),
-              _vm._m(4),
+              _c("ul", { staticClass: "fa-ul" }),
               _vm._v(" "),
               _c(
                 "form",
@@ -48775,7 +48749,7 @@ var render = function() {
                     domProps: { value: _vm.csrf }
                   }),
                   _vm._v(" "),
-                  _vm._m(5)
+                  _vm._m(3)
                 ]
               )
             ])
@@ -48799,33 +48773,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "fa-ul" }, [
-      _c("li", [
-        _c("span", { staticClass: "fa-li" }, [
-          _c("i", { staticClass: "fas fa-check" })
-        ]),
-        _vm._v("Single User\n              ")
-      ]),
-      _vm._v(" "),
-      _c("li", [
-        _c("span", { staticClass: "fa-li" }, [
-          _c("i", { staticClass: "fas fa-check" })
-        ]),
-        _vm._v("5GB Storage\n              ")
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "text-muted" }, [
-        _c("span", { staticClass: "fa-li" }, [
-          _c("i", { staticClass: "fas fa-times" })
-        ]),
-        _vm._v("Unlimited Private Projects\n              ")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("p", [
       _c("input", {
         staticClass: "btn btn-block btn-primary text-uppercase",
@@ -48840,27 +48787,6 @@ var staticRenderFns = [
     return _c("h6", { staticClass: "card-price text-center" }, [
       _vm._v("\n              60$\n              "),
       _c("span", { staticClass: "period" }, [_vm._v("pour 4 ans")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "fa-ul" }, [
-      _c("li", [
-        _c("span", { staticClass: "fa-li" }, [
-          _c("i", { staticClass: "fas fa-check" })
-        ]),
-        _vm._v(" "),
-        _c("strong", [_vm._v("5 Users")])
-      ]),
-      _vm._v(" "),
-      _c("li", [
-        _c("span", { staticClass: "fa-li" }, [
-          _c("i", { staticClass: "fas fa-check" })
-        ]),
-        _vm._v("50GB Storage\n              ")
-      ])
     ])
   },
   function() {

@@ -45,13 +45,13 @@ Route::group(['middleware' => 'web'], function () {
         Route::group(['middleware' => 'verified'], function () {
 
             // route for processing payment
-            Route::post('payaccount', 'TransactionController@payAccountActivation');
+            Route::post('payaccount', 'TransactionController@createOrderAccountActivation');
 
             Route::group(['middleware' => 'onlynot.active'], function () {
                 //payment to activate account
                 Route::get('activer', 'TransactionController@index')->name('activer');
                 // route for check status of the payment for account activation
-                Route::get('statusactivation', 'TransactionController@getPaymentStatusActivation')->name('statusactivation');
+                Route::get('statusactivation', 'TransactionController@captureOrder')->name('statusactivation');
             });
 
             Route::group(['middleware' => 'valid.membership'], function () {

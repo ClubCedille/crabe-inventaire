@@ -10979,6 +10979,10 @@ section.pricing {
   transition: all 0.2s;
 }
 
+#activer-title {
+  text-align: center;
+}
+
 /* Hover Effects on Card */
 
 @media (min-width: 992px) {

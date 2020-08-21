@@ -1,9 +1,7 @@
 <template>
   <section class="pricing py-5">
     <div class="container">
-      <p
-        class="h1 text-warning"
-      >veuillez choisir un plan pour activer votre abonnement !</p>
+      <p class="h1 text-warning" id="activer-title">veuillez choisir un plan pour activer votre abonnement !</p>
       <div class="row">
         <!-- Standard -->
         <div class="col">
@@ -16,21 +14,6 @@
               </h6>
               <hr>
               <ul class="fa-ul">
-                <li>
-                  <span class="fa-li">
-                    <i class="fas fa-check"></i>
-                  </span>Single User
-                </li>
-                <li>
-                  <span class="fa-li">
-                    <i class="fas fa-check"></i>
-                  </span>5GB Storage
-                </li>
-                <li class="text-muted">
-                  <span class="fa-li">
-                    <i class="fas fa-times"></i>
-                  </span>Unlimited Private Projects
-                </li>
               </ul>
               <form method="POST" id="payment-form" v-bind:action="urlPayement">
                     <!-- Hidden input -->
@@ -60,17 +43,6 @@
               </h6>
               <hr>
               <ul class="fa-ul">
-                <li>
-                  <span class="fa-li">
-                    <i class="fas fa-check"></i>
-                  </span>
-                  <strong>5 Users</strong>
-                </li>
-                <li>
-                  <span class="fa-li">
-                    <i class="fas fa-check"></i>
-                  </span>50GB Storage
-                </li>
               </ul>
               <form method="POST" id="payment-form" v-bind:action="urlPayement">
               <input type="hidden" name="products[1][quantity]" value="1">

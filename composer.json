@@ -14,6 +14,8 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
+        "paypal/paypal-checkout-sdk": "1.0.1",
+        "paypal/paypalhttp": "^1.0",
         "paypal/rest-api-sdk-php": "^1.14"
     },
     "require-dev": {

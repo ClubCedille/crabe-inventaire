@@ -25,6 +25,13 @@ use Mail;
 use Illuminate\Support\Facades\Auth;
 use App\Product;
 
+/**
+ * paypal v2
+ */
+use App\Http\Controllers\Paypal\PayPalClient;
+use PayPalCheckoutSdk\Orders\OrdersCreateRequest;
+use PayPalHttp\HttpException;
+use PayPalCheckoutSdk\Orders\OrdersCaptureRequest;
 class TransactionController extends Controller
 {
     private $_api_context;
@@ -59,10 +66,7 @@ class TransactionController extends Controller
         
         $user = Auth::user();
         $cart = $user->cart;
-        
-
-        
-
+    
         $userIdData['user_id'] = Auth::id();
         $this->log = new Log($userIdData);
         $this->appTransaction = new AppTransaction($userIdData);
@@ -208,6 +212,112 @@ class TransactionController extends Controller
     }
 
 
+    public static function captureOrder(Request $request)
+    {
+        
+        return response()->json($request);
+        $capturedRequest = new OrdersCaptureRequest($request->result->id);
+
+        $client = PayPalClient::client();
+        $response = $client->execute($capturedRequest);
+        if ($debug)
+        {
+            print "Status Code: {$response->statusCode}\n";
+            print "Status: {$response->result->status}\n";
+            print "Order ID: {$response->result->id}\n";
+            print "Links:\n";
+            foreach($response->result->links as $link)
+            {
+                print "\t{$link->rel}: {$link->href}\tCall Type: {$link->method}\n";
+            }
+            print "Capture Ids:\n";
+            foreach($response->result->purchase_units as $purchase_unit)
+            {
+                foreach($purchase_unit->payments->captures as $capture)
+                {    
+                    print "\t{$capture->id}";
+                }
+            }
+            // To toggle printing the whole response body comment/uncomment below line
+            echo json_encode($response->result, JSON_PRETTY_PRINT), "\n";
+        }
+
+        return $response;
+    }
+
+    /**
+     * Setting up the JSON request body for creating the Order. The Intent in the
+     * request body should be set as "CAPTURE" for capture intent flow.
+     * this is used for the account activation
+     */
+    private static function buildRequestBody()
+    {
+        return array (
+            'intent' => 'INVALID',
+            'purchase_units' =>
+                array (
+                    0 =>
+                        array (
+                            'amount' =>
+                                array (
+                                    'currency_code' => 'USD',
+                                    'value' => '100.00',
+                                ),
+                        ),
+                ),
+        );
+    }
+    public function createOrderAccountActivation()
+    {
+        $request = new OrdersCreateRequest();
+        $request->headers["prefer"] = "return=representation";
+        $request->body = self::buildRequestBody();
+
+        try{
+            $client = PayPalClient::client();
+            $order = $client->execute($request);
+            $statusCode = $order->statusCode;
+        }
+        catch(HttpException $exception){
+            $message = json_decode($exception->getMessage(), true);
+            $statusCode = $exception->statusCode;
+            //TODO save logs to db
+        }
+
+        
+        if($statusCode == 201){
+            $redirect_url = $this->getauthorizeUrl($order);
+
+            if (!empty($redirect_url)) {
+                //TODO save transaction to db
+                //TODO save logs to db
+                return Redirect::away($redirect_url);
+            }
+        }
+        
+        // correct redirect
+        return response()->json([$message,$statusCode]);
+    }
+
+    /**
+     * find the paypal authorize url to redirect the client 
+     * and return it
+     */
+    private function getauthorizeUrl($response){
+
+        foreach($response->result->links as $link)
+        {
+            if ($link->rel == 'approve') {
+                $redirect_url = $link->href;
+                break;
+            }
+        }
+        if (isset($redirect_url)) {
+            return $redirect_url;
+        }
+
+        return null;
+    }
 
     public function payAccountActivation(Request $request)
     {
@@ -256,7 +366,6 @@ class TransactionController extends Controller
             ->setItemList($item_list)
             ->setDescription($description);
 
-        // TODO put the right redirect url for each transaction type
         $redirect_urls = new RedirectUrls();
         $redirect_urls->setReturnUrl(URL::to('statusactivation')) 
             ->setCancelUrl(URL::to('activer'));
