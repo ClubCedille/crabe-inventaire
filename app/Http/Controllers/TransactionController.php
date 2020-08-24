@@ -38,6 +38,7 @@ class TransactionController extends Controller
     private $log;
     private $appTransaction;
     private const CURRENCY = "CAD";
+    private const LOCALE_CODE = "fr-CA";
     /**
      * Create a new controller instance.
      *
@@ -246,32 +247,41 @@ class TransactionController extends Controller
     }
 
     /**
-     * Setting up the JSON request body for creating the Order. The Intent in the
-     * request body should be set as "CAPTURE" for capture intent flow.
-     * this is used for the account activation
+     * 
      */
-    private static function buildRequestBody()
-    {
-        return array (
-            'intent' => 'INVALID',
-            'purchase_units' =>
-                array (
-                    0 =>
-                        array (
-                            'amount' =>
-                                array (
-                                    'currency_code' => 'USD',
-                                    'value' => '100.00',
-                                ),
-                        ),
-                ),
-        );
-    }
-    public function createOrderAccountActivation()
-    {
+    public function createOrderAccountActivation(Request $request)
+    {   
+        $validatedData = $request->validate([
+            'products' => 'array|required',
+            'description' => 'string|required',
+        ]);
+
+        $products = $validatedData["products"];
+        $description = $validatedData["description"];
+        
+        /**
+         * 
+         * build items
+         */
+        $items = array();
+        $total = 0.00;
+        foreach ($products as &$productValue) {
+
+            $product = Product::find($productValue['id']);
+            $product["count"] = 1;
+            $total += (float)$product->price*(int)$productValue['quantity'];
+
+            $item = array();
+            $item['name'] = $product->name;
+            $item['unit_amount'] = array('currency_code' => Self::CURRENCY, 'value' => $product->price);
+            $item['description'] = $description;
+            $item['quantity'] = (int)$productValue['quantity'];
+            array_push($items,$item);
+        }
+
         $request = new OrdersCreateRequest();
         $request->headers["prefer"] = "return=representation";
-        $request->body = self::buildRequestBody();
+        $request->body = self::buildRequestBody($products, $description, $items, $total);
 
         try{
             $client = PayPalClient::client();
@@ -289,16 +299,30 @@ class TransactionController extends Controller
             $redirect_url = $this->getauthorizeUrl($order);
 
             if (!empty($redirect_url)) {
-                //TODO save transaction to db
-                //TODO save logs to db
+                $this->saveOrderTransaction($order, $total, [$product]);
                 return Redirect::away($redirect_url);
             }
         }
-        
-        // correct redirect
-        return response()->json([$message,$statusCode]);
+
+        return response()->json([$message,$request->body]);
     }
 
+    /**
+     * save order transaction to db 
+     */
+    private function saveOrderTransaction($order, $total, $products){
+   
+        $this->appTransaction = new AppTransaction();
+        $this->appTransaction->user_id = Auth::id();
+        $this->appTransaction->statusCode = $order->statusCode;
+        $this->appTransaction->status = $order->result->status;
+        $this->appTransaction->orderId = $order->result->id;
+        $this->appTransaction->intent = $order->result->intent;
+        $this->appTransaction->total = $total;
+        $this->appTransaction->products = $products;
+        $this->appTransaction->save();
+    }
+    
     /**
      * find the paypal authorize url to redirect the client 
      * and return it
@@ -317,6 +341,43 @@ class TransactionController extends Controller
         }
 
         return null;
+    }
+
+       /**
+     * Setting up the JSON request body for creating the Order. The Intent in the
+     * request body should be set as "CAPTURE" for capture intent flow.
+     * this is used for the account activation
+     */
+    private static function buildRequestBody($products, $description, $items, $total)
+    {
+        $application_context = array();
+
+        $application_context['return_url'] = URL::to('statusactivation');
+        $application_context['cancel_url'] = URL::to('activer');
+        $application_context['brand_name'] = 'Crabe ETS';
+        $application_context['locale'] = Self::LOCALE_CODE;
+        $application_context['user_action'] = 'PAY_NOW';
+        
+        $purchase_units = array(array(
+            'description' =>'activation de compte crabe',
+            'amount' => array(
+                'currency_code' => Self::CURRENCY,
+                'value' => $total,
+                'breakdown' => array('item_total'=> array(
+                    'currency_code' => Self::CURRENCY,
+                    'value' => $total))
+                ),
+                'items' => $items
+            ),
+            
+        ); 
+
+        return array(
+            'intent' => 'CAPTURE',
+            'application_context' => $application_context,
+            'purchase_units' => $purchase_units
+        );
+        
     }
 
     public function payAccountActivation(Request $request)
