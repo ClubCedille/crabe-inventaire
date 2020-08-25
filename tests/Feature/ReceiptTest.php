@@ -25,12 +25,13 @@ class ReceiptTest extends TestCase
         $products = [$product1,$product2];
 
         $appTransaction = new AppTransaction;
-        $appTransaction->paymentId = "PAYID-L2XUSLA1A3260391B9259224";
-        $appTransaction->token = "EC-30U52827UH434811H";
-        $appTransaction->total = 299;
-        $appTransaction->status = "success";
-        $appTransaction->products = $products;
         $appTransaction->user_id = $user->id;
+        $appTransaction->statusCode = 201;
+        $appTransaction->status = 'COMPLETED';
+        $appTransaction->orderId = '3EF94855N2400825J';
+        $appTransaction->intent = 'CAPTURE';
+        $appTransaction->total = 299;
+        $appTransaction->products = $products;
         $appTransaction->save();
 
         $response = $this->actingAs($user)
@@ -57,12 +58,13 @@ class ReceiptTest extends TestCase
         $products = [$product1,$product2];
 
         $appTransaction = new AppTransaction;
-        $appTransaction->paymentId = "PAYID-L2XUSLA1A3260391B9259224";
-        $appTransaction->token = "EC-30U52827UH434811H";
-        $appTransaction->total = 299;
-        $appTransaction->status = "failed";
-        $appTransaction->products = $products;
         $appTransaction->user_id = $user->id;
+        $appTransaction->statusCode = 201;
+        $appTransaction->status = 'CREATED';
+        $appTransaction->orderId = '3EF94855N2400825J';
+        $appTransaction->intent = 'CAPTURE';
+        $appTransaction->total = 299;
+        $appTransaction->products = $products;
         $appTransaction->save();
 
         $response = $this->actingAs($user)

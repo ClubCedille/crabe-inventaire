@@ -20,6 +20,10 @@ class AppTransaction extends Model
         'status',
         'orderId',
         'intent',
+        'capture_id',
+        'net_amount',
+        'paypal_fee',
+        'payer_id',
         'total',
         'products'
     ];

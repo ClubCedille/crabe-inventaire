@@ -15,7 +15,7 @@ class UsersSeeder extends Seeder
         /**
          * Create the first user as am admin
         */
-        $userId =  DB::table('users')->insert([
+        DB::table('users')->insert([
             'firstName' => "Club",
             'lastName' => 'Cedille',
             'codeUniversel' => 'AP123456',
@@ -25,10 +25,15 @@ class UsersSeeder extends Seeder
             'email_verified_at' => carbon::now(),
             'membershipExpirationDate' => carbon::now()->add(3, 'year'),
         ]);
+        $id = DB::getPdo()->lastInsertId();;
+        DB::table('carts')->insert([
+            'user_id' => $id ,
+        ]);
+
          /**
          * Create user not admin and not memmber yet
         */
-        $userId2 =  DB::table('users')->insert([
+        DB::table('users')->insert([
             'firstName' => "james",
             'lastName' => 'bob',
             'codeUniversel' => 'AN123456',
@@ -38,11 +43,10 @@ class UsersSeeder extends Seeder
             'email_verified_at' => carbon::now(),
             'membershipExpirationDate' => carbon::now(),
         ]);
+        
+        $id = DB::getPdo()->lastInsertId();;
         DB::table('carts')->insert([
-            'user_id' => $userId,
-        ]);
-        DB::table('carts')->insert([
-            'user_id' => $userId2,
+            'user_id' => $id ,
         ]);
        
         ///factory(App\User::class, 20)->create()->each(function ($user) {
