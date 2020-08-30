@@ -7,6 +7,12 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+// bike css
+@import 'bike';
+
+body{
+  background-color: $body-bg !important 
+}
 //REACTTIVER COMPTE
 section.pricing {
   height: 100%;
@@ -79,5 +85,13 @@ section.pricing {
 }
 
 #app {
-  height: 1000px !important;
+  height: 100vh !important;
+}
+
+/* Login */
+
+.center-height {
+  -webkit-transform: translateY(50%);
+  -ms-transform: translateY(50%);
+  transform: translateY(50%);
 }

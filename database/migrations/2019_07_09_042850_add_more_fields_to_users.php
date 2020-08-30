@@ -18,6 +18,7 @@ class AddMoreFieldsToUsers extends Migration
             $table->renameColumn('name', 'firstName');
             $table->string('lastName');
             $table->string('codeUniversel');
+            $table->string('chipNumber');
             $table->boolean('isAdmin')->default(false);
             $table->dateTime('membershipExpirationDate')->default(Carbon::now());
         });

@@ -1,4 +1,5 @@
 <template>
+<div class="box">
   <v-card hover outlined>
     <v-card-text>
       <p class="mt-6 mb-0 title success--text">{{ product.name }}</p>
@@ -10,6 +11,7 @@
       <button v-else-if="product.quantity <= 0"  class="button is-success is-rounded" disabled>Add to cart</button>
     </v-card-text>
   </v-card>
+</div>
 </template>
 <script >
  export default {

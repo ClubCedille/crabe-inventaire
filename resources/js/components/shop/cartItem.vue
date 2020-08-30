@@ -59,6 +59,7 @@
               })
               .then((response) => {
                   currentObj.product = response.data;
+                  this.$emit('updatetotal')
               })
               .catch(function(error) {
                 console.log(error);
@@ -70,6 +71,7 @@
             .delete(this.url+"/"+currentObj.cartid+"/product/"+currentObj.product.id)
             .then((response) => {
                 currentObj.product = response.data;
+                this.$emit('updatetotal')
             })
             .catch(function(error) {
               console.log(error);

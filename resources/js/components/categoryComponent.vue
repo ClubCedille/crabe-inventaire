@@ -6,10 +6,10 @@
       class="button is-success is-rounded is-outlined is-medium"
       v-on:click="addCategory"
     >
-      <span class="icon is-small">
+       <span class="icon is-small">
         <font-awesome-icon icon="plus" />
       </span>
-      <p>{{ t('actions.add') }}</p>
+      <span>{{ t("actions.add") }}</span>
     </a>
     <table class="table is-hoverable">
       <thead>

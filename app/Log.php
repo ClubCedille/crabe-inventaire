@@ -14,14 +14,22 @@ class Log extends Model
      * @var array
      */
     protected $fillable = [
-        'status',
+        'location',
         'message',
         'user_id',
-        'paymentId'.
-        'token',
-        'code',
-        'total'
+        'payer_id'.
+        'orderId',
+        'statusCode',
     ];
+    /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'message' => 'array',
+    ];
+
     /**
      * user one to one relationship
      */

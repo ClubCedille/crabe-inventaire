@@ -17,8 +17,8 @@
               </ul>
               <form method="POST" id="payment-form" v-bind:action="urlPayement">
                     <!-- Hidden input -->
-              <input type="hidden" name="products[1][quantity]" value="1">
-              <input type="hidden" name="products[1][id]" value="1">
+              <input type="hidden" name="productsAll[1][quantity]" value="1">
+              <input type="hidden" name="productsAll[1][id]" value="1">
               <input type="hidden" name=description value="activation de l'abonnement crabe">
               <input type="hidden" name="_token" :value="csrf">
                 <p>
@@ -45,8 +45,8 @@
               <ul class="fa-ul">
               </ul>
               <form method="POST" id="payment-form" v-bind:action="urlPayement">
-              <input type="hidden" name="products[1][quantity]" value="1">
-              <input type="hidden" name="products[1][id]" value="2">
+              <input type="hidden" name="productsAll[1][quantity]" value="1">
+              <input type="hidden" name="productsAll[1][id]" value="2">
               <input type="hidden" name=description value="activation de l'abonnement crabe">
               <input type="hidden" name="_token" :value="csrf">
                 <p>
