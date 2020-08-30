@@ -30,7 +30,8 @@ class HomeController extends Controller
             $user = Auth::user();
         }
         $cart = $user->cart;
-        $products = Product::all();
-        return view('home', compact('user','products','cart'));
+        $products = Product::whereNotIn('id', [1, 2])->get();
+        $productsAll = Product::all();
+        return view('home', compact('user','products','cart','productsAll'));
     }
 }

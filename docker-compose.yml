@@ -25,3 +25,16 @@ services:
       - 3000:3000
     volumes:
       - ./:/app
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - mariadb
+    environment:
+      PMA_HOST: mariadb
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8183:80
+    depends_on:
+      - mariadb

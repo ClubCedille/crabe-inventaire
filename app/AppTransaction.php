@@ -16,10 +16,15 @@ class AppTransaction extends Model
      */
     protected $fillable = [
         'user_id',
-        'paymentId'.
-        'token',
-        'total',
+        'statusCode'.
         'status',
+        'orderId',
+        'intent',
+        'capture_id',
+        'net_amount',
+        'paypal_fee',
+        'payer_id',
+        'total',
         'products'
     ];
 

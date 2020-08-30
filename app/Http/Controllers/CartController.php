@@ -25,7 +25,7 @@ class CartController extends Controller
 
         /**
          * process products array to olny have
-         * one key perproducts and add count of porduct in
+         * one key per products and add count of porduct in
          * the cart
          */
         list($products,$uniqueIds) = $this->filterProductsArray($cart->products);
@@ -35,6 +35,33 @@ class CartController extends Controller
         }
 
         return view('cart/cart', compact('products','cart'));
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show()
+    {
+
+        if (Auth::check())
+        {
+            $user = Auth::user();
+            $cart = $user->cart;
+        }
+
+        /**
+         * process products array to olny have
+         * one key per products and add count of porduct in
+         * the cart
+         */
+        list($products,$uniqueIds) = $this->filterProductsArray($cart->products);
+
+        foreach($products as $product){
+            $product["count"] = $uniqueIds[$product->id];
+        }
+
+        return response()->json($products);
     }
 
     /**
@@ -179,7 +206,7 @@ class CartController extends Controller
      * @param  list of products
      * @return two arrays of unique ids and products filtered
      */
-    public function filterProductsArray($products){
+    private function filterProductsArray($products){
 
         $productsList = [];
         $uniqueIds = [];
@@ -196,7 +223,7 @@ class CartController extends Controller
         return array($productsList,$uniqueIds);
     }
 
-    public function getOnlyIds($products){
+    private function getOnlyIds($products){
         $productIds = [];
         foreach($products as $product){
             array_push($productIds ,$product->id);

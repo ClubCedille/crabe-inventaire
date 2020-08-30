@@ -45,19 +45,20 @@ Route::group(['middleware' => 'web'], function () {
         Route::group(['middleware' => 'verified'], function () {
 
             // route for processing payment
-            Route::post('payaccount', 'TransactionController@payAccountActivation');
+            Route::post('payaccount', 'TransactionController@createOrderAccountActivation');
 
             Route::group(['middleware' => 'onlynot.active'], function () {
                 //payment to activate account
                 Route::get('activer', 'TransactionController@index')->name('activer');
                 // route for check status of the payment for account activation
-                Route::get('statusactivation', 'TransactionController@getPaymentStatusActivation')->name('statusactivation');
+                Route::get('statusactivation', 'TransactionController@captureAccountActivationOrder')->name('statusactivation');
             });
 
             Route::group(['middleware' => 'valid.membership'], function () {
 
                 //Cart
                 Route::get('cart', 'CartController@index')->name('cart');
+                Route::get('cart/all', 'CartController@show')->name('cartshow');
                 Route::post('cart/{id}', 'CartController@update')->name('cartupdate');
                 Route::delete('cart/{id}/{productId}', 'CartController@destroy')->name('removefromcarte');
                 Route::delete('cart/{id}/product/{productId}', 'CartController@remove');
@@ -77,9 +78,9 @@ Route::group(['middleware' => 'web'], function () {
                 Route::get('category/index', 'CategoryController@index');
                 
                 //payment for normal product transaction
-                Route::post('transaction', 'TransactionController@transactionPayement')->name('transaction');
+                Route::post('transaction', 'TransactionController@createPaypalCartOrder')->name('transaction');
                 // route for check status of the payment of a transaction
-                Route::get('statustransaction', 'TransactionController@getTransactionStatus')->name('statustransaction');
+                Route::get('statustransaction', 'TransactionController@capturePaypalCartOrder')->name('statustransaction');
 
                 Route::group(['middleware' => 'admin'], function () {
                     Route::get('category/{id}', 'CategoryController@show');

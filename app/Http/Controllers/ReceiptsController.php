@@ -19,7 +19,7 @@ class ReceiptsController extends Controller
        
         $user = Auth::user();
         
-        $transactions = AppTransaction::where('status', 'success')
+        $transactions = AppTransaction::where('status', 'COMPLETED')
                     ->Where('user_id', $user->id)
                     ->get();
                     

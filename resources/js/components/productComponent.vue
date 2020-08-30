@@ -1,10 +1,16 @@
 <template>
   <div class="containeris-fluid">
-    <p class="title is-2 is-spaced">{{ t("product.indexPage") }}</p>
-    <notifications group="product" position="top center" width="400" />
+    <p class="title is-2 is-spaced">
+      {{ t("product.indexPage") }}
+    </p>
+    <notifications
+      group="product"
+      position="top center"
+      width="400"
+    />
     <a
       class="button is-success is-rounded is-outlined is-medium"
-      v-on:click="addProduct"
+      @click="addProduct"
     >
       <span class="icon is-small">
         <font-awesome-icon icon="plus" />
@@ -23,7 +29,10 @@
           <th>{{ t("actions.edit") }}</th>
         </tr>
       </thead>
-      <tbody v-for="(item, index) in this.products" :key="index">
+      <tbody
+        v-for="(item, index) in this.products"
+        :key="index"
+      >
         <tr>
           <th>{{ item.name }}</th>
           <td>{{ item.code }}</td>
@@ -36,7 +45,7 @@
               <p class="control">
                 <a
                   class="button is-info is-rounded is-outlined"
-                  v-bind:href="url + '/' + item.id + '/edit'"
+                  :href="url + '/' + item.id + '/edit'"
                 >
                   <span class="icon is-small">
                     <font-awesome-icon icon="edit" />
@@ -47,7 +56,7 @@
               <p class="control">
                 <a
                   class="button is-danger is-rounded is-outlined"
-                  v-on:click="deleteProduct(item.code)"
+                  @click="deleteProduct(item.code)"
                 >
                   <span class="icon is-small">
                     <font-awesome-icon icon="trash" />
@@ -61,29 +70,34 @@
       </tbody>
     </table>
 
-    <div class="modal" v-bind:class="{ 'is-active is-clipped': modalActive }">
-      <div class="modal-background"></div>
+    <div
+      class="modal"
+      :class="{ 'is-active is-clipped': modalActive }"
+    >
+      <div class="modal-background" />
       <div class="modal-card">
         <header class="modal-card-head">
-          <p class="modal-card-title">Add a product</p>
+          <p class="modal-card-title">
+            Add a product
+          </p>
           <button
             class="delete"
             aria-label="close"
-            v-on:click="closeProductModal"
-          ></button>
+            @click="closeProductModal"
+          />
         </header>
         <section class="modal-card-body">
           <div class="field">
             <label class="label">Name</label>
             <div class="control">
               <input
+                id="name"
+                v-model="name"
                 class="input"
                 type="text"
                 name="name"
                 placeholder="Name"
-                id="name"
-                v-model="name"
-              />
+              >
             </div>
           </div>
 
@@ -91,13 +105,13 @@
             <label class="label">Description</label>
             <div class="control">
               <input
+                id="description"
+                v-model="description"
                 class="input"
                 type="text"
                 name="description"
-                id="description"
                 placeholder="Description"
-                v-model="description"
-              />
+              >
             </div>
           </div>
 
@@ -105,13 +119,13 @@
             <label class="label">Code</label>
             <div class="control">
               <input
+                id="code"
+                v-model="code"
                 class="input"
                 type="text"
                 name="code"
-                id="code"
                 placeholder="Code"
-                v-model="code"
-              />
+              >
             </div>
           </div>
 
@@ -119,13 +133,13 @@
             <label class="label">Quantity</label>
             <div class="control">
               <input
+                id="quantity"
+                v-model="quantity"
                 class="input"
                 type="text"
                 name="quantity"
-                id="quantity"
                 placeholder="Quantity"
-                v-model="quantity"
-              />
+              >
             </div>
           </div>
 
@@ -133,13 +147,13 @@
             <label class="label">Price</label>
             <div class="control">
               <input
+                id="price"
+                v-model="price"
                 class="input"
                 type="text"
                 name="price"
-                id="price"
                 placeholder="Price"
-                v-model="price"
-              />
+              >
             </div>
           </div>
 
@@ -147,22 +161,32 @@
             <label class="label">Category</label>
 
             <select
+              v-model="category_id"
               class="form-control"
               name="category_id"
-              v-model="category_id"
             >
-              <option value="" selected disabled>Category</option>
+              <option
+                value=""
+                selected
+                disabled
+              >
+                Category
+              </option>
               <option
                 v-for="category in categories"
-                :value="category.id"
                 :key="category.id"
-                >{{ category.name }}</option
+                :value="category.id"
               >
+                {{ category.name }}
+              </option>
             </select>
           </div>
         </section>
         <footer class="modal-card-foot">
-          <a class="button is-success is-rounded " v-on:click="createProduct">
+          <a
+            class="button is-success is-rounded "
+            @click="createProduct"
+          >
             <span class="icon is-small">
               <font-awesome-icon icon="save" />
             </span>
@@ -170,7 +194,7 @@
           </a>
           <button
             class="button is-danger is-rounded"
-            v-on:click="closeProductModal"
+            @click="closeProductModal"
           >
             Cancel
           </button>
@@ -182,61 +206,61 @@
 
 <script>
 export default {
-  name: "product",
+  name: 'Product',
   props: {
     url: String,
     data: Array,
     message: String,
-    categories: Array
+    categories: Array,
   },
-  data: function() {
+  data() {
     return {
       products: this.data,
       csrf: document
         .querySelector('meta[name="csrf-token"]')
-        .getAttribute("content"),
+        .getAttribute('content'),
       modalActive: false,
-      code: "",
-      name: "",
-      description: "",
+      code: '',
+      name: '',
+      description: '',
       price: 0,
       category_id: 0,
-      quantity: 0
+      quantity: 0,
     };
   },
   mounted() {
     if (this.message.length != 0) {
       this.$notify({
-        group: "product",
-        title: "Notification",
-        type: "success",
-        text: "Product updated !",
-        duration: 5000
+        group: 'product',
+        title: 'Notification',
+        type: 'success',
+        text: 'Product updated !',
+        duration: 5000,
       });
     }
   },
   methods: {
-    addProduct: function(event) {
+    addProduct(event) {
       this.modalActive = true;
     },
-    closeProductModal: function(event) {
+    closeProductModal(event) {
       this.modalActive = false;
     },
-    deleteProduct: function(id) {
-      let currentObj = this;
-      if (confirm(this.t("product.confirmation.delete"))) {
+    deleteProduct(id) {
+      const currentObj = this;
+      if (confirm(this.t('product.confirmation.delete'))) {
         this.axios
-          .delete(this.url + "/" + id)
-          .then(response => {
-            currentObj.updateData(this.t("product.deleted"));
+          .delete(`${this.url}/${id}`)
+          .then((response) => {
+            currentObj.updateData(this.t('product.deleted'));
           })
-          .catch(function(error) {
+          .catch((error) => {
             console.log(error);
           });
       }
     },
-    createProduct: function(event) {
-      let currentObj = this;
+    createProduct(event) {
+      const currentObj = this;
       this.axios
         .post(this.url, {
           code: currentObj.code,
@@ -244,43 +268,43 @@ export default {
           description: currentObj.description,
           price: currentObj.price,
           category_id: currentObj.category_id,
-          quantity: currentObj.quantity
+          quantity: currentObj.quantity,
         })
-        .then(response => {
-          currentObj.updateData(this.t("product.created"));
+        .then((response) => {
+          currentObj.updateData(this.t('product.created'));
         })
-        .catch(function(error) {
+        .catch((error) => {
           console.log(error);
         });
     },
-    updateData: function(message) {
-      let currentObj = this;
+    updateData(message) {
+      const currentObj = this;
       this.axios
-        .get(this.url + "/index")
-        .then(response => {
+        .get(`${this.url}/index`)
+        .then((response) => {
           currentObj.products = response.data;
           currentObj.modalActive = false;
           currentObj.$notify({
-            group: "product",
-            title: "Notification",
-            type: "success",
+            group: 'product',
+            title: 'Notification',
+            type: 'success',
             text: message,
-            duration: 5000
+            duration: 5000,
           });
         })
-        .catch(function(error) {
+        .catch((error) => {
           console.log(error);
         });
     },
-    findCategoryName: function(category_id) {
-      let currentObj = this;
+    findCategoryName(category_id) {
+      const currentObj = this;
 
-      for (var i = 0; i < currentObj.categories.length; i++) {
+      for (let i = 0; i < currentObj.categories.length; i++) {
         if (currentObj.categories[i].id == category_id) {
           return currentObj.categories[i].name;
         }
       }
-    }
-  }
+    },
+  },
 };
 </script>

@@ -16,9 +16,14 @@ class CreateTransactionsTable extends Migration
         Schema::create('app_transactions', function (Blueprint $table) {
             $table->increments('transaction_id');
             $table->timestamps();
-            $table->string('paymentId')->nullable();
-            $table->string('token')->nullable();
+            $table->string('statusCode');
             $table->string('status');
+            $table->string('orderId');
+            $table->string('intent');
+            $table->string('capture_id')->nullable();
+            $table->string('net_amount')->nullable();
+            $table->string('paypal_fee')->nullable();
+            $table->string('payer_id')->nullable();
             $table->text('products');
             $table->integer('total');
             $table->integer('user_id')->unsigned();

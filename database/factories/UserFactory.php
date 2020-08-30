@@ -22,6 +22,7 @@ $factory->define(User::class, function (Faker $faker) {
         'firstName' => $faker->firstName,
         'lastName' => $faker->lastName,
         'codeUniversel' => $faker->randomLetter . $faker->randomLetter . $faker->numberBetween(10000, 99999),
+        'chipNumber' => $faker->isbn10,
         'email' => $faker->unique()->safeEmail,
         'remember_token' => Str::random(10),
         'email_verified_at' => carbon::now(),

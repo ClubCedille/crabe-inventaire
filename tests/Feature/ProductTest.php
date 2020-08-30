@@ -116,7 +116,7 @@ class ProductTest extends TestCase
         // make sure to find a product in the user home index
         $response->assertStatus(Response::HTTP_OK);
         $response->assertSee('</items>');
-        $response->assertSee(Product::find(1)->code);
+        $response->assertSee(Product::find(3)->code);
     }
 
 

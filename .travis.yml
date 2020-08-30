@@ -35,16 +35,16 @@ jobs:
       script:
         - ./vendor/bin/phpunit
     - stage: deploy
-      if: branch = develop
       install:
         - mv .env.deploy .env
-        - php artisan migrate:fresh --force --no-interaction 
-        - sleep 30
-        - php artisan db:seed --force --no-interaction
       script:
         - echo deploying
       deploy:
         provider: heroku
+        script:
+          - php artisan migrate:fresh --force --no-interaction 
+          - sleep 30
+          - php artisan db:seed --force --no-interaction
         api_key:
           secure: $HEROKU_PASSWORD
         on: 
