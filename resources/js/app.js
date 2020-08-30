@@ -1,25 +1,27 @@
+/* eslint-disable no-undef */
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-import axios from "axios";
-import VueAxios from "vue-axios";
-require("./bootstrap");
-import { library } from "@fortawesome/fontawesome-svg-core";
+import axios from 'axios';
+import VueAxios from 'vue-axios';
+import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faEdit,
   faPlus,
   faSave,
-  faTrash
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import Notifications from "vue-notification";
-import _ from "lodash";
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import Notifications from 'vue-notification';
+import _ from 'lodash';
 
-import Vuetify from "vuetify";
+import Vuetify from 'vuetify';
 
-window.Vue = require("vue");
+require('./bootstrap');
+
+window.Vue = require('vue');
 
 Vue.prototype.t = (string) => _.get(window.i18n, string);
 
@@ -37,68 +39,66 @@ library.add(faPlus);
 library.add(faSave);
 library.add(faTrash);
 Vue.use(VueAxios, axios);
-Vue.component("font-awesome-icon", FontAwesomeIcon);
-const files = require.context("./", true, /\.vue$/i);
-files.keys().map((key) =>
-  Vue.component(
-    key
-      .split("/")
-      .pop()
-      .split(".")[0],
-    files(key).default
-  )
-);
+Vue.component('font-awesome-icon', FontAwesomeIcon);
+const files = require.context('./', true, /\.vue$/i);
+files.keys().map((key) => Vue.component(
+  key
+    .split('/')
+    .pop()
+    .split('.')[0],
+  files(key).default,
+));
 
 Vue.component(
-  "compte-component",
-  require("./components/ActiverCompte.vue").default
+  'compte-component',
+  require('./components/ActiverCompte.vue').default,
 );
 Vue.component(
-  "category-component",
-  require("./components/categoryComponent.vue").default
+  'category-component',
+  require('./components/categoryComponent.vue').default,
 );
 Vue.component(
-  "product-component",
-  require("./components/productComponent.vue").default
+  'product-component',
+  require('./components/productComponent.vue').default,
 );
 Vue.component(
-  "category-edit-component",
-  require("./components/CategoryEditComponent.vue").default
+  'category-edit-component',
+  require('./components/CategoryEditComponent.vue').default,
 );
 Vue.component(
-  "product-edit-component",
-  require("./components/ProductEditComponent.vue").default
+  'product-edit-component',
+  require('./components/ProductEditComponent.vue').default,
 );
 Vue.component(
-    'product-component', 
-    require('./components/productComponent.vue').default
+  'product-component',
+  require('./components/productComponent.vue').default,
 );
 /**
  * shop components
  */
 Vue.component(
-  "item",
-  require("./components/shop/item.vue").default
+  'item',
+  require('./components/shop/item.vue').default,
 );
 Vue.component(
-  "items",
-  require("./components/shop/items.vue").default
+  'items',
+  require('./components/shop/items.vue').default,
 );
 Vue.component(
-  "cart",
-  require("./components/shop/cart.vue").default
+  'cart',
+  require('./components/shop/cart.vue').default,
 );
 Vue.component(
-  "cart-item",
-  require("./components/shop/cartItem.vue").default
+  'cart-item',
+  require('./components/shop/cartItem.vue').default,
 );
 
 /**
  * receipts components
  */
 Vue.component(
-  "receipts",
-  require("./components/receipts/receipts.vue").default
+  'receipts',
+  require('./components/receipts/receipts.vue').default,
 );
 // Vue.component(
 //   "receipt",
@@ -110,7 +110,8 @@ Vue.component(
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+// eslint-disable-next-line no-unused-vars
 const app = new Vue({
-  el: "#app",
+  el: '#app',
   vuetify: new Vuetify(),
 });

@@ -11997,14 +11997,60 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "activer",
+  name: 'Activer',
   props: {
     url: String
   },
   data: function data() {
     return {
-      urlPayement: this.url + "/payaccount",
+      urlPayement: "".concat(this.url, "/payaccount"),
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
     };
   },
@@ -12067,8 +12113,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "category-edit",
+  name: 'CategoryEdit',
   props: {
     url: String,
     data: Object,
@@ -12077,9 +12139,9 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       category: this.data,
-      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
-      description: "",
-      name: ""
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      description: '',
+      name: ''
     };
   }
 });
@@ -12188,8 +12250,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "product-edit",
+  name: 'ProductEdit',
   props: {
     url: String,
     data: Object,
@@ -12199,10 +12279,10 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       product: this.data,
-      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
-      description: "",
-      name: "",
-      code: "",
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      description: '',
+      name: '',
+      code: '',
       quantity: 0,
       price: 0,
       category_id: 0
@@ -12332,8 +12412,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "category",
+  name: 'Category',
   props: {
     url: String,
     data: Array,
@@ -12342,28 +12443,29 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       categories: this.data,
-      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       modalActive: false,
-      description: "",
-      name: ""
+      description: '',
+      name: ''
     };
   },
   mounted: function mounted() {
+    // eslint-disable-next-line eqeqeq
     if (this.message.length != 0) {
       this.$notify({
-        group: "category",
-        title: "Notification",
-        type: "success",
-        text: "success",
+        group: 'category',
+        title: 'Notification',
+        type: 'success',
+        text: 'success',
         duration: 5000
       });
     }
   },
   methods: {
-    addCategory: function addCategory(event) {
+    addCategory: function addCategory() {
       this.modalActive = true;
     },
-    closeCategoryModal: function closeCategoryModal(event) {
+    closeCategoryModal: function closeCategoryModal() {
       this.modalActive = false;
     },
     deleteCategory: function deleteCategory(id) {
@@ -12372,7 +12474,7 @@ __webpack_require__.r(__webpack_exports__);
       var currentObj = this;
 
       if (confirm(this.t('category.confirmation.delete'))) {
-        this.axios["delete"](this.url + "/" + id).then(function (response) {
+        this.axios["delete"]("".concat(this.url, "/").concat(id)).then(function (response) {
           currentObj.updateData(_this.t('category.deleted'));
         })["catch"](function (error) {
           console.log(error);
@@ -12394,13 +12496,13 @@ __webpack_require__.r(__webpack_exports__);
     },
     updateData: function updateData(message) {
       var currentObj = this;
-      this.axios.get(this.url + "/index").then(function (response) {
+      this.axios.get("".concat(this.url, "/index")).then(function (response) {
         currentObj.categories = response.data;
         currentObj.modalActive = false;
         currentObj.$notify({
-          group: "category",
-          title: "Notification",
-          type: "success",
+          group: 'category',
+          title: 'Notification',
+          type: 'success',
           text: message,
           duration: 5000
         });
@@ -12604,8 +12706,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "product",
+  name: 'Product',
   props: {
     url: String,
     data: Array,
@@ -12615,11 +12741,11 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       products: this.data,
-      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       modalActive: false,
-      code: "",
-      name: "",
-      description: "",
+      code: '',
+      name: '',
+      description: '',
       price: 0,
       category_id: 0,
       quantity: 0
@@ -12628,10 +12754,10 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     if (this.message.length != 0) {
       this.$notify({
-        group: "product",
-        title: "Notification",
-        type: "success",
-        text: "Product updated !",
+        group: 'product',
+        title: 'Notification',
+        type: 'success',
+        text: 'Product updated !',
         duration: 5000
       });
     }
@@ -12648,9 +12774,9 @@ __webpack_require__.r(__webpack_exports__);
 
       var currentObj = this;
 
-      if (confirm(this.t("product.confirmation.delete"))) {
-        this.axios["delete"](this.url + "/" + id).then(function (response) {
-          currentObj.updateData(_this.t("product.deleted"));
+      if (confirm(this.t('product.confirmation.delete'))) {
+        this.axios["delete"]("".concat(this.url, "/").concat(id)).then(function (response) {
+          currentObj.updateData(_this.t('product.deleted'));
         })["catch"](function (error) {
           console.log(error);
         });
@@ -12668,20 +12794,20 @@ __webpack_require__.r(__webpack_exports__);
         category_id: currentObj.category_id,
         quantity: currentObj.quantity
       }).then(function (response) {
-        currentObj.updateData(_this2.t("product.created"));
+        currentObj.updateData(_this2.t('product.created'));
       })["catch"](function (error) {
         console.log(error);
       });
     },
     updateData: function updateData(message) {
       var currentObj = this;
-      this.axios.get(this.url + "/index").then(function (response) {
+      this.axios.get("".concat(this.url, "/index")).then(function (response) {
         currentObj.products = response.data;
         currentObj.modalActive = false;
         currentObj.$notify({
-          group: "product",
-          title: "Notification",
-          type: "success",
+          group: 'product',
+          title: 'Notification',
+          type: 'success',
           text: message,
           duration: 5000
         });
@@ -12734,8 +12860,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "receipts",
+  name: 'Receipts',
   props: {
     url: String,
     data: Array
@@ -12743,19 +12881,19 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       receipts: this.data,
-      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
     };
   },
   methods: {
     download: function download(id, date) {
       var currentObj = this;
-      this.axios.get(this.url + "/receipts/pdf/" + id, {
+      this.axios.get("".concat(this.url, "/receipts/pdf/").concat(id), {
         responseType: 'blob'
       }).then(function (response) {
         var url = window.URL.createObjectURL(new Blob([response.data]));
         var link = document.createElement('a');
         link.href = url;
-        link.setAttribute("download", "receipt_" + date + ".pdf");
+        link.setAttribute('download', "receipt_".concat(date, ".pdf"));
         document.body.appendChild(link);
         link.click();
       })["catch"](function (error) {
@@ -12835,8 +12973,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "cart",
+  name: 'Cart',
   props: {
     url: String,
     data: Array,
@@ -12848,8 +13000,11 @@ __webpack_require__.r(__webpack_exports__);
     return {
       products: this.data,
       total: 0,
-      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
     };
+  },
+  created: function created() {
+    this.$nextTick(this.updatetotalInner(this.products));
   },
   methods: {
     updateparent: function updateparent(productsFromChild) {
@@ -12866,15 +13021,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     updatetotal: function updatetotal() {
       var currentObj = this;
-      this.axios.get(this.url + "/all").then(function (response) {
+      this.axios.get("".concat(this.url, "/all")).then(function (response) {
         currentObj.updatetotalInner(response.data);
       })["catch"](function (error) {
         console.log(error);
       });
     }
-  },
-  created: function created() {
-    this.$nextTick(this.updatetotalInner(this.products));
   }
 });
 
@@ -12909,8 +13061,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "cart-item",
+  name: 'CartItem',
   props: {
     url: String,
     data: Object,
@@ -12919,7 +13090,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       product: this.data,
-      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
     };
   },
   watch: {
@@ -12928,21 +13099,21 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    removeFromCart: function removeFromCart(event) {
+    removeFromCart: function removeFromCart() {
       var _this = this;
 
       var currentObj = this;
-      this.axios["delete"](this.url + "/" + currentObj.cartid + "/" + currentObj.product.id).then(function (response) {
+      this.axios["delete"]("".concat(this.url, "/").concat(currentObj.cartid, "/").concat(currentObj.product.id)).then(function (response) {
         _this.$emit('updateparent', response.data);
       })["catch"](function (error) {
         console.log(error);
       });
     },
-    addQuantity: function addQuantity(event) {
+    addQuantity: function addQuantity() {
       var _this2 = this;
 
       var currentObj = this;
-      this.axios.post(this.url + "/" + currentObj.cartid, {
+      this.axios.post("".concat(this.url, "/").concat(currentObj.cartid), {
         productId: currentObj.product.id
       }).then(function (response) {
         currentObj.product = response.data;
@@ -12952,11 +13123,11 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
-    removeQuantity: function removeQuantity(event) {
+    removeQuantity: function removeQuantity() {
       var _this3 = this;
 
       var currentObj = this;
-      this.axios["delete"](this.url + "/" + currentObj.cartid + "/product/" + currentObj.product.id).then(function (response) {
+      this.axios["delete"]("".concat(this.url, "/").concat(currentObj.cartid, "/product/").concat(currentObj.product.id)).then(function (response) {
         currentObj.product = response.data;
 
         _this3.$emit('updatetotal');
@@ -12993,8 +13164,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "product",
+  name: 'Product',
   props: {
     url: String,
     data: Object,
@@ -13003,13 +13200,13 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       product: this.data,
-      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
     };
   },
   methods: {
-    addTocart: function addTocart(event) {
+    addTocart: function addTocart() {
       var currentObj = this;
-      this.axios.post(this.url + "/cart/" + currentObj.cartid, {
+      this.axios.post("".concat(this.url, "/cart/").concat(currentObj.cartid), {
         productId: currentObj.product.id
       }).then(function (response) {
         console.log(response);
@@ -13040,8 +13237,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "product",
+  name: 'Product',
   props: {
     url: String,
     data: Array,
@@ -13050,7 +13259,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       products: this.data,
-      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
     };
   }
 });
@@ -48657,7 +48866,11 @@ var render = function() {
       _c(
         "p",
         { staticClass: "h1 text-warning", attrs: { id: "activer-title" } },
-        [_vm._v("veuillez choisir un plan pour activer votre abonnement !")]
+        [
+          _vm._v(
+            "\n      veuillez choisir un plan pour activer votre abonnement !\n    "
+          )
+        ]
       ),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
@@ -48670,7 +48883,7 @@ var render = function() {
                   staticClass:
                     "card-title text-muted text-uppercase text-center"
                 },
-                [_vm._v("Standard")]
+                [_vm._v("\n              Standard\n            ")]
               ),
               _vm._v(" "),
               _vm._m(0),
@@ -48683,8 +48896,8 @@ var render = function() {
                 "form",
                 {
                   attrs: {
-                    method: "POST",
                     id: "payment-form",
+                    method: "POST",
                     action: _vm.urlPayement
                   }
                 },
@@ -48734,7 +48947,7 @@ var render = function() {
                   staticClass:
                     "card-title text-muted text-uppercase text-center"
                 },
-                [_vm._v("Plus")]
+                [_vm._v("\n              Plus\n            ")]
               ),
               _vm._v(" "),
               _vm._m(2),
@@ -48747,8 +48960,8 @@ var render = function() {
                 "form",
                 {
                   attrs: {
-                    method: "POST",
                     id: "payment-form",
+                    method: "POST",
                     action: _vm.urlPayement
                   }
                 },
@@ -48860,7 +49073,7 @@ var render = function() {
     { staticClass: "containeris-fluid" },
     [
       _c("p", { staticClass: "title is-2 is-spaced" }, [
-        _vm._v(_vm._s(_vm.t("category.update")))
+        _vm._v("\n    " + _vm._s(_vm.t("category.update")) + "\n  ")
       ]),
       _vm._v(" "),
       _c("notifications", {
@@ -48871,8 +49084,8 @@ var render = function() {
         "form",
         {
           attrs: {
-            method: "POST",
             id: "update-category-form",
+            method: "POST",
             action: this.url + "/" + this.category.id
           }
         },
@@ -48898,7 +49111,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "input",
-                attrs: { type: "text", name: "name", id: "name" },
+                attrs: { id: "name", type: "text", name: "name" },
                 domProps: { value: this.category.name },
                 on: {
                   input: function($event) {
@@ -48928,7 +49141,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "input",
-                attrs: { type: "text", name: "description", id: "description" },
+                attrs: { id: "description", type: "text", name: "description" },
                 domProps: { value: this.category.description },
                 on: {
                   input: function($event) {
@@ -48957,9 +49170,7 @@ var render = function() {
                   1
                 ),
                 _vm._v(
-                  "\n                " +
-                    _vm._s(_vm.t("actions.edit")) +
-                    "\n            "
+                  "\n        " + _vm._s(_vm.t("actions.edit")) + "\n      "
                 )
               ]
             )
@@ -48997,7 +49208,7 @@ var render = function() {
     { staticClass: "containeris-fluid" },
     [
       _c("p", { staticClass: "title is-2 is-spaced" }, [
-        _vm._v(_vm._s(_vm.t("product.update")))
+        _vm._v("\n    " + _vm._s(_vm.t("product.update")) + "\n  ")
       ]),
       _vm._v(" "),
       _c("notifications", {
@@ -49008,8 +49219,8 @@ var render = function() {
         "form",
         {
           attrs: {
-            method: "POST",
             id: "update-product-form",
+            method: "POST",
             action: this.url + "/" + this.product.id
           }
         },
@@ -49035,7 +49246,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "input",
-                attrs: { type: "text", name: "name", id: "name" },
+                attrs: { id: "name", type: "text", name: "name" },
                 domProps: { value: this.product.name },
                 on: {
                   input: function($event) {
@@ -49065,7 +49276,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "input",
-                attrs: { type: "text", name: "description", id: "description" },
+                attrs: { id: "description", type: "text", name: "description" },
                 domProps: { value: this.product.description },
                 on: {
                   input: function($event) {
@@ -49095,7 +49306,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "input",
-                attrs: { type: "text", name: "code", id: "code" },
+                attrs: { id: "code", type: "text", name: "code" },
                 domProps: { value: this.product.code },
                 on: {
                   input: function($event) {
@@ -49149,7 +49360,11 @@ var render = function() {
                 return _c(
                   "option",
                   { key: category.id, domProps: { value: category.id } },
-                  [_vm._v(_vm._s(category.name))]
+                  [
+                    _vm._v(
+                      "\n          " + _vm._s(category.name) + "\n        "
+                    )
+                  ]
                 )
               }),
               0
@@ -49172,7 +49387,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "input",
-                attrs: { type: "text", name: "quantity", id: "quantity" },
+                attrs: { id: "quantity", type: "text", name: "quantity" },
                 domProps: { value: this.product.quantity },
                 on: {
                   input: function($event) {
@@ -49202,7 +49417,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "input",
-                attrs: { type: "text", name: "price", id: "price" },
+                attrs: { id: "price", type: "text", name: "price" },
                 domProps: { value: this.product.price },
                 on: {
                   input: function($event) {
@@ -49231,9 +49446,7 @@ var render = function() {
                   1
                 ),
                 _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.t("actions.edit")) +
-                    "\n                "
+                  "\n        " + _vm._s(_vm.t("actions.edit")) + "\n      "
                 )
               ]
             )
@@ -49271,7 +49484,7 @@ var render = function() {
     { staticClass: "containeris-fluid" },
     [
       _c("p", { staticClass: "title is-2 is-spaced" }, [
-        _vm._v(_vm._s(_vm.t("category.index")))
+        _vm._v("\n    " + _vm._s(_vm.t("category.index")) + "\n  ")
       ]),
       _vm._v(" "),
       _c("notifications", {
@@ -49392,7 +49605,7 @@ var render = function() {
           _c("div", { staticClass: "modal-card" }, [
             _c("header", { staticClass: "modal-card-head" }, [
               _c("p", { staticClass: "modal-card-title" }, [
-                _vm._v("Create a category")
+                _vm._v("\n          Create a category\n        ")
               ]),
               _vm._v(" "),
               _c("button", {
@@ -49421,10 +49634,10 @@ var render = function() {
                   ],
                   staticClass: "input",
                   attrs: {
+                    id: "name",
                     type: "text",
                     name: "name",
-                    placeholder: _vm.t("category.placeholder.name"),
-                    id: "name"
+                    placeholder: _vm.t("category.placeholder.name")
                   },
                   domProps: { value: _vm.name },
                   on: {
@@ -49456,9 +49669,9 @@ var render = function() {
                   ],
                   staticClass: "input",
                   attrs: {
+                    id: "description",
                     type: "text",
                     name: "description",
-                    id: "description",
                     placeholder: _vm.t("category.placeholder.description")
                   },
                   domProps: { value: _vm.description },
@@ -49536,7 +49749,7 @@ var render = function() {
     { staticClass: "containeris-fluid" },
     [
       _c("p", { staticClass: "title is-2 is-spaced" }, [
-        _vm._v(_vm._s(_vm.t("product.indexPage")))
+        _vm._v("\n    " + _vm._s(_vm.t("product.indexPage")) + "\n  ")
       ]),
       _vm._v(" "),
       _c("notifications", {
@@ -49675,7 +49888,7 @@ var render = function() {
           _c("div", { staticClass: "modal-card" }, [
             _c("header", { staticClass: "modal-card-head" }, [
               _c("p", { staticClass: "modal-card-title" }, [
-                _vm._v("Add a product")
+                _vm._v("\n          Add a product\n        ")
               ]),
               _vm._v(" "),
               _c("button", {
@@ -49701,10 +49914,10 @@ var render = function() {
                     ],
                     staticClass: "input",
                     attrs: {
+                      id: "name",
                       type: "text",
                       name: "name",
-                      placeholder: "Name",
-                      id: "name"
+                      placeholder: "Name"
                     },
                     domProps: { value: _vm.name },
                     on: {
@@ -49734,9 +49947,9 @@ var render = function() {
                     ],
                     staticClass: "input",
                     attrs: {
+                      id: "description",
                       type: "text",
                       name: "description",
-                      id: "description",
                       placeholder: "Description"
                     },
                     domProps: { value: _vm.description },
@@ -49767,9 +49980,9 @@ var render = function() {
                     ],
                     staticClass: "input",
                     attrs: {
+                      id: "code",
                       type: "text",
                       name: "code",
-                      id: "code",
                       placeholder: "Code"
                     },
                     domProps: { value: _vm.code },
@@ -49800,9 +50013,9 @@ var render = function() {
                     ],
                     staticClass: "input",
                     attrs: {
+                      id: "quantity",
                       type: "text",
                       name: "quantity",
-                      id: "quantity",
                       placeholder: "Quantity"
                     },
                     domProps: { value: _vm.quantity },
@@ -49833,9 +50046,9 @@ var render = function() {
                     ],
                     staticClass: "input",
                     attrs: {
+                      id: "price",
                       type: "text",
                       name: "price",
-                      id: "price",
                       placeholder: "Price"
                     },
                     domProps: { value: _vm.price },
@@ -49887,14 +50100,20 @@ var render = function() {
                     _c(
                       "option",
                       { attrs: { value: "", selected: "", disabled: "" } },
-                      [_vm._v("Category")]
+                      [_vm._v("\n              Category\n            ")]
                     ),
                     _vm._v(" "),
                     _vm._l(_vm.categories, function(category) {
                       return _c(
                         "option",
                         { key: category.id, domProps: { value: category.id } },
-                        [_vm._v(_vm._s(category.name))]
+                        [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(category.name) +
+                              "\n            "
+                          )
+                        ]
                       )
                     })
                   ],
@@ -49983,7 +50202,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("Download")]
+                [_vm._v("\n            Download\n          ")]
               )
             ])
           ])
@@ -50000,9 +50219,13 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { staticClass: "text-left" }, [_vm._v("Date")]),
+        _c("th", { staticClass: "text-left" }, [
+          _vm._v("\n          Date\n        ")
+        ]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-left" }, [_vm._v("total")]),
+        _c("th", { staticClass: "text-left" }, [
+          _vm._v("\n          total\n        ")
+        ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-left" })
       ])
@@ -50081,7 +50304,7 @@ var render = function() {
                     _c("img", {
                       attrs: { src: _vm.icon, alt: "paypal checkout" }
                     }),
-                    _vm._v(" or Credit Card checkout\n      ")
+                    _vm._v(" or Credit Card checkout\n          ")
                   ]
                 )
               : _vm._e(),
@@ -50098,7 +50321,7 @@ var render = function() {
                     _c("img", {
                       attrs: { src: _vm.icon, alt: "paypal checkout" }
                     }),
-                    _vm._v(" or Credit Card checkout\n      ")
+                    _vm._v(" or Credit Card checkout\n          ")
                   ]
                 )
               : _vm._e()
@@ -50143,14 +50366,18 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "d-flex w-100 justify-content-between" }, [
-      _c("h5", { staticClass: "mb-1" }, [_vm._v(_vm._s(_vm.product.name))]),
+      _c("h5", { staticClass: "mb-1" }, [
+        _vm._v("\n      " + _vm._s(_vm.product.name) + "\n    ")
+      ]),
       _vm._v(" "),
       _c("small", { staticClass: "text-muted" }, [
         _vm._v(_vm._s(_vm.product.price) + "$")
       ])
     ]),
     _vm._v(" "),
-    _c("p", { staticClass: "mb-1" }, [_vm._v(_vm._s(_vm.product.description))]),
+    _c("p", { staticClass: "mb-1" }, [
+      _vm._v("\n    " + _vm._s(_vm.product.description) + "\n  ")
+    ]),
     _vm._v(" "),
     _c("small", { staticClass: "text-muted" }, [
       _vm._v(_vm._s(_vm.product.code))
@@ -50166,7 +50393,7 @@ var render = function() {
       _c(
         "button",
         { staticClass: "button is-danger", on: { click: _vm.removeFromCart } },
-        [_vm._v("Remove")]
+        [_vm._v("\n      Remove\n    ")]
       )
     ]),
     _vm._v(" "),
@@ -50174,13 +50401,13 @@ var render = function() {
       _c(
         "button",
         { staticClass: "button is-primary", on: { click: _vm.addQuantity } },
-        [_vm._v("+")]
+        [_vm._v("\n      +\n    ")]
       ),
       _vm._v(" "),
       _c(
         "button",
         { staticClass: "button is-danger", on: { click: _vm.removeQuantity } },
-        [_vm._v("-")]
+        [_vm._v("\n      -\n    ")]
       )
     ])
   ])
@@ -50217,15 +50444,19 @@ var render = function() {
         [
           _c("v-card-text", [
             _c("p", { staticClass: "mt-6 mb-0 title success--text" }, [
-              _vm._v(_vm._s(_vm.product.name))
+              _vm._v("\n        " + _vm._s(_vm.product.name) + "\n      ")
             ]),
             _vm._v(" "),
             _c("p", { staticClass: "pink--text body-1" }, [
-              _vm._v(_vm._s(_vm.product.price.toLocaleString()) + "$")
+              _vm._v(
+                "\n        " +
+                  _vm._s(_vm.product.price.toLocaleString()) +
+                  "$\n      "
+              )
             ]),
             _vm._v(" "),
             _c("p", { staticClass: "pink--text body-1" }, [
-              _vm._v("Code: " + _vm._s(_vm.product.code))
+              _vm._v("\n        Code: " + _vm._s(_vm.product.code) + "\n      ")
             ]),
             _vm._v(" "),
             _c("p", [
@@ -50234,7 +50465,7 @@ var render = function() {
             _vm._v(" "),
             _vm.product.quantity <= 0
               ? _c("p", { staticStyle: { color: "red" } }, [
-                  _vm._v("NOT AVAILABLE")
+                  _vm._v("\n        NOT AVAILABLE\n      ")
                 ])
               : _vm._e(),
             _vm._v(" "),
@@ -50245,7 +50476,7 @@ var render = function() {
                     staticClass: "button is-success is-rounded",
                     on: { click: _vm.addTocart }
                   },
-                  [_vm._v("Add to cart")]
+                  [_vm._v("\n        Add to cart\n      ")]
                 )
               : _vm.product.quantity <= 0
               ? _c(
@@ -50254,7 +50485,7 @@ var render = function() {
                     staticClass: "button is-success is-rounded",
                     attrs: { disabled: "" }
                   },
-                  [_vm._v("Add to cart")]
+                  [_vm._v("\n        Add to cart\n      ")]
                 )
               : _vm._e()
           ])
@@ -107442,6 +107673,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var vuetify__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify */ "./node_modules/vuetify/dist/vuetify.js");
 /* harmony import */ var vuetify__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(vuetify__WEBPACK_IMPORTED_MODULE_7__);
+/* eslint-disable no-undef */
+
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -107450,13 +107683,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
-
-
-
-
-
-
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 
@@ -107479,32 +107712,32 @@ _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_2__["library"].add(_f
 _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_2__["library"].add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__["faSave"]);
 _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_2__["library"].add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__["faTrash"]);
 Vue.use(vue_axios__WEBPACK_IMPORTED_MODULE_1___default.a, axios__WEBPACK_IMPORTED_MODULE_0___default.a);
-Vue.component("font-awesome-icon", _fortawesome_vue_fontawesome__WEBPACK_IMPORTED_MODULE_4__["FontAwesomeIcon"]);
+Vue.component('font-awesome-icon', _fortawesome_vue_fontawesome__WEBPACK_IMPORTED_MODULE_4__["FontAwesomeIcon"]);
 
 var files = __webpack_require__("./resources/js sync recursive \\.vue$/");
 
 files.keys().map(function (key) {
-  return Vue.component(key.split("/").pop().split(".")[0], files(key)["default"]);
+  return Vue.component(key.split('/').pop().split('.')[0], files(key)["default"]);
 });
-Vue.component("compte-component", __webpack_require__(/*! ./components/ActiverCompte.vue */ "./resources/js/components/ActiverCompte.vue")["default"]);
-Vue.component("category-component", __webpack_require__(/*! ./components/categoryComponent.vue */ "./resources/js/components/categoryComponent.vue")["default"]);
-Vue.component("product-component", __webpack_require__(/*! ./components/productComponent.vue */ "./resources/js/components/productComponent.vue")["default"]);
-Vue.component("category-edit-component", __webpack_require__(/*! ./components/CategoryEditComponent.vue */ "./resources/js/components/CategoryEditComponent.vue")["default"]);
-Vue.component("product-edit-component", __webpack_require__(/*! ./components/ProductEditComponent.vue */ "./resources/js/components/ProductEditComponent.vue")["default"]);
+Vue.component('compte-component', __webpack_require__(/*! ./components/ActiverCompte.vue */ "./resources/js/components/ActiverCompte.vue")["default"]);
+Vue.component('category-component', __webpack_require__(/*! ./components/categoryComponent.vue */ "./resources/js/components/categoryComponent.vue")["default"]);
+Vue.component('product-component', __webpack_require__(/*! ./components/productComponent.vue */ "./resources/js/components/productComponent.vue")["default"]);
+Vue.component('category-edit-component', __webpack_require__(/*! ./components/CategoryEditComponent.vue */ "./resources/js/components/CategoryEditComponent.vue")["default"]);
+Vue.component('product-edit-component', __webpack_require__(/*! ./components/ProductEditComponent.vue */ "./resources/js/components/ProductEditComponent.vue")["default"]);
 Vue.component('product-component', __webpack_require__(/*! ./components/productComponent.vue */ "./resources/js/components/productComponent.vue")["default"]);
 /**
  * shop components
  */
 
-Vue.component("item", __webpack_require__(/*! ./components/shop/item.vue */ "./resources/js/components/shop/item.vue")["default"]);
-Vue.component("items", __webpack_require__(/*! ./components/shop/items.vue */ "./resources/js/components/shop/items.vue")["default"]);
-Vue.component("cart", __webpack_require__(/*! ./components/shop/cart.vue */ "./resources/js/components/shop/cart.vue")["default"]);
-Vue.component("cart-item", __webpack_require__(/*! ./components/shop/cartItem.vue */ "./resources/js/components/shop/cartItem.vue")["default"]);
+Vue.component('item', __webpack_require__(/*! ./components/shop/item.vue */ "./resources/js/components/shop/item.vue")["default"]);
+Vue.component('items', __webpack_require__(/*! ./components/shop/items.vue */ "./resources/js/components/shop/items.vue")["default"]);
+Vue.component('cart', __webpack_require__(/*! ./components/shop/cart.vue */ "./resources/js/components/shop/cart.vue")["default"]);
+Vue.component('cart-item', __webpack_require__(/*! ./components/shop/cartItem.vue */ "./resources/js/components/shop/cartItem.vue")["default"]);
 /**
  * receipts components
  */
 
-Vue.component("receipts", __webpack_require__(/*! ./components/receipts/receipts.vue */ "./resources/js/components/receipts/receipts.vue")["default"]); // Vue.component(
+Vue.component('receipts', __webpack_require__(/*! ./components/receipts/receipts.vue */ "./resources/js/components/receipts/receipts.vue")["default"]); // Vue.component(
 //   "receipt",
 //   require("./components/receipts/receipt.vue").default
 // );
@@ -107514,9 +107747,10 @@ Vue.component("receipts", __webpack_require__(/*! ./components/receipts/receipts
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+// eslint-disable-next-line no-unused-vars
 
 var app = new Vue({
-  el: "#app",
+  el: '#app',
   vuetify: new vuetify__WEBPACK_IMPORTED_MODULE_7___default.a()
 });
 
@@ -107529,6 +107763,9 @@ var app = new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+/* eslint-disable no-multi-assign */
+
+/* eslint-disable global-require */
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -107540,10 +107777,11 @@ try {
   window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")["default"];
   window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 
-  __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
+  __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js"); // eslint-disable-next-line no-empty
+
 } catch (e) {}
 /**
- * We'll load the axios HTTP library which allows us to easily issue requests
+ * We'll load the axios HTT P library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */

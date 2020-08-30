@@ -3,18 +3,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
-use PayPal\Api\Amount;
-use PayPal\Api\Item;
-
-/** All Paypal Details class **/
-use PayPal\Api\ItemList;
-use PayPal\Api\Payer;
-use PayPal\Api\Payment;
-use PayPal\Api\PaymentExecution;
-use PayPal\Api\RedirectUrls;
-use PayPal\Api\Transaction;
-use PayPal\Auth\OAuthTokenCredential;
-use PayPal\Rest\ApiContext;
 use Redirect;
 use Session;
 use URL;
@@ -35,8 +23,6 @@ use PayPalCheckoutSdk\Orders\OrdersCaptureRequest;
 
 class TransactionController extends Controller
 {
-    private $_api_context;
-    private $log;
     private $appTransaction;
     private const CURRENCY = "CAD";
     private const LOCALE_CODE = "fr-CA";
@@ -48,7 +34,6 @@ class TransactionController extends Controller
      */
     public function __construct()
     {
-
     }
     public function index()
     {
@@ -82,8 +67,13 @@ class TransactionController extends Controller
             \Session::put('error', 'error while processing paypal cart order');
             $message = json_decode($exception->getMessage(), true);
             $statusCode = $exception->statusCode;
-            $this->processErrorPayment('error while processing paypal cart order', 
-                        $message, null, $statusCode, null);
+            $this->processErrorPayment(
+                'error while processing paypal cart order',
+                $message,
+                null,
+                $statusCode,
+                null
+            );
         }
 
         if ($statusCode == 201) {
@@ -98,7 +88,7 @@ class TransactionController extends Controller
         \Session::put('error', 'Unknown error occurred');
         return Redirect::to('/home')->with('error', __('transaction.unknown'));
     }
-        /**
+    /**
     * Paypal transaction handler for the Account activation component
     */
     public function createOrderAccountActivation(Request $request)
@@ -142,8 +132,13 @@ class TransactionController extends Controller
             \Session::put('error', 'error while processing paypal account activation order');
             $message = json_decode($exception->getMessage(), true);
             $statusCode = $exception->statusCode;
-            $this->processErrorPayment('error while processing paypal account activation order', 
-                        $message, null, $statusCode, null);
+            $this->processErrorPayment(
+                'error while processing paypal account activation order',
+                $message,
+                null,
+                $statusCode,
+                null
+            );
         }
 
         
@@ -163,10 +158,14 @@ class TransactionController extends Controller
 
     public function capturePaypalCartOrder(Request $request)
     {
-     
         if (empty(Input::get('PayerID')) || empty(Input::get('token'))) {
-            $this->processErrorPayment('PayerID or token not found for cart order capture', 
-                        null, Input::get('PayerID'), null, Input::get('token'));
+            $this->processErrorPayment(
+                'PayerID or token not found for cart order capture',
+                null,
+                Input::get('PayerID'),
+                null,
+                Input::get('token')
+            );
             return Redirect::to('activer')->with('error', 'transaction failed or canceled , please try again');
         }
 
@@ -180,8 +179,13 @@ class TransactionController extends Controller
             $message = json_decode($exception->getMessage(), true);
             $statusCode = $exception->statusCode;
             \Session::put('error', 'Some error occur, sorry for inconvenience');
-            $this->processErrorPayment('error while processing paypal cart order capture', 
-                        $message, Input::get('PayerID'), $statusCode, Input::get('token'));
+            $this->processErrorPayment(
+                'error while processing paypal cart order capture',
+                $message,
+                Input::get('PayerID'),
+                $statusCode,
+                Input::get('token')
+            );
         }
         if ($statusCode == 201 && $orderCapture->result->status == 'COMPLETED') {
             $this->updateProductQuantity($orderCapture->result);
@@ -199,8 +203,13 @@ class TransactionController extends Controller
 
     
         if (empty(Input::get('PayerID')) || empty(Input::get('token'))) {
-            $this->processErrorPayment('PayerID or token not found account activation order capture', 
-                        null, Input::get('PayerID'), null, Input::get('token'));
+            $this->processErrorPayment(
+                'PayerID or token not found account activation order capture',
+                null,
+                Input::get('PayerID'),
+                null,
+                Input::get('token')
+            );
             return Redirect::to('activer')->with('error', 'transaction failed or canceled , please try again');
         }
 
@@ -214,8 +223,13 @@ class TransactionController extends Controller
             $message = json_decode($exception->getMessage(), true);
             $statusCode = $exception->statusCode;
             \Session::put('error', 'Some error occur, sorry for inconvenience');
-            $this->processErrorPayment('error while processing account activation order capture', 
-                        $message, Input::get('PayerID'), $statusCode, Input::get('token'));
+            $this->processErrorPayment(
+                'error while processing account activation order capture',
+                $message,
+                Input::get('PayerID'),
+                $statusCode,
+                Input::get('token')
+            );
         }
         if ($statusCode == 201 && $orderCapture->result->status == 'COMPLETED') {
             $this->activateSubscription($orderCapture->result);
@@ -262,7 +276,7 @@ class TransactionController extends Controller
         );
     }
     /**
-     * build products as items to send for the transaction 
+     * build products as items to send for the transaction
      */
     private function BuildItemList()
     {

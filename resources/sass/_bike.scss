@@ -4,7 +4,7 @@ $white: #fff;
 $darkgrey: #333;
 $grey: #999;
 $lightgrey: #dadada;
-$brown: #8D5852;
+$brown: #8d5852;
 $darkbrown: #522917;
 $red: red;
 $black: #000000;
@@ -41,12 +41,12 @@ $time2: 1.5s;
 }
 
 // rotate
-@mixin rotate ($deg) {
+@mixin rotate($deg) {
   @include transform(rotate(#{$deg}deg));
 }
 
 // Animation mixin
-@mixin animation ($animation, $duration, $timing, $iteration) {
+@mixin animation($animation, $duration, $timing, $iteration) {
   -webkit-animation-name: $animation;
   -webkit-animation-duration: $duration;
   -webkit-animation-timing-function: $timing;
