@@ -1,6 +1,6 @@
 language: php
 php:
-  - 7.4.3
+  - 7.3
 
 services:
   - mysql
@@ -22,7 +22,7 @@ before_install:
   - tar xvf secrets.tar
   - sudo mysql -e 'CREATE DATABASE IF NOT EXISTS homestead;'
   - composer self-update  
-  - composer install --prefer-source --no-interaction --dev 
+  - composer install --prefer-source --no-interaction
   - rm .env  
 
 jobs:
