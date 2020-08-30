@@ -14,9 +14,7 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
-        "paypal/paypal-checkout-sdk": "1.0.1",
-        "paypal/paypalhttp": "^1.0",
-        "paypal/rest-api-sdk-php": "^1.14"
+        "paypal/paypal-checkout-sdk": "1.0.1"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -31,7 +29,8 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "discard-changes": true
     },
     "extra": {
         "laravel": {
