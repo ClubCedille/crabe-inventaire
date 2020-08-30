@@ -2,8 +2,6 @@
 
 use Illuminate\Support\Str;
 
-
-
 $db_config =  [
     'driver' => 'mysql',
     'url' => env('DATABASE_URL'),
