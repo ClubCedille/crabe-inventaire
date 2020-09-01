@@ -35,16 +35,16 @@ jobs:
       script:
         - ./vendor/bin/phpunit
     - stage: deploy
+      if: branch = develop
       install:
         - mv .env.deploy .env
       script:
         - echo deploying
+        - php artisan migrate:fresh --force --no-interaction 
+        - sleep 30
+        - php artisan db:seed --force --no-interaction
       deploy:
-        provider: heroku
-        script:
-          - php artisan migrate:fresh --force --no-interaction 
-          - sleep 30
-          - php artisan db:seed --force --no-interaction
+        provider: heroku          
         api_key:
           secure: sFJYAlhkq5gICsVha29GhnU90qOogCw1tiFUrZLpW1Z6yXqqyljVqcHnD7yXvctSuw/CC/yT+AXx9yKkfq3+D5P2c3RvvaRGccw4fIANkeeOcoKUz3OFCb78JZXysMbNKw42PhBOaQRqccqi4In6GIbGj6lZCMQSAMcw79MKZkDmHrc8nrRBRGAKOhDDqCs8sNNsPo+UmLn09JX38eaILfmKa3W/Dorve5+74uCM1d9xtdNnFcenIhps0pB3uPhBKzpG66IN0mShQbvevEPox7EhobOlls0Zrgw9PbscqvliNeWCDCxsuDPEU/z9DJ8raOWRTa93SHJSb7PE4Vvo+PKBaRXnMk4xml/9OALIytJwedzhVf2shwkg1lV9iuDrIwU3TfCZvv160aprJMc6GRbpVgIeF2DI5zRg8EO/EUqPqGsc2W5lnbESg4j3g39ieHK7Git+K9CyZbC9Q5yh/7KVESXCLAAVtvuTwpdI3IksATqQvjR/7yMhIdKlKd0TDeSSYT8kWE2ynAO7rt5G+fmyKEzxrT9iVdohipMltYjhHXZqw/fxh/YZnlcSAdFxKmmxSH1lerdFIEgEQUnrNw2cu6RMfeeHLrBiS0le8aIWSliSP1gNT/aRdanzgno8dLvwBeBGKnEgciAkscNEGpxu8pE/CcQb2dlYk5OiW0M=
         on: 

@@ -18,7 +18,7 @@ import Notifications from 'vue-notification';
 import _ from 'lodash';
 
 import Vuetify from 'vuetify';
-
+import VCalendar from 'v-calendar';
 require('./bootstrap');
 
 window.Vue = require('vue');
@@ -39,6 +39,7 @@ library.add(faPlus);
 library.add(faSave);
 library.add(faTrash);
 Vue.use(VueAxios, axios);
+Vue.use(VCalendar);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 const files = require.context('./', true, /\.vue$/i);
 files.keys().map((key) => Vue.component(
@@ -91,6 +92,10 @@ Vue.component(
 Vue.component(
   'cart-item',
   require('./components/shop/cartItem.vue').default,
+);
+Vue.component(
+  'report',
+  require('./components/report.vue').default,
 );
 
 /**

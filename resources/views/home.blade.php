@@ -29,7 +29,10 @@
         url="{{URL::to('/')}}"
         :data="{{json_encode($products)}}"
         :cart="{{json_encode($cart)}}">
-        </items>
-        @endif
+    </items>
+    @endif
+    @if (Auth::user()->isAdmin)
+    <report :data="{{json_encode($products)}}" ></report>
+    @endif
 </section>  
 @endsection

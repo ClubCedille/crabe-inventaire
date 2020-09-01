@@ -25,13 +25,20 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (Auth::check())
-        {
+        if (Auth::check()) {
             $user = Auth::user();
         }
-        $cart = $user->cart;
-        $products = Product::whereNotIn('id', [1, 2])->get();
-        $productsAll = Product::all();
-        return view('home', compact('user','products','cart','productsAll'));
+
+        if ($user->isAdmin) {
+            $products = Product::where('quantity', '<', 5)->orderBy('quantity', 'asc')
+                    ->get();
+
+            return view('home', compact('products'));
+        } else {
+            $cart = $user->cart;
+            $products = Product::whereNotIn('id', [1, 2])->get();
+            $productsAll = Product::all();
+            return view('home', compact('user', 'products', 'cart', 'productsAll'));
+        }
     }
 }
