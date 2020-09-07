@@ -66,6 +66,19 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="chipNumber" class="col-md-4 col-form-label text-md-right">{{ __('user.chip') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="chipNumber" type="chipNumber" class="form-control @error('chipNumber') is-invalid @enderror" name="chipNumber" value="{{ old('chipNumber') }}" autocomplete="chipNumber">
+
+                                @error('chipNumber')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
 
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('user.password') }}</label>

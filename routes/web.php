@@ -91,6 +91,8 @@ Route::group(['middleware' => 'web'], function () {
                     Route::get('product/{code}/edit', 'ProductsController@edit');
                     Route::post('product/{id}', 'ProductsController@update');
                     Route::delete('product/{product}', 'ProductsController@destroy');
+                    Route::get('report/products/pdf', 'HomeController@downloadProductsReport')->name('products_report.pdf');
+                    Route::get('report/transactions/pdf/{start}/{end}', 'HomeController@downloadTransactionsReport')->name('transactions_report.pdf');
                 });
             });
         });

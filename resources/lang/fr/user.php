@@ -13,6 +13,7 @@ return [
     */
 
     'email'   => 'Adress Courriel',
+    'chip'   => 'Numéro de puce',
     'password' => 'Mot de passe',
     'confirmPassword' => 'Confirmation du Mot de passe',
     'firstName' => 'Prénom',

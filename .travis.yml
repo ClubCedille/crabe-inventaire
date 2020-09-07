@@ -22,8 +22,7 @@ before_install:
   - tar xvf secrets.tar
   - sudo mysql -e 'CREATE DATABASE IF NOT EXISTS homestead;'
   - composer self-update  
-  - composer install --prefer-source --no-interaction
-  - rm .env  
+  - composer install --prefer-source --no-interaction 
 
 jobs:
   include:
