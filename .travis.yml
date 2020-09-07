@@ -20,14 +20,15 @@ stages:
 before_install:
   - openssl aes-256-cbc -K $encrypted_3b9f0b9d36d1_key -iv $encrypted_3b9f0b9d36d1_iv -in secrets.tar.enc -out secrets.tar -d
   - tar xvf secrets.tar
-  
+  - sudo mysql -e 'CREATE DATABASE IF NOT EXISTS homestead;'
+  - composer self-update  
+  - composer install --prefer-source --no-interaction
+  - rm .env  
+
 jobs:
   include:
     - stage: test
       install:
-        - sudo mysql -e 'CREATE DATABASE IF NOT EXISTS homestead;'
-        - composer self-update  
-        - composer install --prefer-source --no-interaction 
         - mv .env.test .env
         - php artisan migrate:fresh --force --no-interaction 
         - php artisan db:seed --force --no-interaction
@@ -39,7 +40,11 @@ jobs:
       script:
         - echo deploying
       deploy:
-        provider: heroku          
+        provider: heroku
+        script:
+          - php artisan migrate:fresh --force --no-interaction 
+          - sleep 30
+          - php artisan db:seed --force --no-interaction
         api_key:
           secure: sFJYAlhkq5gICsVha29GhnU90qOogCw1tiFUrZLpW1Z6yXqqyljVqcHnD7yXvctSuw/CC/yT+AXx9yKkfq3+D5P2c3RvvaRGccw4fIANkeeOcoKUz3OFCb78JZXysMbNKw42PhBOaQRqccqi4In6GIbGj6lZCMQSAMcw79MKZkDmHrc8nrRBRGAKOhDDqCs8sNNsPo+UmLn09JX38eaILfmKa3W/Dorve5+74uCM1d9xtdNnFcenIhps0pB3uPhBKzpG66IN0mShQbvevEPox7EhobOlls0Zrgw9PbscqvliNeWCDCxsuDPEU/z9DJ8raOWRTa93SHJSb7PE4Vvo+PKBaRXnMk4xml/9OALIytJwedzhVf2shwkg1lV9iuDrIwU3TfCZvv160aprJMc6GRbpVgIeF2DI5zRg8EO/EUqPqGsc2W5lnbESg4j3g39ieHK7Git+K9CyZbC9Q5yh/7KVESXCLAAVtvuTwpdI3IksATqQvjR/7yMhIdKlKd0TDeSSYT8kWE2ynAO7rt5G+fmyKEzxrT9iVdohipMltYjhHXZqw/fxh/YZnlcSAdFxKmmxSH1lerdFIEgEQUnrNw2cu6RMfeeHLrBiS0le8aIWSliSP1gNT/aRdanzgno8dLvwBeBGKnEgciAkscNEGpxu8pE/CcQb2dlYk5OiW0M=
         on: 
