@@ -23,25 +23,25 @@ before_install:
   - sudo mysql -e 'CREATE DATABASE IF NOT EXISTS homestead;'
   - composer self-update  
   - composer install --prefer-source --no-interaction
-  - rm .env  
-
+   
 jobs:
   include:
     - stage: test
       install:
+        - rm .env 
         - mv .env.test .env
         - php artisan migrate:fresh --force --no-interaction 
         - php artisan db:seed --force --no-interaction
       script:
         - ./vendor/bin/phpunit
-    - stage: deploy
-      install:
-        - mv .env.deploy .env
+    - stage: deploy      
       script:
         - echo deploying
       deploy:
         provider: heroku
         script:
+          - rm .env
+          - mv .env.deploy .env
           - php artisan migrate:fresh --force --no-interaction 
           - sleep 30
           - php artisan db:seed --force --no-interaction
