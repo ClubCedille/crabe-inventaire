@@ -34,14 +34,11 @@ Route::get('/js/lang.js', function () {
 
 
 Route::group(['middleware' => 'web'], function () {
-
-
     Auth::routes(['verify' => true]);
 
     
 
     Route::group(['middleware' => 'auth'], function () {
-
         Route::group(['middleware' => 'verified'], function () {
 
             // route for processing payment
@@ -68,7 +65,7 @@ Route::group(['middleware' => 'web'], function () {
                 Route::get('receipts/pdf/{id}', 'ReceiptsController@download')->name('receipt.pdf');
 
                 //Route::resource('products','ProductsController')->only(['index','show']);
-                Route::get('/', 'HomeController@index')->name('home'); 
+                Route::get('/', 'HomeController@index')->name('home');
                 Route::get('product/index', 'ProductsController@index');
                 Route::get('product', 'ProductsController@indexPage')->name('product');
                 Route::get('product/{id}', 'ProductsController@show');
@@ -94,6 +91,8 @@ Route::group(['middleware' => 'web'], function () {
                     Route::get('product/{code}/edit', 'ProductsController@edit');
                     Route::post('product/{id}', 'ProductsController@update');
                     Route::delete('product/{product}', 'ProductsController@destroy');
+                    Route::get('report/products/pdf', 'HomeController@downloadProductsReport')->name('products_report.pdf');
+                    Route::get('report/transactions/pdf/{start}/{end}', 'HomeController@downloadTransactionsReport')->name('transactions_report.pdf');
                 });
             });
         });

@@ -52,17 +52,20 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->membershipExpirationDate->greaterThanOrEqualTo(Carbon::now());
     }
 
-    public function subscribeOneYear(){ 
+    public function subscribeOneYear()
+    {
         $this->membershipExpirationDate = Carbon::now()->addYear(1);
         $this->save();
     }
 
-    public function subscribeFourYears(){ 
+    public function subscribeFourYears()
+    {
         $this->membershipExpirationDate = Carbon::now()->addYear(4);
         $this->save();
     }
 
-    public function isAdmin(){
+    public function isAdmin()
+    {
         return $this->isAdmin;
     }
 

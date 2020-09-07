@@ -13,6 +13,7 @@ return [
     */
 
     'email'   => 'Email address',
+    'chip'   => 'chip number',
     'password' => 'Password',
     'confirmPassword' => 'Confirm password',
     'firstName' => 'First name',
