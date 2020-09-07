@@ -36,6 +36,7 @@ jobs:
     - stage: deploy
       if: branch = develop
       install:
+        - rm .env
         - mv .env.deploy .env
       script:
         - echo deploying
