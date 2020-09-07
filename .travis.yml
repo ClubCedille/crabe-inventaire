@@ -35,6 +35,7 @@ jobs:
         - ./vendor/bin/phpunit
     - stage: deploy
       install:
+        - rm .env
         - mv .env.deploy .env
       script:
         - echo deploying
