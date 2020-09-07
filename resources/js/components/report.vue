@@ -7,49 +7,59 @@
       <!-- Left side -->
       <div class="level-left">
         <div class="level-item">
-          <p class="subtitle is-5"><strong>Report of inventary by date interval</strong></p>
+          <p class="subtitle is-5">
+            <strong>Report of inventary</strong>
+          </p>
         </div>
       </div>
 
       <!-- Right side -->
       <div class="level-right">
-        <p class="level-item"><v-date-picker v-model="rangeInventary" mode="range" /></p>
-            <button
-                v-if="this.rangeInventary.start.getTime() === this.rangeInventary.end.getTime()" 
-                disabled class="button is-medium is-danger is-rounded">
-                Generate
-            </button>
-            <button
-                v-if="this.rangeInventary.start.getTime() != this.rangeInventary.end.getTime()" 
-                class="button is-medium is-danger is-rounded">
-                Generate
-            </button>
-            </p>
+        <button
+          class="button is-medium is-danger is-rounded"
+          @click="generateInventaryReport"
+        >
+          Generate
+        </button>
       </div>
     </nav>
-     <nav class="level">
+    <nav class="level">
       <!-- Left side -->
       <div class="level-left">
         <div class="level-item">
-          <p class="subtitle is-5"><strong>Report of transaction by date interval</strong></p>
+          <p class="subtitle is-5">
+            <strong>Report of transaction by date interval</strong>
+          </p>
         </div>
       </div>
 
       <!-- Right side -->
       <div class="level-right">
-        <p class="level-item"><v-date-picker v-model="rangeTransactions" mode="range" /></p>
-        <p class="level-item" >
-            <button
-                v-if="this.rangeTransactions.start.getTime() === this.rangeTransactions.end.getTime()" 
-                disabled class="button is-medium is-danger is-rounded">
-                Generate
-            </button>
-            <button
-                v-if="this.rangeTransactions.start.getTime() != this.rangeTransactions.end.getTime()" 
-                class="button is-medium is-danger is-rounded">
-                Generate
-            </button>
-            </p>
+        <p class="level-item">
+          <v-date-picker v-model="rangeTransactions" mode="range" />
+        </p>
+        <p class="level-item">
+          <button
+            v-if="
+              this.rangeTransactions.start.getTime() ===
+                this.rangeTransactions.end.getTime()
+            "
+            disabled
+            class="button is-medium is-danger is-rounded"
+          >
+            Generate
+          </button>
+          <button
+            v-if="
+              this.rangeTransactions.start.getTime() !=
+                this.rangeTransactions.end.getTime()
+            "
+            class="button is-medium is-danger is-rounded"
+            @click="generateTransactionsReport"
+          >
+            Generate
+          </button>
+        </p>
       </div>
     </nav>
     <h2 class="subtitle is-2">
@@ -94,6 +104,7 @@ export default {
   name: 'Report',
   props: {
     data: Array,
+    url: String
   },
   data() {
     return {
@@ -101,15 +112,59 @@ export default {
       csrf: document
         .querySelector('meta[name="csrf-token"]')
         .getAttribute('content'),
-      rangeInventary: {
-        start: new Date(),
-        end: new Date(),
-      },
       rangeTransactions: {
         start: new Date(),
         end: new Date(),
       },
     };
+  },
+  methods: {
+    generateInventaryReport() {
+      this.axios
+        .get(`${this.url}/report/products/pdf`, { responseType: 'blob' })
+        .then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement('a');
+          link.href = url;
+          link.setAttribute('download', `rapport_inventaire_${new Date()}.pdf`);
+          document.body.appendChild(link);
+          link.click();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    generateTransactionsReport() {
+      this.axios
+        .get(
+          `${this.url}/report/transactions/pdf/${
+            this.formatDate(this.rangeTransactions.start)
+          }/${this.formatDate(this.rangeTransactions.end)}`,
+          { responseType: 'blob' },
+        )
+        .then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement('a');
+          link.href = url;
+          link.setAttribute('download', `rapport_transactions_${new Date()}.pdf`);
+          document.body.appendChild(link);
+          link.click();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    formatDate(date) {
+      const d = new Date(date);
+      let month = `${d.getMonth() + 1}`;
+      let day = `${d.getDate()}`;
+      const year = d.getFullYear();
+
+      if (month.length < 2) month = `0${month}`;
+      if (day.length < 2) day = `0${day}`;
+
+      return [year, month, day].join('-');
+    },
   },
 };
 </script>

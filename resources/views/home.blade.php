@@ -32,7 +32,7 @@
     </items>
     @endif
     @if (Auth::user()->isAdmin)
-    <report :data="{{json_encode($products)}}" ></report>
+    <report :data="{{json_encode($products)}}" url="{{URL::to('/')}}"></report>
     @endif
 </section>  
 @endsection
